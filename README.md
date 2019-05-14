@@ -1,0 +1,1 @@
+# Daily-trading-journal
