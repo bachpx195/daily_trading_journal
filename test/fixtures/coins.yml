@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  slug: MyString
+  title: MyString
+  description: MyText
+  code: MyString
+  rank: 1
+  meta_title: MyString
+  market_cap_usd: 1.5
+  price_usd: 1.5
+  coin_category: one
+
+two:
+  slug: MyString
+  title: MyString
+  description: MyText
+  code: MyString
+  rank: 1
+  meta_title: MyString
+  market_cap_usd: 1.5
+  price_usd: 1.5
+  coin_category: two

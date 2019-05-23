@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2019-05-23
+  coin: one
+  new: one
+  result: MyString
+
+two:
+  date: 2019-05-23
+  coin: two
+  new: two
+  result: MyString

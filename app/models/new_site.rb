@@ -1,0 +1,2 @@
+class NewSite < ApplicationRecord
+end
