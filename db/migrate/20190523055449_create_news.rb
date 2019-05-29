@@ -8,7 +8,7 @@ class CreateNews < ActiveRecord::Migration[5.2]
       t.date :published_at
       t.integer :status
       t.date :intended_date
-      t.references :new_category, foreign_key: true
+      t.references :tag, foreign_key: true
 
       t.timestamps
     end

@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_23_060650) do
-
-  create_table "coin_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2019_05_29_053923) do
 
   create_table "coin_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "url"
@@ -47,10 +40,10 @@ ActiveRecord::Schema.define(version: 2019_05_23_060650) do
     t.string "meta_title"
     t.float "market_cap_usd"
     t.float "price_usd"
-    t.bigint "coin_category_id"
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["coin_category_id"], name: "index_coins_on_coin_category_id"
+    t.index ["tag_id"], name: "index_coins_on_tag_id"
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -75,7 +68,7 @@ ActiveRecord::Schema.define(version: 2019_05_23_060650) do
     t.index ["new_id"], name: "index_daily_reports_on_new_id"
   end
 
-  create_table "new_categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
@@ -85,8 +78,10 @@ ActiveRecord::Schema.define(version: 2019_05_23_060650) do
   create_table "new_sites", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "domanin"
     t.text "description"
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_new_sites_on_tag_id"
   end
 
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -97,10 +92,10 @@ ActiveRecord::Schema.define(version: 2019_05_23_060650) do
     t.date "published_at"
     t.integer "status"
     t.date "intended_date"
-    t.bigint "new_category_id"
+    t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["new_category_id"], name: "index_news_on_new_category_id"
+    t.index ["tag_id"], name: "index_news_on_tag_id"
   end
 
   create_table "news_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -114,17 +109,41 @@ ActiveRecord::Schema.define(version: 2019_05_23_060650) do
 
   create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
+    t.string "slug"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  create_table "tags_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "group_id"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_tags_groups_on_group_id"
+    t.index ["tag_id"], name: "index_tags_groups_on_tag_id"
+  end
+
+  create_table "wikis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "brief"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_wikis_on_tag_id"
+  end
+
   add_foreign_key "coin_links", "coins"
   add_foreign_key "coin_sources", "coins"
-  add_foreign_key "coins", "coin_categories"
+  add_foreign_key "coins", "tags"
   add_foreign_key "daily_reports", "coins"
   add_foreign_key "daily_reports", "news", column: "new_id"
-  add_foreign_key "news", "new_categories"
+  add_foreign_key "new_sites", "tags"
+  add_foreign_key "news", "tags"
   add_foreign_key "news_tags", "news", column: "new_id"
   add_foreign_key "news_tags", "tags"
+  add_foreign_key "tags_groups", "groups"
+  add_foreign_key "tags_groups", "tags"
+  add_foreign_key "wikis", "tags"
 end
