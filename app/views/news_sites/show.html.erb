@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @news_site.domain %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @news_site.description %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @news_site.tag %>
+</p>
+
+<%= link_to 'Edit', edit_news_site_path(@news_site) %> |
+<%= link_to 'Back', news_sites_path %>

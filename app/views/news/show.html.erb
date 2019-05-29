@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @news.url %>
+</p>
+
+<p>
+  <strong>Domain:</strong>
+  <%= @news.domain %>
+</p>
+
+<p>
+  <strong>Short description:</strong>
+  <%= @news.short_description %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @news.title %>
+</p>
+
+<p>
+  <strong>Published at:</strong>
+  <%= @news.published_at %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @news.status %>
+</p>
+
+<p>
+  <strong>Intended date:</strong>
+  <%= @news.intended_date %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @news.tag %>
+</p>
+
+<%= link_to 'Edit', edit_news_path(@news) %> |
+<%= link_to 'Back', news_index_path %>

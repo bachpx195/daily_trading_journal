@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>News</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Url</th>
+      <th>Domain</th>
+      <th>Short description</th>
+      <th>Title</th>
+      <th>Published at</th>
+      <th>Status</th>
+      <th>Intended date</th>
+      <th>Tag</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @news.each do |news| %>
+      <tr>
+        <td><%= news.url %></td>
+        <td><%= news.domain %></td>
+        <td><%= news.short_description %></td>
+        <td><%= news.title %></td>
+        <td><%= news.published_at %></td>
+        <td><%= news.status %></td>
+        <td><%= news.intended_date %></td>
+        <td><%= news.tag %></td>
+        <td><%= link_to 'Show', news %></td>
+        <td><%= link_to 'Edit', edit_news_path(news) %></td>
+        <td><%= link_to 'Destroy', news, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New News', new_news_path %>

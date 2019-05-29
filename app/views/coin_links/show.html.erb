@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @coin_link.url %>
+</p>
+
+<p>
+  <strong>Kind:</strong>
+  <%= @coin_link.kind %>
+</p>
+
+<p>
+  <strong>Coin:</strong>
+  <%= @coin_link.coin %>
+</p>
+
+<%= link_to 'Edit', edit_coin_link_path(@coin_link) %> |
+<%= link_to 'Back', coin_links_path %>

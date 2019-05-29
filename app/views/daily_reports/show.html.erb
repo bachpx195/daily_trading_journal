@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @daily_report.date %>
+</p>
+
+<p>
+  <strong>Coin:</strong>
+  <%= @daily_report.coin %>
+</p>
+
+<p>
+  <strong>New:</strong>
+  <%= @daily_report.new %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @daily_report.result %>
+</p>
+
+<%= link_to 'Edit', edit_daily_report_path(@daily_report) %> |
+<%= link_to 'Back', daily_reports_path %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @coin.slug %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @coin.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @coin.description %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @coin.code %>
+</p>
+
+<p>
+  <strong>Rank:</strong>
+  <%= @coin.rank %>
+</p>
+
+<p>
+  <strong>Market cap usd:</strong>
+  <%= @coin.market_cap_usd %>
+</p>
+
+<p>
+  <strong>Price usd:</strong>
+  <%= @coin.price_usd %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @coin.tag %>
+</p>
+
+<%= link_to 'Edit', edit_coin_path(@coin) %> |
+<%= link_to 'Back', coins_path %>

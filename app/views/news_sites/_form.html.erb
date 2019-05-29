@@ -1,0 +1,32 @@
+<%= form_with(model: news_site, local: true) do |form| %>
+  <% if news_site.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(news_site.errors.count, "error") %> prohibited this news_site from being saved:</h2>
+
+      <ul>
+      <% news_site.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :domain %>
+    <%= form.text_field :domain %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag %>
+    <%= form.text_field :tag %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

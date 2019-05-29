@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Coin Sources</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Domain slug</th>
+      <th>Website</th>
+      <th>Coin</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coin_sources.each do |coin_source| %>
+      <tr>
+        <td><%= coin_source.title %></td>
+        <td><%= coin_source.domain_slug %></td>
+        <td><%= coin_source.website %></td>
+        <td><%= coin_source.coin %></td>
+        <td><%= link_to 'Show', coin_source %></td>
+        <td><%= link_to 'Edit', edit_coin_source_path(coin_source) %></td>
+        <td><%= link_to 'Destroy', coin_source, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Coin Source', new_coin_source_path %>
