@@ -16,3 +16,8 @@
 //= require_tree .
 //= require jquery3
 //= require bootstrap
+//= require simplemde.min
+
+$(document).ready(function() {
+  var simplemde = new SimpleMDE({ element: document.getElementById("markdown") });
+});
