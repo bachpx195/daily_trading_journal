@@ -9,7 +9,7 @@
     width:145px !important
 }
 .table-scrollable>.table>tbody>tr>td{
-    white-space: nowrap; !important;
+    white-space: nowrap: !important;
 }
 .table-scrollable .btn-icon-only {
     height: 27px;

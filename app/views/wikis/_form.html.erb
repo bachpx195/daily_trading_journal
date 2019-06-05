@@ -13,25 +13,25 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :content %>
-    <%= form.text_area :content %>
+    <%= form.text_area :content, class: "form-control", id: "markdown" %>
   </div>
 
   <div class="field">
     <%= form.label :brief %>
-    <%= form.text_field :brief %>
+    <%= form.text_field :brief, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :tag %>
-    <%= form.text_field :tag %>
+    <%= form.collection_select(:tag_id, Tag.all, :id, :name, {}, {class: "form-control"}) %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-actions">
+    <%= form.submit "Thực hiện", class: "btn btn-default" %>
   </div>
 <% end %>
