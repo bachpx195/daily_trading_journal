@@ -4,7 +4,7 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.json
   def index
-    @wikis = Wiki.all
+    @wikis = Wiki.all.paginate(page: params[:page])
   end
 
   # GET /wikis/1

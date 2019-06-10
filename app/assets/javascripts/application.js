@@ -13,12 +13,18 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
-//= require_tree .
 //= require jquery3
 //= require bootstrap
-//= require simplemde.min
+//= require ckeditor/init
+//= require ckeditor/config
+//= require_tree .
 
-$(document).ready(function() {
-  var simplemde = new SimpleMDE({ element: document.getElementById("markdown") });
+$(document).ready(function(){
+  if ($('textarea').length > 0) {
+  	CKEDITOR.config.height = 500;
+    var data = $('.ckeditor');
+    $.each(data, function(i) {
+      CKEDITOR.replace(data[i].id)
+    });
+  }
 });
-

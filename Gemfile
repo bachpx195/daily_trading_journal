@@ -41,9 +41,12 @@ gem 'bootstrap-sass'
 gem "font-awesome-rails"
 gem 'simple-line-icons-rails'
 gem "therubyracer"
-gem "pygments.rb"
-gem "redcarpet"
-gem "simplemde-rails"
+gem 'mini_magick'
+gem 'carrierwave'
+gem 'ckeditor', '~> 4.3'
+
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

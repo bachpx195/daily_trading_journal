@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-lg-12">
+    <table class="table table-bordered table-striped table-responsive">
+      <thead>
+      <tr>
+        <th class="text-center">Tên</th>
+        <th class="text-center">Kí Hiệu</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+        <% tags.each_with_index do |f,index| %>
+          <tr>
+            <td class="text-center"><%= link_to  f.name, [f] %></td>
+            <td class="text-center"><%= f.slug %></td>
+            <td>
+              <%= link_to 'Sửa', edit_tag_path(f) %>
+              &nbsp &nbsp &nbsp
+              <%= link_to 'Xóa', f, method: :delete,
+                data: {confirm: 'Xóa nhé!'},
+                remote: :true, class: "destroy-recipe"%>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<%= link_to 'New Tag', new_tag_path %>
