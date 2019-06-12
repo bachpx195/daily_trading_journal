@@ -1,0 +1,116 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title heading">
+        <strong>Tìm kiếm giao dịch</strong><span></span>
+      </h4>
+    </div>
+    <div class="modal-body">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a  href="#1" data-toggle="tab">Theo ngày</a>
+        </li>
+        <li><a href="#2" data-toggle="tab">Theo tháng</a>
+        </li>
+        <li><a href="#3" data-toggle="tab">Theo thời gian</a>
+        </li>
+      </ul>
+
+      <div class="tab-content ">
+        <div class="tab-pane active" id="1">
+          <%= form_tag calculates_path, method: :post,
+            authenticity_token: :true, remote: :true, class: "form-horizontal", id: "date-form" do %>
+            <div class="form-body">
+              <br>
+              <div class="form-group form-md-line-input">
+                <label class="col-md-2 control-label">Ngày :</label>
+                <div class="col-md-4">
+                  <%= hidden_field_tag "type_of_calculate", "date" %>
+                  <%= text_field_tag :date, format_date_ddMMyyyHHmm(Time.now), class: 'form-control date-picker', id: "date-field" %>
+                  <div class="form-control-focus"></div>
+                </div>
+                <div class="col-md-2">
+                  <%= submit_tag "Tìm kiếm", class: 'btn green' do %>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div id='log-table-date'>
+          </div>
+        </div>
+        <div class="tab-pane" id="2">
+          <%= form_tag calculates_path, method: :post, authenticity_token: :true, remote: :true, class: "form-horizontal" do %>
+            <div class="form-body">
+              <br>
+              <div class="form-group form-md-line-input">
+                <label class="col-md-2 control-label">Ngày :</label>
+                <div class="col-md-4">
+                  <%= hidden_field_tag "type_of_calculate", "month" %>
+                  <%= text_field_tag :date, format_date_MMyyy(Time.now), class: 'form-control date-picker-month', id: "date-field" %>
+                  <div class="form-control-focus"></div>
+                </div>
+                <div class="col-md-2">
+                  <%= submit_tag "Tìm kiếm", class: 'btn green' do %>
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <div id='log-table-month'></div>
+        </div>
+        <div class="tab-pane" id="3">
+          <%= form_tag calculates_path, method: :post, authenticity_token: :true, remote: :true, class: "form-horizontal" do %>
+
+            <div class="form-body">
+              <br>
+              <div class="form-group form-md-line-input">
+                <%= hidden_field_tag "type_of_calculate", "period" %>
+                <label class="col-md-3 control-label">Ngày bắt đầu :</label>
+                <div class="col-md-2  ">
+                  <%= text_field_tag :start_date, format_date_ddMMyyyHHmm(Time.now), class: 'form-control date-picker', id: "date-field" %>
+                  <div class="form-control-focus"></div>
+                </div>
+                <label class="col-md-3 control-label">Ngày kết thúc :</label>
+                <div class="col-md-2">
+                  <%= text_field_tag :end_date, format_date_ddMMyyyHHmm(Time.now), class: 'form-control date-picker', id: "date-field" %>
+                  <div class="form-control-focus"></div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group form-md-line-input">
+              <div class="col-md-2">
+                <%= submit_tag "Tìm kiếm", class: 'btn green' do %>
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <div id='log-table-period'></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    if (jQuery().datepicker) {
+      $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "left",
+        autoclose: true
+      });
+      $('.date-picker-month').datepicker({
+        format: "mm/yyyy",
+        viewMode: "months",
+        minViewMode: "months"
+      });
+    }
+  });
+</script>

@@ -33,8 +33,36 @@
 
   <div class="field">
     <%= form.label :reason %>
-    <%= form.text_area :reason, class: "form-control"%>
+    <%= form.text_area :reason, class: "form-control" %>
   </div>
+
+  <h4>Phương pháp thường</h4>
+  <%= form.fields_for :trade_normal_method do |f| %>
+    <div class="field">
+      <%= f.label :point_entry %>
+      <%= f.text_field :point_entry, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :point_out %>
+      <%= f.text_field :point_out , class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :stop_loss %>
+      <%= f.text_field :stop_loss, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :take_profit %>
+      <%= f.text_field :take_profit, class: "form-control" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :tag %>
+      <%= f.collection_select(:trade_id, Trade.all, :id, :coin, {}, {class: "form-control"}) %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= form.submit "Thực hiện", class: "btn btn-default" %>

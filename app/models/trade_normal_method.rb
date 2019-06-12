@@ -1,5 +1,5 @@
 class TradeNormalMethod < ApplicationRecord
-  belongs_to :trade_method
+  belongs_to :trade_method, optional: true
 
  	before_create :set_trade_method
   
