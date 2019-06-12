@@ -19,6 +19,19 @@
 //= require ckeditor/config
 //= require_tree .
 
+$(document).on('turbolinks:load', function() {
+  $('.date-picker').change(function(){
+    alert("ok");
+  });
+  if (jQuery().datepicker) {
+    $('.date-picker').datepicker({
+      rtl: App.isRTL(),
+      orientation: "left",
+      autoclose: true
+    });
+  }
+});
+
 $(document).ready(function(){
   if ($('textarea').length > 0) {
   	CKEDITOR.config.height = 500;

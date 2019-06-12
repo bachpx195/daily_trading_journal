@@ -54,7 +54,6 @@ node_modules/
 # Ignore precompiled javascript packs
 /public/packs
 /public/packs-test
-/public/assets
 
 # Ignore yarn files
 /yarn-error.log
@@ -75,7 +74,6 @@ yarn-debug.log*
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
-/public/assets
 /.idea
 /.idea *
 /public/system/*
