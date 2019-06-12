@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Coin:</strong>
+  <%= @trade.coin %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @trade.status %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @trade.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @trade.end_date %>
+</p>
+
+<p>
+  <strong>Reason:</strong>
+  <%= @trade.reason %>
+</p>
+
+<%= link_to 'Edit', edit_trade_path(@trade) %> |
+<%= link_to 'Back', trades_path %>

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Initial capital:</strong>
+  <%= @fund.initial_capital %>
+</p>
+
+<p>
+  <strong>Present value:</strong>
+  <%= @fund.present_value %>
+</p>
+
+<p>
+  <strong>Future value:</strong>
+  <%= @fund.future_value %>
+</p>
+
+<p>
+  <strong>Desposit:</strong>
+  <%= @fund.desposit %>
+</p>
+
+<p>
+  <strong>Withdraw:</strong>
+  <%= @fund.withdraw %>
+</p>
+
+<p>
+  <strong>Rate of growth:</strong>
+  <%= @fund.rate_of_growth %>
+</p>
+
+<%= link_to 'Edit', edit_fund_path(@fund) %> |
+<%= link_to 'Back', funds_path %>

@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Funds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Initial capital</th>
+      <th>Present value</th>
+      <th>Future value</th>
+      <th>Desposit</th>
+      <th>Withdraw</th>
+      <th>Rate of growth</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @funds.each do |fund| %>
+      <tr>
+        <td><%= fund.initial_capital %></td>
+        <td><%= fund.present_value %></td>
+        <td><%= fund.future_value %></td>
+        <td><%= fund.desposit %></td>
+        <td><%= fund.withdraw %></td>
+        <td><%= fund.rate_of_growth %></td>
+        <td><%= link_to 'Show', fund %></td>
+        <td><%= link_to 'Edit', edit_fund_path(fund) %></td>
+        <td><%= link_to 'Destroy', fund, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fund', new_fund_path %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Trade Normal Methods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Trade method</th>
+      <th>Point entry</th>
+      <th>Point out</th>
+      <th>Stop loss</th>
+      <th>Take profit</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trade_normal_methods.each do |trade_normal_method| %>
+      <tr>
+        <td><%= trade_normal_method.trade_method %></td>
+        <td><%= trade_normal_method.point_entry %></td>
+        <td><%= trade_normal_method.point_out %></td>
+        <td><%= trade_normal_method.stop_loss %></td>
+        <td><%= trade_normal_method.take_profit %></td>
+        <td><%= link_to 'Show', trade_normal_method %></td>
+        <td><%= link_to 'Edit', edit_trade_normal_method_path(trade_normal_method) %></td>
+        <td><%= link_to 'Destroy', trade_normal_method, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trade Normal Method', new_trade_normal_method_path %>

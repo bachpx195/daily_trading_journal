@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Trade Pyramid Methods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Trade method</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trade_pyramid_methods.each do |trade_pyramid_method| %>
+      <tr>
+        <td><%= trade_pyramid_method.trade_method %></td>
+        <td><%= link_to 'Show', trade_pyramid_method %></td>
+        <td><%= link_to 'Edit', edit_trade_pyramid_method_path(trade_pyramid_method) %></td>
+        <td><%= link_to 'Destroy', trade_pyramid_method, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trade Pyramid Method', new_trade_pyramid_method_path %>

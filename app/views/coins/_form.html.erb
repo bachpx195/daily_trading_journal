@@ -13,45 +13,45 @@
 
   <div class="field">
     <%= form.label :slug %>
-    <%= form.text_field :slug %>
+    <%= form.text_field :slug, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_field :title, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :code %>
-    <%= form.text_field :code %>
+    <%= form.text_field :code, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :rank %>
-    <%= form.number_field :rank %>
+    <%= form.number_field :rank, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :market_cap_usd %>
-    <%= form.text_field :market_cap_usd %>
+    <%= form.text_field :market_cap_usd, class: "form-control" %>
   </div>
 
   <div class="field">
     <%= form.label :price_usd %>
-    <%= form.text_field :price_usd %>
+    <%= form.text_field :price_usd, class: "form-control" %>
   </div>
 
   <div class="field">
-    <%= form.label :tag_id %>
-    <%= form.text_field :tag_id %>
+    <%= form.label :tag %>
+    <%= form.collection_select(:tag_id, Tag.all, :id, :name, {}, {class: "form-control"}) %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "ckeditor", rows: 100 %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Thực hiện", class: "btn btn-default" %>
   </div>
 <% end %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Trade method:</strong>
+  <%= @trade_normal_method.trade_method %>
+</p>
+
+<p>
+  <strong>Point entry:</strong>
+  <%= @trade_normal_method.point_entry %>
+</p>
+
+<p>
+  <strong>Point out:</strong>
+  <%= @trade_normal_method.point_out %>
+</p>
+
+<p>
+  <strong>Stop loss:</strong>
+  <%= @trade_normal_method.stop_loss %>
+</p>
+
+<p>
+  <strong>Take profit:</strong>
+  <%= @trade_normal_method.take_profit %>
+</p>
+
+<%= link_to 'Edit', edit_trade_normal_method_path(@trade_normal_method) %> |
+<%= link_to 'Back', trade_normal_methods_path %>

@@ -1,0 +1,32 @@
+<%= form_with(model: trade_method, local: true) do |form| %>
+  <% if trade_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trade_method.errors.count, "error") %> prohibited this trade_method from being saved:</h2>
+
+      <ul>
+      <% trade_method.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :win_rate %>
+    <%= form.text_field :win_rate %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rule %>
+    <%= form.text_area :rule %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Thực hiện", class: "btn btn-default" %>
+  </div>
+<% end %>

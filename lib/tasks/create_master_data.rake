@@ -40,7 +40,7 @@ namespace :db do
     site_tag.tags.create! name: 'General', slug: 'Tổng hợp'
 
     #Mark tag
-    puts "4. create mark tag"
+    puts "5. create mark tag"
     mark_tag = Group.find_by(name: 'Mark tag')
     mark_tag.tags.create! name: 'New rising', slug: 'Mới'
     mark_tag.tags.create! name: 'Hot', slug: 'Nóng'
@@ -49,5 +49,9 @@ namespace :db do
     mark_tag.tags.create! name: 'Important', slug: 'Quan trọng'
     mark_tag.tags.create! name: 'Saved', slug: 'Đã lưu'
     mark_tag.tags.create! name: 'Lol', slug: 'Hài đcđ'
+
+    puts "6. create trade method"
+    TradeMethod.create! name: "Normal", win_rate: 0
+    TradeMethod.create! name: "Pyramid", win_rate: 0
   end
 end

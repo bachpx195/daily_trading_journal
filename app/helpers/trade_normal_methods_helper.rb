@@ -1,0 +1,2 @@
+module TradeNormalMethodsHelper
+end

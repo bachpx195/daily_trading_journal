@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @log.status %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @log.result %>
+</p>
+
+<p>
+  <strong>Note:</strong>
+  <%= @log.note %>
+</p>
+
+<p>
+  <strong>Datetime:</strong>
+  <%= @log.datetime %>
+</p>
+
+<p>
+  <strong>Period time:</strong>
+  <%= @log.period_time %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @log.rating %>
+</p>
+
+<p>
+  <strong>Trade:</strong>
+  <%= @log.trade %>
+</p>
+
+<%= link_to 'Edit', edit_log_path(@log) %> |
+<%= link_to 'Back', logs_path %>

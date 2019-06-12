@@ -1,0 +1,22 @@
+<%= form_with(model: trade_pyramid_method, local: true) do |form| %>
+  <% if trade_pyramid_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trade_pyramid_method.errors.count, "error") %> prohibited this trade_pyramid_method from being saved:</h2>
+
+      <ul>
+      <% trade_pyramid_method.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :trade_method_id %>
+    <%= form.text_field :trade_method_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Thực hiện", class: "btn btn-default" %>
+  </div>
+<% end %>

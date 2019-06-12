@@ -1,0 +1,42 @@
+<%= form_with(model: trade_normal_method, local: true) do |form| %>
+  <% if trade_normal_method.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(trade_normal_method.errors.count, "error") %> prohibited this trade_normal_method from being saved:</h2>
+
+      <ul>
+      <% trade_normal_method.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :point_entry %>
+    <%= form.text_field :point_entry, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :point_out %>
+    <%= form.text_field :point_out , class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stop_loss %>
+    <%= form.text_field :stop_loss, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :take_profit %>
+    <%= form.text_field :take_profit, class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tag %>
+    <%= form.collection_select(:trade_id, Trade.all, :id, :coin, {}, {class: "form-control"}) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Thực hiện", class: "btn btn-default" %>
+  </div>
+<% end %>

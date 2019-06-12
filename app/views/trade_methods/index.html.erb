@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Trade Methods</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Win rate</th>
+      <th>Rule</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @trade_methods.each do |trade_method| %>
+      <tr>
+        <td><%= trade_method.name %></td>
+        <td><%= trade_method.win_rate %></td>
+        <td><%= trade_method.rule %></td>
+        <td><%= link_to 'Show', trade_method %></td>
+        <td><%= link_to 'Edit', edit_trade_method_path(trade_method) %></td>
+        <td><%= link_to 'Destroy', trade_method, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Trade Method', new_trade_method_path %>

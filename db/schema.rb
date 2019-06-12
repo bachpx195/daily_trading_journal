@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_09_171931) do
+ActiveRecord::Schema.define(version: 2019_06_12_023722) do
 
   create_table "ckeditor_assets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "data_file_name", null: false
@@ -80,11 +80,36 @@ ActiveRecord::Schema.define(version: 2019_06_09_171931) do
     t.index ["new_id"], name: "index_daily_reports_on_new_id"
   end
 
+  create_table "funds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.float "initial_capital"
+    t.float "present_value"
+    t.float "future_value"
+    t.float "desposit"
+    t.float "withdraw"
+    t.float "rate_of_growth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.integer "status"
+    t.float "result"
+    t.text "note"
+    t.float "money"
+    t.datetime "datetime"
+    t.integer "period_time"
+    t.integer "rating"
+    t.bigint "trade_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trade_id"], name: "index_logs_on_trade_id"
   end
 
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -136,6 +161,47 @@ ActiveRecord::Schema.define(version: 2019_06_09_171931) do
     t.index ["tag_id"], name: "index_tags_groups_on_tag_id"
   end
 
+  create_table "trade_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.float "win_rate"
+    t.text "rule"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "trade_normal_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "trade_method_id"
+    t.bigint "trade_id"
+    t.float "point_entry"
+    t.float "point_out"
+    t.float "stop_loss"
+    t.float "take_profit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trade_id"], name: "index_trade_normal_methods_on_trade_id"
+    t.index ["trade_method_id"], name: "index_trade_normal_methods_on_trade_method_id"
+  end
+
+  create_table "trade_pyramid_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "trade_method_id"
+    t.bigint "trade_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trade_id"], name: "index_trade_pyramid_methods_on_trade_id"
+    t.index ["trade_method_id"], name: "index_trade_pyramid_methods_on_trade_method_id"
+  end
+
+  create_table "trades", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "coin_id"
+    t.integer "status"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.text "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["coin_id"], name: "index_trades_on_coin_id"
+  end
+
   create_table "wikis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "content"
@@ -151,11 +217,17 @@ ActiveRecord::Schema.define(version: 2019_06_09_171931) do
   add_foreign_key "coins", "tags"
   add_foreign_key "daily_reports", "coins"
   add_foreign_key "daily_reports", "news", column: "new_id"
+  add_foreign_key "logs", "trades"
   add_foreign_key "news", "tags"
   add_foreign_key "news_sites", "tags"
   add_foreign_key "news_tags", "news", column: "new_id"
   add_foreign_key "news_tags", "tags"
   add_foreign_key "tags_groups", "groups"
   add_foreign_key "tags_groups", "tags"
+  add_foreign_key "trade_normal_methods", "trade_methods"
+  add_foreign_key "trade_normal_methods", "trades"
+  add_foreign_key "trade_pyramid_methods", "trade_methods"
+  add_foreign_key "trade_pyramid_methods", "trades"
+  add_foreign_key "trades", "coins"
   add_foreign_key "wikis", "tags"
 end

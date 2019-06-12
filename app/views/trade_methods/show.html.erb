@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @trade_method.name %>
+</p>
+
+<p>
+  <strong>Win rate:</strong>
+  <%= @trade_method.win_rate %>
+</p>
+
+<p>
+  <strong>Rule:</strong>
+  <%= @trade_method.rule %>
+</p>
+
+<%= link_to 'Edit', edit_trade_method_path(@trade_method) %> |
+<%= link_to 'Back', trade_methods_path %>

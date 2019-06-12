@@ -1,0 +1,40 @@
+<% if logs.count != 0 %>
+  <div class="table-scrollable">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+      <tr>
+        <th class="text-center"><%= t "log.table.index" %></th>
+        <th class="text-center"><%= t "log.table.name" %></th>
+        <th class="text-center"><%= t "log.table.money" %></th>
+        <th class="text-center"><%= t "log.table.datetime" %></th>
+        <th class="text-center"><%= t "log.table.status" %></th>
+      </tr>
+      </thead>
+
+      <tbody class="item-container">
+        <% logs.each_with_index do |f,index| %>
+          <tr>
+            <td class="text-center"><%= index + 1  %></td>
+            <td class="text-center"><%= f.name %></td>
+            <td class="text-center"><%= format_money f.money.to_i %></td>
+            <td class="text-center"><%= format_date_ddMMyyyHHmm f.datetime %></td>
+            <td class="text-center"><%= t "log.log_status.#{f.status}" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <% if logs.count != 0 %>
+        <%= will_paginate logs %>
+      <% end %>
+    </div>
+    <div class="col-md-6 margin-top-8 text-right">
+      <%= page_entries_info logs %>
+    </div>
+  </div>
+  <p>Tổng tiền: <%= format_money(total_money log_list) %></p>
+<% else %>
+  <p>Không có giao dịch</p>
+<% end %>

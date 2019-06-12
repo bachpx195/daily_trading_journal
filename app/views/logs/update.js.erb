@@ -1,0 +1,8 @@
+<% if @log.errors.any? %>
+  $('#modal-window')
+    .html("<%= j render "logs/form", log: @log %>");
+<% else %>
+  $('#modal-window').modal('hide');
+  $('.modal-backdrop').remove();
+  $('.ajax-node').html('<%= j render "shared/logs_table", logs: @logs %>');
+<% end %>

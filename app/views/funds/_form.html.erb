@@ -1,0 +1,47 @@
+<%= form_with(model: fund, local: true) do |form| %>
+  <% if fund.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(fund.errors.count, "error") %> prohibited this fund from being saved:</h2>
+
+      <ul>
+      <% fund.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :initial_capital %>
+    <%= form.text_field :initial_capital %>
+  </div>
+
+  <div class="field">
+    <%= form.label :present_value %>
+    <%= form.text_field :present_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :future_value %>
+    <%= form.text_field :future_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :desposit %>
+    <%= form.text_field :desposit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :withdraw %>
+    <%= form.text_field :withdraw %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rate_of_growth %>
+    <%= form.text_field :rate_of_growth %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Thực hiện", class: "btn btn-default" %>
+  </div>
+<% end %>
