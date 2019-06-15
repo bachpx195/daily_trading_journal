@@ -17,6 +17,7 @@
 //= require bootstrap
 //= require ckeditor/init
 //= require ckeditor/config
+//= require dataTables/jquery.dataTables
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
