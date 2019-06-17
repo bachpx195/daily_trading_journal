@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Change amount:</strong>
+  <%= @fund_log.change_amount %>
+</p>
+
+<p>
+  <strong>Change type:</strong>
+  <%= @fund_log.change_type %>
+</p>
+
+<%= link_to 'Edit', edit_fund_log_path(@fund_log) %> |
+<%= link_to 'Back', fund_logs_path %>

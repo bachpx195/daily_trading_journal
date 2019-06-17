@@ -1,0 +1,92 @@
+<div class="modal-dialog modal-lg">
+
+  <div class="portlet light bordered">
+    <div class="portlet-title">
+      <div class="caption font-green">
+        <span class="caption-subject bold uppercase"><i class="fa fa-files-o" aria-hidden="true"></i> XUẤT HÓA ĐƠN - KHU: <%= @building_name %> - PHÒNG: <%= @room_name %></span>
+      </div>
+      <div class="actions">
+        <a class="btn btn-circle btn-icon-only btn-default" data-dismiss="modal" href="javascript:;">
+          <i class="fa fa-times"></i>
+        </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <%= yield %>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+
+      $("#agreement").change(function(){
+        console.log('OK1');
+        $.ajax({
+          type: "GET",
+          url: '/admin/agreement_services.json?agreement_id='+ $( "#agreement" ).val(),
+          data: JSON.stringify({agreement_id: $( "#agreement" ).val()}),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: success,
+          error: error
+        });
+
+        function success(data, status) {
+          console.log(data)
+          $(".services").html("");
+          data.forEach(appendOption)
+        }
+
+        function appendOption(item, index, arr) {
+          var htmlOption = "<tr>" +
+              "<td>" + item.service.name + "</td>" +
+              "<td class='text-center'>" + item.service.unit + "</td>" +
+              "<td>" +
+              "<input type='hidden' name='admin_services[id][]' value='" + item.service.id + "'>" +
+              "<input type='number' name='admin_services[unit_price][]' class='form-control heigth-20' value='" + item.service.unit_price + "'>" +
+              "</td>" +
+              "<td><input type='number' name='admin_services[amount][]' class='form-control heigth-20' value='" + item.service.amount_perservice + "'</td>" +
+              "<td><input type='number' class='form-control heigth-20' value='" + item.service.amount_perservice + "' readonly></td>" +
+              "</tr>";
+
+          $(".services").append(htmlOption);
+        }
+
+        function error() {
+          console.log('Lỗi lấy dữ liệu dịch vụ của hợp đồng');
+        }
+      });
+
+      var placeholder = "-- Chọn --";
+      $(".select2, .select2-multiple").select2({
+        placeholder: placeholder,
+        width: '100%'
+      });
+
+      $('.number-format').priceFormat({
+        prefix: '',
+        thousandsSeparator: '.',
+        centsLimit: 0
+      });
+
+      /* Maxlength */
+      $('.bg-maxlength').maxlength({
+        limitReachedClass: "label label-danger",
+        alwaysShow: true,
+        placement: App.isRTL() ? 'top-right' : 'top-left'
+      });
+
+      /* DatePicker */
+      if (jQuery().datepicker) {
+        $('.date-picker').datepicker({
+          rtl: App.isRTL(),
+          orientation: "left",
+          autoclose: true
+        });
+        //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+      }
+
+    });
+  </script>
+</div>
+<!-- /.modal-dialog -->

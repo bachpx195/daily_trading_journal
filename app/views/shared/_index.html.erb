@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet light portlet-fit portlet-datatable bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-settings font-green"></i>
+          <span class="caption-subject font-green sbold uppercase"><%= title %></span>
+        </div>
+
+        <div class="actions">
+          <div class="btn-group btn-group-devided" data-toggle="buttons">
+            <% if defined? new_url %>
+              <a class="btn green btn-outline btn-circle" data-remote="true" href="<%= new_url %>"><i class="fa fa-plus"></i>Thêm</a>
+            <% end %>
+          </div>
+          <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>

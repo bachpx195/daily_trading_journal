@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="dashboard-stat blue">
+          <div class="visual">
+              <i class="fa fa-comments"></i>
+          </div>
+          <div class="details">
+              <div class="number">
+                  <span data-counter="counterup" data-value="<%= format_money_with_fund @fund.present_value %>"><%= format_money_with_fund @fund.present_value %></span>
+              </div>
+              <div class="desc"> Vốn hiện tại </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="dashboard-stat red">
+          <div class="visual">
+              <i class="fa fa-bar-chart-o"></i>
+          </div>
+          <div class="details">
+              <div class="number">
+                  <span data-counter="counterup" data-value="<%= format_money_with_fund @fund.fee %>"><%= format_money_with_fund @fund.fee %></span> </div>
+              <div class="desc"> Phí giao dịch </div>
+          </div>
+      </div>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+      <div class="dashboard-stat purple">
+          <div class="visual">
+              <i class="fa fa-globe"></i>
+          </div>
+          <div class="details">
+              <div class="number"> <%= @fund.present_value > @fund.initial_capital ?  "+" : "-" %>
+                  <span data-counter="counterup" data-value="<%= (( 100 - (@fund.present_value / @fund.initial_capital)*100).round(2)).abs %>"><%= ((100 - (@fund.present_value / @fund.initial_capital)*100).round(2)).abs %></span>% </div>
+              <div class="desc"> Tăng trưởng </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<br>
+<br>
+
+<% @fund_logs.each do |fund_log| %>
+    <tr>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_fund_log_url(fund_log) } %>
+      </td>
+      <td class="text-center"><%= fund_log.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+      <td class="text-center"><%= format_money_with_fund(fund_log.change_amount, fund_log.change_type) %></td>
+      <td class="text-center"><%= format_fund_log_status(fund_log.change_type) %></td>
+      <td class="text-center">
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: fund_log } %>
+      </td>
+    </tr>
+<% end %>

@@ -69,6 +69,6 @@ class FundsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def fund_params
-      params.require(:fund).permit(:initial_capital, :present_value, :future_value, :desposit, :withdraw, :rate_of_growth)
+      params.require(:fund).permit(:initial_capital, :present_value, :fee)
     end
 end

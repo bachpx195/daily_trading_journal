@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :fund_logs
   resources :logs
   resources :trades
   resources :trade_normal_methods

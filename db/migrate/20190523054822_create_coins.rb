@@ -6,9 +6,9 @@ class CreateCoins < ActiveRecord::Migration[5.2]
       t.text :description
       t.string :code
       t.integer :rank
+      t.integer :is_follow, default: 0
       t.string :meta_title
-      t.float :market_cap_usd
-      t.float :price_usd
+      t.string :platform
       t.references :tag, foreign_key: true
 
       t.timestamps

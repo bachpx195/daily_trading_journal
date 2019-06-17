@@ -1,0 +1,23 @@
+<% if defined?(delete) && delete == true %>
+  $(".second-form-item-<%= item %>").remove();
+<% else %>
+  $("ul.errors").html("")
+  <% if item.errors.any? %>
+    <% item.errors.full_messages.each do |message| %>
+      $("ul.errors").append($("<li />").html("<%= message.html_safe %>"));
+    <% end %>
+  <% else %>
+    <% if defined?(edit) %>
+      <% if edit == true %>
+        $(".second-form-item-<%= item.id %>").html("<%= j(render item_render, item: item ) %>");
+        $("#second-modal").modal("hide");
+        $("#main-modal").modal("show");
+      <% else %>
+        $(".second-form-item-container").append("<tr class='second-form-item-<%= item.id %>'><%= j(render item_render, item: item ) %></tr>");
+        $("#second-modal").modal("hide");
+        $("#main-modal").modal("show");
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+

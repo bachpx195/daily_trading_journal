@@ -41,19 +41,15 @@ module ApplicationHelper
     end
   end
 
-  def format_money_with_fund(str, has_unit = true)
-    if (has_unit)
+  def format_money_with_fund(str, status = nil)
+    if status.present?
       if str == 0 || str.nil?
         ''
       else
-        number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT"
+        fund_log_change_money(status) + number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT"
       end
     else
-      if str == 0 || str.nil?
-        ''
-      else
-        number_with_delimiter(str, delimiter: ".", separator: ",")
-      end
+      number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT"
     end
   end
 
@@ -67,4 +63,34 @@ module ApplicationHelper
 			"Lỗ"
   	end
 	end
+
+  def format_fund_log_status(str)
+    case str
+    when "profit"
+      "+ Tiền lãi"
+    when "loss"
+      "- Tiền lỗ"
+    when "deposit"
+      "+ Nạp"
+    when "withdraw"
+      "- Rút"
+    when "deposit_fee"
+      "- Chuyển vào phí giao dịch"
+    when "fee"
+      "- Trừ phí"
+    else
+      "None"
+    end
+  end
+
+  def fund_log_change_money stt
+    case stt
+    when "profit"
+      "+"
+    when "deposit"
+      "+"
+    else
+      "-"
+    end
+  end
 end

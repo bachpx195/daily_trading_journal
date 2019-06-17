@@ -1,0 +1,34 @@
+$("ul.errors").html("")
+<% if item.errors.any? %>
+    <% item.errors.full_messages.each do |message| %>
+        $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+    <% end %>
+<% else %>
+  <% if defined? edit %>
+    <% if edit %>
+      $(".renter-item-name-<%= item.id %>").html("<%= item.name %>");
+      $(".renter-item-idcard-<%= item.id %>").html("<%= item.identity_card %>");
+
+      // Thực thi lại nghiệp vụ cho người đại diện
+      $rightTable = $(".renter-right-container").closest('table');
+      $rowsRightTable =  $rightTable.find('> tbody > tr');
+
+      $("#admin_agreement_renter_id").html("");
+      var htmlOption = "<option value=''><%= t(:agreement_owner_selected) %></option>";
+      $("#admin_agreement_renter_id").append(htmlOption);
+      $rowsRightTable.each(function() {
+        $btnSelection = $(this).find('.item-selection');
+        var id = $btnSelection.find('input:checkbox').val();
+        var htmlOption = "<option value='" + id + "'>"+ $(".renter-item-name-"+id).html() +"</option>"
+        $("#admin_agreement_renter_id").append(htmlOption);
+      });
+
+      $("#second-modal").modal("hide");
+      $("#main-modal").modal("show");
+    <% end %>
+  <% else %>
+    $(".renter-left-container").append("<%= j(render item_render, item: item ) %>");
+    $("#second-modal").modal("hide");
+    $("#main-modal").modal("show");
+  <% end %>
+<% end %>

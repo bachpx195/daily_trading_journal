@@ -1,0 +1,13 @@
+$("ul.errors").html("")
+<% if item.errors.any? %>
+    <% item.errors.full_messages.each do |message| %>
+        $("ul.errors").append($("<li />").html("<%= message.html_safe %>"))
+    <% end %>
+<% else %>
+    $(".item-<%= item.id %>").html("<%= j(render item_render, item: item ) %>")
+    $("#main-modal").modal("hide")
+<% end %>
+
+$(document).ready(function() {
+  $("[data-toggle=confirmation]").confirmation({container:"body", btnOkClass:"btn btn-sm btn-success", btnCancelClass:"btn btn-sm btn-danger", onConfirm:function(event, element) { element.trigger('confirm'); }});
+})
