@@ -1,1 +1,4 @@
+$('#fund_view').empty()
+$('#fund_view').html('<%= escape_javascript render 'shared/fund_view' %>');
+
 <%= render 'shared/created', item: @fund_log, item_render: 'fund_log' %>

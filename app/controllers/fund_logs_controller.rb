@@ -4,8 +4,6 @@ class FundLogsController < ApplicationController
   # GET /fund_logs
   # GET /fund_logs.json
   def index
-    @fund = Fund.first
-    
     @fund_logs = FundLog.all.order('created_at DESC')
   end
 
@@ -38,6 +36,7 @@ class FundLogsController < ApplicationController
         @fund_logs = FundLog.all.order('created_at DESC')
         format.js { render :layout => false }
       else
+        @fund = Fund.first
         format.js { render :layout => false }
       end
     end
@@ -47,7 +46,6 @@ class FundLogsController < ApplicationController
   # PATCH/PUT /fund_logs/1.json
   def update
     @fund_log.revert_fund
-    @fund = Fund.first
     respond_to do |format|
       if @fund_log.update(fund_log_params)
         @fund_logs = FundLog.all.order('created_at DESC')
