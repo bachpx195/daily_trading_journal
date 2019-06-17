@@ -5,8 +5,7 @@ class FundLogsController < ApplicationController
   # GET /fund_logs.json
   def index
     @fund = Fund.first
-
-
+    
     @fund_logs = FundLog.all.order('created_at DESC')
   end
 
@@ -47,13 +46,14 @@ class FundLogsController < ApplicationController
   # PATCH/PUT /fund_logs/1
   # PATCH/PUT /fund_logs/1.json
   def update
+    @fund_log.revert_fund
+    @fund = Fund.first
     respond_to do |format|
       if @fund_log.update(fund_log_params)
-        format.html { redirect_to @fund_log, notice: 'Fund log was successfully updated.' }
-        format.json { render :show, status: :ok, location: @fund_log }
+        @fund_logs = FundLog.all.order('created_at DESC')
+        format.js { render :layout => false }
       else
-        format.html { render :edit }
-        format.json { render json: @fund_log.errors, status: :unprocessable_entity }
+        format.js { render :layout => false }
       end
     end
   end
@@ -62,6 +62,7 @@ class FundLogsController < ApplicationController
   # DELETE /fund_logs/1.json
   def destroy
     @fund_log.destroy
+    @fund = Fund.first
     respond_to do |format|
       format.html { redirect_to fund_logs_url, notice: 'Fund log was successfully destroyed.' }
       format.json { head :no_content }

@@ -17,47 +17,48 @@
       <div class="form-control-focus"></div>
     </div>
   </div>
+
   <div class="form-group form-md-line-input">
     <label class="col-md-2 control-label">Hình thức thay đổi:</label>
     <div class="col-md-10">
       <div class="md-radio-inline">
         <div class="md-radio">
-          <input type="radio" id="radio1" name="fund_log[change_type]" class="md-radiobtn" value="0"  <%= f.object.change_type == 0 ? "checked=\"checked\"" : "" %>>
+          <input type="radio" id="radio1" name="fund_log[change_type]" class="md-radiobtn" value="profit"  <%= f.object.change_type == "profit" ? "checked=\"checked\"" : "" %>>
           <label for="radio1">
             <span></span>
             <span class="check"></span>
             <span class="box"></span>Tiền lãi </label>
         </div>
         <div class="md-radio">
-          <input type="radio" id="radio2" name="fund_log[change_type]" class="md-radiobtn" value="1" <%= f.object.change_type == 1 ? "checked=\"checked\"" : "" %>>
+          <input type="radio" id="radio2" name="fund_log[change_type]" class="md-radiobtn" value="loss" <%= f.object.change_type == "loss" ? "checked=\"checked\"" : "" %>>
           <label for="radio2">
             <span></span>
             <span class="check"></span>
             <span class="box"></span>Tiền lỗ</label>
         </div>
         <div class="md-radio">
-          <input type="radio" id="radio3" name="fund_log[change_type]" class="md-radiobtn" value="2" <%= f.object.change_type == 2 ? "checked=\"checked\"" : "" %>>
+          <input type="radio" id="radio3" name="fund_log[change_type]" class="md-radiobtn" value="deposit" <%= f.object.change_type == "deposit" ? "checked=\"checked\"" : "" %>>
           <label for="radio3">
             <span></span>
             <span class="check"></span>
             <span class="box"></span>Nạp</label>
         </div>
         <div class="md-radio">
-          <input type="radio" id="radio4" name="fund_log[change_type]" class="md-radiobtn" value="3" <%= f.object.change_type == 3 ? "checked=\"checked\"" : "" %>>
+          <input type="radio" id="radio4" name="fund_log[change_type]" class="md-radiobtn" value="withdraw" <%= f.object.change_type == "withdraw" ? "checked=\"checked\"" : "" %>>
           <label for="radio4">
             <span></span>
             <span class="check"></span>
             <span class="box"></span>Rút</label>
         </div>
         <div class="md-radio">
-          <input type="radio" id="radio5" name="fund_log[change_type]" class="md-radiobtn" value="4" <%= f.object.change_type == 4 ? "checked=\"checked\"" : "" %>>
+          <input type="radio" id="radio5" name="fund_log[change_type]" class="md-radiobtn" value="deposit_fee" <%= f.object.change_type == "deposit_fee" ? "checked=\"checked\"" : "" %>>
           <label for="radio5">
             <span></span>
             <span class="check"></span>
             <span class="box"></span>Chuyển làm phí giao dịch</label>
         </div>
         <div class="md-radio">
-          <input type="radio" id="radio6" name="fund_log[change_type]" class="md-radiobtn" value="5" <%= f.object.change_type == 5 ? "checked=\"checked\"" : "" %>>
+          <input type="radio" id="radio6" name="fund_log[change_type]" class="md-radiobtn" value="fee" <%= f.object.change_type == "fee" ? "checked=\"checked\"" : "" %>>
           <label for="radio5">
             <span></span>
             <span class="check"></span>
