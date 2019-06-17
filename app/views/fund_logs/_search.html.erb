@@ -1,0 +1,102 @@
+<%= form_for :search , url:  "#", :method => :get, :html => {class: 'form-horizontal', id: 'searchForm'} do |f| %>
+  <div class="form-body">
+    <div class="form-group form-md-line-input">
+      <div class="col-md-6">
+        <div class="row">
+          <label class="col-md-4 control-label">Ngày/tháng</label>
+          <div class="col-md-8">
+            <%= f.text_field :month_year, as: :datepicker, id: 'month_year', class: 'form-control date-picker', :placeholder => "Nhập ngày tháng", 'data-date-format': 'mm/yyyy', value: @month_year %>
+            <div class="form-control-focus"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="col-md-4 control-label">Trạng thái</label>
+        <div class="md-radio-inline">
+          <div class="md-radio">
+            <input id="radio1" name="search[paid]" class="md-radiobtn" value="1" <% if params[:search].nil? == false %><% if  params[:search][:paid].to_i == Admin::Constants::BILL_PAID  %> checked="&quot;checked&quot;" <% end %> <% end %>type="radio">
+            <label for="radio1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> Lãi
+            </label>
+          </div>
+          <div class="md-radio">
+            <input id="radio2" name="search[paid]" class="md-radiobtn" value="2" <% if params[:search].nil? || params[:search][:paid].to_i == 2  %> checked="&quot;checked&quot;" <% end %> type="radio">
+            <label for="radio2">
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span>  Lỗ
+            </label>
+          </div>
+          <div class="md-radio">
+            <input id="radio3" name="search[paid]" class="md-radiobtn" value="0" <% if params[:search].nil? == false %><% if params[:search][:paid].to_i == Admin::Constants::BILL_NOT_PAID %> checked="&quot;checked&quot;" <% end %><% end %> type="radio">
+            <label for="radio3">
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span> Nạp
+            </label>
+          </div>
+          <div class="md-radio">
+            <input id="radio3" name="search[paid]" class="md-radiobtn" value="0" <% if params[:search].nil? == false %><% if params[:search][:paid].to_i == Admin::Constants::BILL_NOT_PAID %> checked="&quot;checked&quot;" <% end %><% end %> type="radio">
+            <label for="radio3">
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span> Rút
+            </label>
+          </div>
+          <div class="md-radio">
+            <input id="radio3" name="search[paid]" class="md-radiobtn" value="0" <% if params[:search].nil? == false %><% if params[:search][:paid].to_i == Admin::Constants::BILL_NOT_PAID %> checked="&quot;checked&quot;" <% end %><% end %> type="radio">
+            <label for="radio3">
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span> Nạp tk phí
+            </label>
+          </div>
+          <div class="md-radio">
+            <input id="radio3" name="search[paid]" class="md-radiobtn" value="0" <% if params[:search].nil? == false %><% if params[:search][:paid].to_i == Admin::Constants::BILL_NOT_PAID %> checked="&quot;checked&quot;" <% end %><% end %> type="radio">
+            <label for="radio3">
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span> Trừ phí
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    // Check change to submit form.
+    var monthYear = $(this).val()
+    $("#month_year").change(function(){
+      if (monthYear != '' && monthYear != $(this).val()) {
+        // Month/Year Validate
+        $("#searchForm").submit()
+      }
+      monthYear = $(this).val()
+    });
+
+    $("#building_search").change(function(){
+      $("#searchForm").submit()
+    });
+
+    $("#room_search").change(function(){
+      $("#searchForm").submit()
+    });
+    $("#identity_card").change(function () {
+      $("#searchForm").submit();
+    })
+    /* DatePicker */
+    if (jQuery().datepicker) {
+      $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "left",
+        autoclose: true
+      });
+      //$('body').removeClass("modal-open"); // fix bug when inline picker is used in modal
+    }
+  });
+</script>
