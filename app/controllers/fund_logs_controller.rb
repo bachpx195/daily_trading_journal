@@ -4,7 +4,8 @@ class FundLogsController < ApplicationController
   # GET /fund_logs
   # GET /fund_logs.json
   def index
-    @fund_logs = FundLog.all.order('created_at DESC')
+    @q = FundLog.search(params[:q])
+    @fund_logs = @q.result(distinct: true).order('created_at DESC')
   end
 
   # GET /fund_logs/1

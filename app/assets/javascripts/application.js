@@ -22,7 +22,6 @@
 
 $(document).on('turbolinks:load', function() {
   $('.date-picker').change(function(){
-    alert("ok");
   });
   if (jQuery().datepicker) {
     $('.date-picker').datepicker({
