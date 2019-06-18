@@ -82,6 +82,19 @@ module ApplicationHelper
       "None"
     end
   end
+  
+  def format_trade_status(str)
+    case str
+      when "draft"
+        "Nháp"
+      when "open"
+        "Đang giao dịch"
+      when "close"
+        "Giao dịch đã đóng"
+      else
+        "None"
+    end
+  end
 
   def fund_log_change_money stt
     case stt

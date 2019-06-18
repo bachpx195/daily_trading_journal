@@ -1,0 +1,70 @@
+<%= search_form_for @q, html: {class: 'form-horizontal', id: 'searchForm'} do |f| %>
+  <div class="form-body">
+    <div class="form-group form-md-line-input">
+      <div class="col-md-4">
+        <div class="row">
+          <label class="col-md-4 control-label">Ngày/tháng</label>
+          <div class="col-md-8">
+            <%= f.search_field :created_at_gteq, as: :datepicker, id: 'month_year', class: 'form-control date-picker', :placeholder => "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: params[:q].present? && params[:q][:created_at_gteq].present? ? params[:q][:created_at_gteq] : '' %>
+            <div class="form-control-focus"></div>
+          </div>
+        </div>
+      </div>
+      <div style="display: none;">
+        <%= f.search_field :status_eq %>
+      </div>
+      <div class="col-md-8">
+        <label class="col-md-4 control-label">Hình thức</label>
+        <div class="md-radio-inline">
+          <div class="md-radio">
+            <input id="radio1" name="status" class="md-radiobtn" value="0" <% if params[:q].present? &&  params[:q][:status_eq] == "0" %> checked="&quot;checked&quot;" <% end %> type="radio">
+            <label for="radio1">
+              <span></span>
+              <span class="check"></span>
+              <span class="box"></span> Nháp
+            </label>
+          </div>
+          <div class="md-radio">
+            <input id="radio2" name="status" class="md-radiobtn" value="1" <% if params[:q].present? && params[:q][:status_eq] == "1" %> checked="&quot;checked&quot;" <% end %> type="radio">
+            <label for="radio2">
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span>  Mở
+            </label>
+          </div>
+          <div class="md-radio">
+            <input id="radio3" name="status" class="md-radiobtn" value="2" <% if params[:q].present? && params[:q][:status_eq] == "2" %> checked="&quot;checked&quot;" <% end %> type="radio">
+            <label for="radio3">
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span> Đóng
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    // Check change to submit form.
+    $("#month_year").change(function(){
+      $("#searchForm").submit()
+    });
+
+    /* DatePicker */
+    if (jQuery().datepicker) {
+      $('.date-picker').datepicker({
+        rtl: App.isRTL(),
+        orientation: "left",
+        autoclose: true
+      });
+    }
+
+    $('input[type=radio]').on('change', function() {
+      $('#q_status_eq').attr('value', $(this).val())
+      $("#searchForm").submit();
+    });
+  });
+</script>

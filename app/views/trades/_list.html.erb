@@ -1,0 +1,23 @@
+<div class="table-scrollable">
+  <%= render 'search' %>
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th class="text-center">Thời gian</th>
+      <th class="text-center">Coin</th>
+      <th class="text-center">Phương pháp</th>
+      <th class="text-center">Trạng thái</th>
+      <th class="text-center">Giá vào</th>
+      <th class="text-center">Giá ra</th>
+      <th class="text-center">Ngày kết thúc</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody class="item-container">
+      <%= render('trade') %>
+    </tbody>
+  </table>
+</div>
+

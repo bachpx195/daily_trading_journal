@@ -4,7 +4,8 @@ class TradesController < ApplicationController
   # GET /trades
   # GET /trades.json
   def index
-    @trades = Trade.all
+    @q = Trade.search(params[:q])
+    @trades = @q.result(distinct: true).order('created_at DESC')
   end
 
   # GET /trades/1
