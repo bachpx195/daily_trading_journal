@@ -1,0 +1,33 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'login-form'}) do |f| %>
+  <div class="alert alert-danger display-hide">
+    <button class="close" data-close="alert"></button>
+    <span>Enter any username and password. </span>
+  </div>
+  <div class="row">
+    <div class="col-xs-6">
+      <%= f.text_field :email, required: true, autofocus: true, class: 'form-control form-control-solid placeholder-no-fix form-group', placeholder: 'Nhập email' %>
+    </div>
+    <div class="col-xs-6">
+      <%= f.text_field :password, required: true, class: 'form-control form-control-solid placeholder-no-fix form-group', placeholder: 'Nhập mật khẩu' %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <label class="rememberme mt-checkbox mt-checkbox-outline">
+        <%= f.text_field :remember_me, boolean_style: :inline, as: :boolean if devise_mapping.rememberable? %> Remember me
+        <span></span>
+      </label>
+    </div>
+    <div class="col-sm-8 text-right">
+      <div class="forgot-password">
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+            <%= link_to "Quên mật khẩu?", new_password_path(resource_name), class: 'forget-password' %><br />
+        <% end -%>
+      </div>
+      <%= f.button :button, class: 'btn blue' %>
+      <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+          <%= link_to "Đăng ký", new_registration_path(resource_name), class: 'btn blue' %><br />
+      <% end -%>
+    </div>
+  </div>
+<% end %>

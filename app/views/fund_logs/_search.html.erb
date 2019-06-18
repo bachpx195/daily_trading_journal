@@ -1,7 +1,7 @@
 <%= search_form_for @q, html: {class: 'form-horizontal', id: 'searchForm'} do |f| %>
   <div class="form-body">
     <div class="form-group form-md-line-input">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="row">
           <label class="col-md-4 control-label">Ngày/tháng</label>
           <div class="col-md-8">
@@ -13,8 +13,8 @@
       <div style="display: none;">
         <%= f.search_field :change_type_eq %>
       </div>
-      <div class="col-md-6">
-        <label class="col-md-4 control-label">Hình thức thay đổi</label>
+      <div class="col-md-8">
+        <label class="col-md-4 control-label">Hình thức</label>
         <div class="md-radio-inline">
           <div class="md-radio">
             <input id="radio1" name="change_type" class="md-radiobtn" value="0" <% if params[:q].present? &&  params[:q][:change_type_eq] == "0" %> checked="&quot;checked&quot;" <% end %> type="radio">
