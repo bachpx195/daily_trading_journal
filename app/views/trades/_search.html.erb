@@ -1,11 +1,11 @@
 <%= search_form_for @q, html: {class: 'form-horizontal', id: 'searchForm'} do |f| %>
   <div class="form-body">
     <div class="form-group form-md-line-input">
-      <div class="col-md-4">
+      <div class="col-md-8">
         <div class="row">
           <label class="col-md-4 control-label">Ngày/tháng</label>
-          <div class="col-md-8">
-            <%= f.search_field :created_at_gteq, as: :datepicker, id: 'month_year', class: 'form-control date-picker', :placeholder => "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: params[:q].present? && params[:q][:created_at_gteq].present? ? params[:q][:created_at_gteq] : '' %>
+          <div class="col-md-4">
+            <%= f.search_field :start_date_gteq, as: :datepicker, id: 'month_year', class: 'form-control date-picker', :placeholder => "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: params[:q].present? && params[:q][:created_at_gteq].present? ? params[:q][:created_at_gteq] : '' %>
             <div class="form-control-focus"></div>
           </div>
         </div>
@@ -13,7 +13,7 @@
       <div style="display: none;">
         <%= f.search_field :status_eq %>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-4">
         <label class="col-md-4 control-label">Hình thức</label>
         <div class="md-radio-inline">
           <div class="md-radio">

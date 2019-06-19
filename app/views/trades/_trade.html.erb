@@ -4,11 +4,11 @@
       <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_trade_url(trade) } %>
     </td>
     <td class="text-center"><%= trade.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-    <td class="text-center"><%= trade.coin %></td>
-    <td class="text-center"><%= trade.trade_normal_method || trade.trade_pyramid_method %></td>
+    <td class="text-center"><%= trade.coin.slug %></td>
+    <td class="text-center"><%= trade.trade_normal_method.trade_method.name || trade.trade_pyramid_method.trade_method.name %></td>
     <td class="text-center"><%= format_trade_status(trade.status) %></td>
-    <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method.point_entry) %></td>
-    <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method.point_out) %></td>
+    <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_entry) %></td>
+    <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_out) %></td>
     <td class="text-center"><%= trade.end_date %></td>
     <td class="text-center">
       <%= render partial: 'shared/action_buttons', locals: { delete_url: trade } %>

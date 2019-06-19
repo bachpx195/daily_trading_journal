@@ -5,7 +5,7 @@ class TradesController < ApplicationController
   # GET /trades.json
   def index
     @q = Trade.search(params[:q])
-    @trades = @q.result(distinct: true).order('created_at DESC')
+    @trades = @q.result(distinct: true).order('start_date DESC')
   end
 
   # GET /trades/1
@@ -17,6 +17,8 @@ class TradesController < ApplicationController
   def new
     @trade = Trade.new
     @trade.trade_normal_method = @trade.build_trade_normal_method
+
+    render :layout => false
   end
 
   # GET /trades/1/edit
@@ -30,11 +32,10 @@ class TradesController < ApplicationController
 
     respond_to do |format|
       if @trade.save
-        format.html { redirect_to @trade, notice: 'Trade was successfully created.' }
-        format.json { render :show, status: :created, location: @trade }
+        @trades = Trades.all.order('start_date DESC')
+        format.js { render :layout => false }
       else
-        format.html { render :new }
-        format.json { render json: @trade.errors, status: :unprocessable_entity }
+        format.js { render :layout => false }
       end
     end
   end
@@ -44,6 +45,7 @@ class TradesController < ApplicationController
   def update
     respond_to do |format|
       if @trade.update(trade_params)
+        @trades = Trades.all.order('start_date DESC')
         format.html { redirect_to @trade, notice: 'Trade was successfully updated.' }
         format.json { render :show, status: :ok, location: @trade }
       else
@@ -71,6 +73,6 @@ class TradesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trade_params
-      params.require(:trade).permit(:coin_id, :status, :start_date, :reason, trade_normal_method_attributes: [:point_entry, :point_out, :stop_loss, :take_profit])
+      params.require(:trade).permit(:coin_id, :status, :start_date, :reason, trade_normal_method_attributes: [:point_entry, :point_out, :stop_loss, :take_profit, :target, :fee])
     end
 end

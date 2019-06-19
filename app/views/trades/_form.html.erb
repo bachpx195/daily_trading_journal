@@ -1,4 +1,4 @@
-<%= form_with(model: @trade, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+<%= form_with(model: @trade, remote: true, :html => {class: 'form-horizontal', id: 'tradeForm'}) do |f| %>
     <% if @trade.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@trade.errors.count, "error") %> prohibited this trade from being saved:</h2>
@@ -28,7 +28,7 @@
     </div>
 
     <div class="form-group form-md-line-input">
-      <label class="col-md-2 control-label">Phản hồi: </label>
+      <label class="col-md-2 control-label">Lý do trade: </label>
       <div class="col-md-10">
         <%= f.text_area :reason, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder: "Nhập mô tả", maxlength: 500 %>
       </div>
@@ -37,10 +37,10 @@
     <div class="tabbable-line">
       <ul class="nav nav-tabs ">
         <li class="active">
-          <a href="#tab1" data-toggle="tab"><%= t(:agreement_renter_tab) %></a>
+          <a href="#tab1" data-toggle="tab">One shot one kill</a>
         </li>
         <li>
-          <a href="#tab2" data-toggle="tab"><%= t(:agreement_service_tab) %></a>
+          <a href="#tab2" data-toggle="tab">Kim tự tháp</a>
         </li>
         <li class="last-tab">
           <a data-remote="true" href="#" class="btn btn-circle btn-icon-only green">
@@ -50,43 +50,13 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane active" id="tab1">
-          <!-- render 'subform_renter' -->
+           <%= render 'subform_trade_normal_method', f: f  %>
         </div>
         <div class="tab-pane" id="tab2">
           <!-- render 'subform_service' -->
         </div>
       </div>
     </div>
-
-  <div class="form-group form-md-line-input">
-    <label class="col-md-2 control-label">Hình thức thay đổi:</label>
-    <div class="col-md-10">
-      <div class="md-radio-inline">
-        <div class="md-radio">
-          <input type="radio" id="radio1" name="trade[status]" class="md-radiobtn" value="profit"  <%= f.object.status == "profit" ? "checked=\"checked\"" : "" %>>
-          <label for="radio1">
-            <span></span>
-            <span class="check"></span>
-            <span class="box"></span>Nháp</label>
-        </div>
-        <div class="md-radio">
-          <input type="radio" id="radio2" name="trade[status]" class="md-radiobtn" value="loss" <%= f.object.status == "loss" ? "checked=\"checked\"" : "" %>>
-          <label for="radio2">
-            <span></span>
-            <span class="check"></span>
-            <span class="box"></span>Start giao dịch</label>
-        </div>
-        <div class="md-radio">
-          <input type="radio" id="radio3" name="trade[status]" class="md-radiobtn" value="deposit" <%= f.object.status == "deposit" ? "checked=\"checked\"" : "" %>>
-          <label for="radio3">
-            <span></span>
-            <span class="check"></span>
-            <span class="box"></span>Đóng giao dịch</label>
-        </div>
-      </div>
-      <div class="form-control-focus"></div>
-    </div>
-  </div>
 
     <div class="form-actions margin-top-10">
       <div class="row">
@@ -97,18 +67,27 @@
           <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
             <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy
           </button>
-          <%= f.button :button, class: 'btn green' do %>
-              <i class="fa fa-floppy-o" aria-hidden="true"></i> Lưu lại
-          <% end %>
+          <div class="form-group col-md-9">
+            <%= f.collection_select(:status, Trade.statuses, :first, :first, {prompt: "Chọn"}, {class: "form-control"}) %>
+          </div>
         </div>
       </div>
     </div>
 <% end %>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
     $(document).ready(function () {
         $("#show-main-modal").click(function () {
             $("#main-modal").modal("show");
         });
+
+        $('#trade_status').on('change', function() {
+          if($(this).val() != '' && $(this).val() != 'close') {
+            $("#tradeForm").ajaxSubmit();
+          }
+        });
+
+
         $("#building_agreement").change(function () {
             $.ajax({
                 type: "GET",

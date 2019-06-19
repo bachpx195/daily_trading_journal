@@ -51,7 +51,7 @@ namespace :db do
     mark_tag.tags.create! name: 'Lol', slug: 'Hài đcđ'
 
     puts "6. create trade method"
-    TradeMethod.create! name: "Normal", win_rate: 0
-    TradeMethod.create! name: "Pyramid", win_rate: 0
+    TradeMethod.create! name: "Thường", win_rate: 0
+    TradeMethod.create! name: "Kim tự tháp", win_rate: 0
   end
 end

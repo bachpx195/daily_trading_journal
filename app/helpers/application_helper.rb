@@ -49,7 +49,7 @@ module ApplicationHelper
         fund_log_change_money(status) + number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT"
       end
     else
-      number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT"
+      number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT" if str.present?
     end
   end
 
