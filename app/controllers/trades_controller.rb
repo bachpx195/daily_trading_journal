@@ -1,5 +1,5 @@
 class TradesController < ApplicationController
-  before_action :set_trade, only: [:show, :edit, :update, :destroy]
+  before_action :set_trade, only: [:show, :edit, :update, :destroy, :close]
 
   # GET /trades
   # GET /trades.json
@@ -63,6 +63,10 @@ class TradesController < ApplicationController
       format.html { redirect_to trades_url, notice: 'Trade was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def close
+    binding.pry
   end
 
   private

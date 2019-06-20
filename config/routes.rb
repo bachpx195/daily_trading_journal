@@ -6,7 +6,11 @@ Rails.application.routes.draw do
   devise_for :users
   resources :fund_logs
   resources :logs
-  resources :trades
+  resources :trades do
+    member do
+      get 'close', to: 'trades#close'
+    end
+  end
   resources :trade_normal_methods
   resources :trade_pyramid_methods
   resources :trade_methods

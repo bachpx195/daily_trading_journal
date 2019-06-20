@@ -1,0 +1,60 @@
+<%= form_with(model: @trade, local: true, :html => {class: 'form-horizontal', id: 'closeForm'}) do |f| %>
+  <% if @trade.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@trade.errors.count, "error") %> prohibited this trade from being saved:</h2>
+      <ul>
+        <% @trade.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">Ngày kết thúc</label>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <% date = @trade.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+          <%= f.text_field :end_date, as: :datepicker, class: 'form-control date-picker', id: "startDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
+        </div>
+      </div>
+    </div>
+    <%= f.fields_for :trade_normal_method do |fff| %>
+      <label class="col-md-2 control-label">Điểm ra
+        <span class="required" aria-required="true"> * </span> :</label>
+      <div class="col-md-4">
+        <%= fff.number_field :point_out, as: :string, class: 'form-control', placeholder: 'Nhập điểm ra' %>
+        <div class="form-control-focus"></div>
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.fields_for :log do |ff| %>
+    <div class="form-group form-md-line-input">
+      <label class="col-md-2 control-label">Ghi chú: </label>
+      <div class="col-md-10">
+        <%= ff.text_area :note, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder: "Nhập mô tả", maxlength: 500 %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="form-actions margin-top-10">
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
+          <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Hủy
+        </button>
+        <%= f.button :button, class: 'btn green' do %>
+          <i class="fa fa-floppy-o" aria-hidden="true"></i>Đóng GD
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<script>
+  $(document).ready(function () {
+    $("#show-main-modal").click(function () {
+      $("#main-modal").modal("show");
+    });
+  });
+</script>

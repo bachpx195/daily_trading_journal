@@ -11,7 +11,11 @@
     <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_out) %></td>
     <td class="text-center"><%= trade.end_date %></td>
     <td class="text-center">
-      <%= render partial: 'shared/action_buttons', locals: { delete_url: trade } %>
+      <% if trade.close? %>
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: trade } %>
+      <% else %>
+        <%= render partial: 'shared/action_buttons', locals: { delete_url: trade, close_url: close_trade_url(trade) } %>
+      <% end %>
     </td>
   </tr>
 <% end %>
