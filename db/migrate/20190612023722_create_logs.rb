@@ -5,6 +5,7 @@ class CreateLogs < ActiveRecord::Migration[5.2]
       t.float :result
       t.text :note
       t.float :money
+      t.float :fee
       t.datetime :datetime
       t.integer :period_time
       t.integer :rating

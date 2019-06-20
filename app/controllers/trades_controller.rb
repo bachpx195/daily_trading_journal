@@ -4,7 +4,7 @@ class TradesController < ApplicationController
   # GET /trades
   # GET /trades.json
   def index
-    @q = Trade.search(params[:q])
+    @q = Trade.includes(:trade_normal_method).search(params[:q])
     @trades = @q.result(distinct: true).order('start_date DESC')
   end
 
@@ -32,7 +32,7 @@ class TradesController < ApplicationController
 
     respond_to do |format|
       if @trade.save
-        @trades = Trades.all.order('start_date DESC')
+        @trades = Trade.includes(:trade_normal_method).order('start_date DESC')
         format.js { render :layout => false }
       else
         format.js { render :layout => false }
@@ -45,7 +45,7 @@ class TradesController < ApplicationController
   def update
     respond_to do |format|
       if @trade.update(trade_params)
-        @trades = Trades.all.order('start_date DESC')
+        @trades = Trade.all.order('start_date DESC')
         format.html { redirect_to @trade, notice: 'Trade was successfully updated.' }
         format.json { render :show, status: :ok, location: @trade }
       else
