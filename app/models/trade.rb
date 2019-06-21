@@ -7,7 +7,7 @@ class Trade < ApplicationRecord
   
   accepts_nested_attributes_for :trade_normal_method
   accepts_nested_attributes_for :trade_pyramid_method
-  accepts_nested_attributes_for :log
+  accepts_nested_attributes_for :log, reject_if: proc { |attributes| attributes['end_date'].blank? }
   
   enum status: {draft: 0, open: 1, close: 2}
 end

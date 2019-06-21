@@ -9,7 +9,7 @@
     <td class="text-center"><%= format_trade_status(trade.status) %></td>
     <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_entry) %></td>
     <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_out) %></td>
-    <td class="text-center"><%= trade.end_date %></td>
+    <td class="text-center"><%= trade.end_date&.strftime("%d/%m/%Y %H:%M:%S") %></td>
     <td class="text-center">
       <% if trade.close? %>
         <%= render partial: 'shared/action_buttons', locals: { delete_url: trade } %>

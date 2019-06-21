@@ -1,5 +1,6 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: [:show, :edit, :update, :destroy, :close]
+  before_action :delete_wrong_logs, except: [:update]
 
   # GET /trades
   # GET /trades.json
@@ -66,7 +67,7 @@ class TradesController < ApplicationController
   end
   
   def close
-    @trade.log = Log.new(trade_id: @trade.id)
+    @trade.log = Log.find_or_initialize_by(trade_id: @trade.id)
     respond_to do |format|
       format.js { render :layout => false }
     end
@@ -80,6 +81,10 @@ class TradesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def trade_params
-      params.require(:trade).permit(:coin_id, :status, :start_date, :reason, trade_normal_method_attributes: [:point_entry, :point_out, :stop_loss, :take_profit, :target, :fee])
+      params.require(:trade)
+        .permit(:coin_id, :status, :start_date, :reason, :end_date,
+          trade_normal_method_attributes: [:id, :point_entry, :point_out, :stop_loss, :take_profit, :target, :fee],
+          log_attributes: [:id, :note, :rating]
+        )
     end
 end
