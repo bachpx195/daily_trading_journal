@@ -53,5 +53,8 @@ namespace :db do
     puts "6. create trade method"
     TradeMethod.create! name: "Thường", win_rate: 0
     TradeMethod.create! name: "Kim tự tháp", win_rate: 0
+
+    puts "7. create coin"
+    Tag.find_by(name: "Currency").coins.create! slug: "BTC"
   end
 end

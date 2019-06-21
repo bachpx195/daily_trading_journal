@@ -66,7 +66,10 @@ class TradesController < ApplicationController
   end
   
   def close
-    binding.pry
+    @trade.log = Log.new(trade_id: @trade.id)
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
   end
 
   private
