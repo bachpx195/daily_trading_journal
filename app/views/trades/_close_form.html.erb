@@ -1,4 +1,6 @@
 <%= form_with(model: @trade, local: true, :html => {class: 'form-horizontal', id: 'closeForm'}) do |f| %>
+  <% date = @trade.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+
   <% if @trade.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@trade.errors.count, "error") %> prohibited this trade from being saved:</h2>
@@ -9,13 +11,13 @@
       </ul>
     </div>
   <% end %>
+  <%= f.hidden_field :status, value: 'close' %>
   <div class="form-group form-md-line-input">
     <label class="col-md-2 control-label">Ngày kết thúc</label>
     <div class="col-md-4">
       <div class="row">
         <div class="col-md-12">
-          <% date = @trade.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
-          <%= f.text_field :end_date, as: :datepicker, class: 'form-control date-picker', id: "startDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
+          <%= f.text_field :end_date, as: :datepicker, class: 'form-control date-picker', id: "endDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
         </div>
       </div>
     </div>
@@ -30,6 +32,7 @@
   </div>
 
   <%= f.fields_for :log do |ff| %>
+    <% ff.hidden_field :datetime, value: date %>
     <div class="form-group form-md-line-input">
       <label class="col-md-2 control-label">Ghi chú: </label>
       <div class="col-md-10">
@@ -56,5 +59,8 @@
     $("#show-main-modal").click(function () {
       $("#main-modal").modal("show");
     });
+    $('#endDate').on('change', function(){
+
+    })
   });
 </script>
