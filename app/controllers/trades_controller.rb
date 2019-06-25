@@ -1,6 +1,6 @@
 class TradesController < ApplicationController
   before_action :set_trade, only: [:show, :edit, :update, :destroy, :close]
-  before_action :delete_wrong_logs, except: [:update]
+  before_action :delete_wrong_logs, except: [:close, :update]
 
   # GET /trades
   # GET /trades.json
