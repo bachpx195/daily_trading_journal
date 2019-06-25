@@ -1,14 +1,14 @@
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" data-toggle="tab" href="#infoPanel" role="tab">DMM</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" data-toggle="tab" href="#ads" role="tab">CC</a>
-  </li>
-</ul>
-<div class="tab-content mt-2">
-  <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
-    <%= form_with(model: @trade, local: true, :html => {class: 'form-horizontal', id: 'closeForm'}) do |f| %>
+<%= form_with(model: @trade, local: true, :html => {class: 'form-horizontal', id: 'closeForm'}) do |f| %>
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="display: none;">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#infoPanel" role="tab">DMM</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#ads" role="tab">CC</a>
+    </li>
+  </ul>
+  <div class="tab-content mt-2">
+    <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
       <% date = @trade.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
       <% rate = @trade.log&.rating || 1 %>
 
@@ -49,7 +49,7 @@
               </li>
             </ul>
           </div>
-          
+
           <div class='success-box'>
             <div class='clearfix'></div>
             <div class='text-message'></div>
@@ -94,17 +94,22 @@
             <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
               <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Hủy
             </button>
-            <%= f.button :button, class: 'btn green' do %>
+            <%= f.button :button, class: 'btn green', id: "infoContinue" do %>
               <i class="fa fa-floppy-o" aria-hidden="true"></i>Đóng GD
             <% end %>
           </div>
         </div>
       </div>
-    <% end %>
+    </div>
+    <div class="tab-pane fade" id="ads" role="tabpanel">
+      <h4>Ads</h4>
+      <button class="btn btn-secondary" id="adsContinue">Continue</button>
+    </div>
   </div>
-</div>
+<% end %>
 <script>
   $(document).ready(function () {
+    $('#myTab a[href="#infoPanel"]').tab('show');
     $("#show-main-modal").click(function () {
       $("#main-modal").modal("show");
     });
@@ -175,7 +180,16 @@
           msg = "Thiên tài cmnr!";
       }
       responseMessage(msg);
-      
+    });
+
+    $('#infoContinue').click(function (e) {
+      e.preventDefault();
+      $('#myTab a[href="#ads"]').tab('show');
+    });
+
+    $('#adsContinue').click(function (e) {
+      e.preventDefault();
+      $('#myTab a[href="#infoPanel"]').tab('show');
     });
     
     
