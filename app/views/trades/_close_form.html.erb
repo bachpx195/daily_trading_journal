@@ -1,14 +1,14 @@
 <%= form_with(model: @trade, local: true, :html => {class: 'form-horizontal', id: 'closeForm'}) do |f| %>
-  <ul class="nav nav-tabs" id="myTab" role="tablist" style="display: none;">
+  <ul class="nav nav-tabs" id="myTab" role="tablist" style="display: none;  ">
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#infoPanel" role="tab">DMM</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#ads" role="tab">CC</a>
+      <a class="nav-link" data-toggle="tab" href="#reviewPanel" role="tab">CC</a>
     </li>
   </ul>
   <div class="tab-content mt-2">
-    <div class="tab-pane fade show active" id="infoPanel" role="tabpanel">
+    <div class="tab-pane fade active" id="infoPanel" role="tabpanel">
       <% date = @trade.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
       <% rate = @trade.log&.rating || 1 %>
 
@@ -23,7 +23,6 @@
         </div>
       <% end %>
       <%= f.hidden_field :status, value: 'close' %>
-
       <br>
       <br>
       <%= f.fields_for :log do |ff| %>
@@ -49,7 +48,6 @@
               </li>
             </ul>
           </div>
-
           <div class='success-box'>
             <div class='clearfix'></div>
             <div class='text-message'></div>
@@ -101,9 +99,16 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane fade" id="ads" role="tabpanel">
-      <h4>Ads</h4>
-      <button class="btn btn-secondary" id="adsContinue">Continue</button>
+    <div class="tab-pane fade" id="reviewPanel" role="tabpanel" style="text-align: center;">
+      <h4>Kết quả giao dịch</h4>
+      <div id="review-icon">
+        <% if @trade_method.point_out.present? && @trade_method.point_entry > @trade_method.point_out %>
+          <span style='font-size:100px;'>&#128546;</span>
+        <% else %>
+          <span style='font-size:100px;'>&#128512;</span>
+        <% end %>
+      </div>
+      <button class="btn btn-primary btn-block" id="activate">Activate this Campaign!</button>
     </div>
   </div>
 <% end %>
@@ -114,13 +119,23 @@
       $("#main-modal").modal("show");
     });
 
+    $('#trade_trade_normal_method_attributes_point_out').change(function () {
+      var entry = parseFloat(<%= @trade_method.point_entry %>);
+      var out = parseFloat($('#trade_trade_normal_method_attributes_point_out').val());
+
+      if(entry > out) {
+        $('#review-icon').html('<span style=\'font-size:100px;\'>&#128546;</span>')
+      }else{
+        $('#review-icon').html('<span style=\'font-size:100px;\'>&#128512;</span>')
+      }
+    });
+
     /* 1. Visualizing things on Hover - See next part for action on click */
     $('#stars li').on('mouseover', function(){
       var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-
       var msg = "";
       if (onStar == 1) {
-          msg = "Ngu lồn!";
+          msg = "Óc chó!";
       } else if (onStar == 2) {
           msg = "Tạm";
       } else if (onStar == 3) {
@@ -184,10 +199,13 @@
 
     $('#infoContinue').click(function (e) {
       e.preventDefault();
-      $('#myTab a[href="#ads"]').tab('show');
+      if($('#trade_trade_normal_method_attributes_point_out').val() != ''){
+
+    }
+      $('#myTab a[href="#reviewPanel"]').tab('show');
     });
 
-    $('#adsContinue').click(function (e) {
+    $('#reviewPanel').click(function (e) {
       e.preventDefault();
       $('#myTab a[href="#infoPanel"]').tab('show');
     });

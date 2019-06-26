@@ -68,6 +68,7 @@ class TradesController < ApplicationController
   
   def close
     @trade.log = Log.find_or_initialize_by(trade_id: @trade.id)
+    @trade_method = @trade.trade_normal_method
     respond_to do |format|
       format.js { render :layout => false }
     end

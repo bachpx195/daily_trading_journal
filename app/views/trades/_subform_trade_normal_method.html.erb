@@ -31,26 +31,26 @@
 <% end %>
 
 <script>
-    $(document).ready(function () {
-        $("#trade_trade_normal_method_attributes_point_entry, #trade_trade_normal_method_attributes_target").change(function () {
-            var entry = parseFloat($('#trade_trade_normal_method_attributes_point_entry').val());
-            var target = parseFloat($('#trade_trade_normal_method_attributes_target').val());
+  $(document).ready(function () {
+    $("#trade_trade_normal_method_attributes_point_entry, #trade_trade_normal_method_attributes_target").change(function () {
+      var entry = parseFloat($('#trade_trade_normal_method_attributes_point_entry').val());
+      var target = parseFloat($('#trade_trade_normal_method_attributes_target').val());
 
-            if(target > 5){
-              var loss = target/2
-            } else if (target <= 5){
-              var loss = target
-            }
+      if(target > 5){
+        var loss = target/2
+      } else if (target <= 5){
+        var loss = target
+      }
 
-            if( entry != '' && ( target != '' || target == 0 ) )  {
-              if(target == 0){
-                $('#trade_trade_normal_method_attributes_take_profit').val((entry*1.00075/0.99925).toFixed(5))
-                $('#trade_trade_normal_method_attributes_stop_loss').val((entry*1.00075/0.99925).toFixed(5))
-              } else {
-                $('#trade_trade_normal_method_attributes_take_profit').val(((entry*(target/100) + entry*1.00075)/0.99925).toFixed(5))
-                $('#trade_trade_normal_method_attributes_stop_loss').val((entry*(0.99925 - loss/100)/1.00075).toFixed(5))
-              }
-            }
-        });
+      if( entry != '' && ( target != '' || target == 0 ) )  {
+        if(target == 0){
+          $('#trade_trade_normal_method_attributes_take_profit').val((entry*1.00075/0.99925).toFixed(5))
+          $('#trade_trade_normal_method_attributes_stop_loss').val((entry*1.00075/0.99925).toFixed(5))
+        } else {
+          $('#trade_trade_normal_method_attributes_take_profit').val(((entry*(target/100) + entry*1.00075)/0.99925).toFixed(5))
+          $('#trade_trade_normal_method_attributes_stop_loss').val((entry*(0.99925 - loss/100)/1.00075).toFixed(5))
+        }
+      }
     });
+  });
 </script>
