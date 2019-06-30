@@ -1,6 +1,7 @@
 class CreateLogs < ActiveRecord::Migration[5.2]
   def change
     create_table :logs do |t|
+      t.string :code, unique: true
       t.integer :status
       t.float :result
       t.text :note

@@ -10,7 +10,8 @@ class CreateCoins < ActiveRecord::Migration[5.2]
       t.string :meta_title
       t.string :platform
       t.references :tag, foreign_key: true
-
+      t.float :win_rate, default: 100
+      
       t.timestamps
     end
   end

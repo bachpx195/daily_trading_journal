@@ -1,3 +1,102 @@
+<div class="invoice-content-2 bordered">
+  <div class="row invoice-head">
+    <div class="col-md-7 col-xs-6">
+      <div class="invoice-logo">
+        <h1><%= @trade.coin.slug %></h1>
+        <div class="trade-status">
+          <div class="form-group">
+            <%= select_tag "trade", options_from_collection_for_select( Trade.statuses, 'first', 'first', @trade.status), {include_blank: false, class: "form-control input-small"} %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-3">
+      <h2 class="invoice-title uppercase">Ngày</h2>
+      <p class="invoice-desc"><%= @trade.created_at.strftime("%d/%m/%Y") %></p>
+    </div>
+    <div class="col-xs-3">
+      <h2 class="invoice-title uppercase">Giá mua </h2>
+      <p class="invoice-desc"><%= format_money_with_fund(@trade.trade_normal_method&.point_entry) %></p>
+    </div>
+    <div class="col-xs-6">
+      <h2 class="invoice-title uppercase">Số lượng</h2>
+      <p class="invoice-desc inv-address"><%= @trade.trade_normal_method&.amount %></p>
+    </div>
+  </div>
+  <div class="blog-page blog-content-2">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="blog-single-content">
+          <div class="blog-single-head">
+            <h1 class="blog-single-head-title">Nguyên nhân vào lệnh</h1>
+          </div>
+          <div class="blog-single-desc">
+            <%= raw(@trade.reason) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row invoice-body">
+    <div class="col-xs-12 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th class="invoice-title uppercase">Description</th>
+          <th class="invoice-title uppercase text-center">Hours</th>
+          <th class="invoice-title uppercase text-center">Rate</th>
+          <th class="invoice-title uppercase text-center">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <h3>Web Design &amp; Development</h3>
+            <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet et dolore siat magna aliquam erat volutpat. </p>
+          </td>
+          <td class="text-center sbold">200</td>
+          <td class="text-center sbold">80$</td>
+          <td class="text-center sbold">16,000$</td>
+        </tr>
+        <tr>
+          <td>
+            <h3>Branding</h3>
+            <p> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod. </p>
+          </td>
+          <td class="text-center sbold">130</td>
+          <td class="text-center sbold">60$</td>
+          <td class="text-center sbold">7,800$</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row invoice-subtotal">
+    <div class="col-xs-3">
+      <h2 class="invoice-title uppercase">Subtotal</h2>
+      <p class="invoice-desc">23,800$</p>
+    </div>
+    <div class="col-xs-3">
+      <h2 class="invoice-title uppercase">Tax (0%)</h2>
+      <p class="invoice-desc">0$</p>
+    </div>
+    <div class="col-xs-6">
+      <h2 class="invoice-title uppercase">Total</h2>
+      <p class="invoice-desc grand-total">23,800$</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <a class="btn btn-lg green-haze hidden-print uppercase print-btn" onclick="javascript:window.print();">Print</a>
+    </div>
+  </div>
+</div>
+
+
+
+
 <p id="notice"><%= notice %></p>
 
 <p>

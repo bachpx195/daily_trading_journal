@@ -30,7 +30,7 @@
     <div class="form-group form-md-line-input">
       <label class="col-md-2 control-label">Lý do trade: </label>
       <div class="col-md-10">
-        <%= f.text_area :reason, as: :text, class: 'bg-maxlength form-control autosizeme', placeholder: "Nhập mô tả", maxlength: 500 %>
+        <%= f.text_area :reason, class: 'ckeditor', placeholder: "Nhập mô tả" %>
       </div>
     </div>
 
@@ -60,16 +60,19 @@
 
     <div class="form-actions margin-top-10">
       <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-8">
           <span class="font-red-flamingo" id="error-people-in-room"></span>
         </div>
-        <div class="col-md-3 text-right">
+        <div class="col-md-4 text-right">
           <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
             <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy
           </button>
-          <div class="form-group col-md-9">
+          <div class="form-group col-md-6">
             <%= f.collection_select(:status, Trade.statuses, :first, :first, {prompt: "Chọn"}, {class: "form-control"}) %>
           </div>
+          <button type="button" class="btn green" data-dismiss="modal" id="submmit_form">
+            <i class="fa fa-floppy-o" aria-hidden="true"></i> Tạo
+          </button>
         </div>
       </div>
     </div>
@@ -78,7 +81,7 @@
 <script>
     $(document).ready(function () {
         $("#show-main-modal").click(function () {
-            $("#main-modal").modal("show");
+          $("#main-modal").modal("show");
         });
 
         $('#trade_status').on('change', function() {
@@ -86,5 +89,9 @@
             $("#tradeForm").ajaxSubmit();
           }
         });
+
+        $('#submmit_form').click(function () {
+          $("#tradeForm").ajaxSubmit();
+        })
     });
 </script>

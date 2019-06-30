@@ -4,6 +4,7 @@
         <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_fund_log_url(fund_log) } %>
       </td>
       <td class="text-center"><%= fund_log.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
+      <td class="text-center"><%= link_to fund_log.log.code, log_path(fund_log.log) if fund_log.log.present? %></td>
       <td class="text-center"><%= format_money_with_fund(fund_log.change_amount, fund_log.change_type) %></td>
       <td class="text-center"><%= format_fund_log_status(fund_log.change_type) %></td>
       <td class="text-center">

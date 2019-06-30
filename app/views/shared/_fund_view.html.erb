@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-    <div class="dashboard-stat red">
+    <div class="dashboard-stat <%= fund.present_value < fund.initial_capital ? 'red' : 'green' %>">
       <div class="visual">
         <i class="fa fa-globe"></i>
       </div>

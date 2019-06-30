@@ -153,7 +153,7 @@
       var amount = parseFloat(<%= @trade_method.amount %>);
       var fund = parseFloat(<%= Fund.first.present_value %>);
 
-      var fee = ((entry + out)*amount*0.0075).toFixed(2)
+      var fee = ((entry + out)*amount*0.00075).toFixed(2)
       var total = Math.abs((out - entry)*amount).toFixed(2);
       var fund_percent = (total*100/fund).toFixed(2)
 

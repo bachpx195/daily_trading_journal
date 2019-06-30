@@ -9,27 +9,31 @@ class FundLog < ApplicationRecord
   before_destroy :revert_fund
 
   def revert_fund
-    if self.profit? || self.deposit?
-      Fund.first.update(present_value: (Fund.first.present_value - self.change_amount.to_f))
-    elsif self.loss? || self.withdraw?
-      Fund.first.update(present_value: (Fund.first.present_value + self.change_amount.to_f))
-    elsif self.deposit_fee?
-      Fund.first.update_attributes(present_value: (Fund.first.present_value + self.change_amount.to_f), fee: (Fund.first.fee - self.change_amount.to_f))
-    elsif self.fee?
-      Fund.first.update(fee: (Fund.first.fee + self.change_amount.to_f))
+    ActiveRecord::Base.transaction do
+      if self.profit? || self.deposit?
+        Fund.first.update(present_value: (Fund.first.present_value - self.change_amount.to_f))
+      elsif self.loss? || self.withdraw?
+        Fund.first.update(present_value: (Fund.first.present_value + self.change_amount.to_f))
+      elsif self.deposit_fee?
+        Fund.first.update_attributes(present_value: (Fund.first.present_value + self.change_amount.to_f), fee: (Fund.first.fee - self.change_amount.to_f))
+      elsif self.fee?
+        Fund.first.update(fee: (Fund.first.fee + self.change_amount.to_f))
+      end
     end
   end
   
   private
   def update_fund
-    if self.profit? || self.deposit?
-      Fund.first.update(present_value: (Fund.first.present_value + self.change_amount.to_f))
-    elsif self.loss? || self.withdraw?
-      Fund.first.update(present_value: (Fund.first.present_value - self.change_amount.to_f))
-    elsif self.deposit_fee?
-      Fund.first.update_attributes(present_value: (Fund.first.present_value - self.change_amount.to_f), fee: (Fund.first.fee + self.change_amount.to_f))
-    elsif self.fee?
-      Fund.first.update(fee: (Fund.first.fee - self.change_amount.to_f))
+    ActiveRecord::Base.transaction do
+      if self.profit? || self.deposit?
+        Fund.first.update(present_value: (Fund.first.present_value + self.change_amount.to_f))
+      elsif self.loss? || self.withdraw?
+        Fund.first.update(present_value: (Fund.first.present_value - self.change_amount.to_f))
+      elsif self.deposit_fee?
+        Fund.first.update_attributes(present_value: (Fund.first.present_value - self.change_amount.to_f), fee: (Fund.first.fee + self.change_amount.to_f))
+      elsif self.fee?
+        Fund.first.update(fee: (Fund.first.fee - self.change_amount.to_f))
+      end
     end
   end
 end
