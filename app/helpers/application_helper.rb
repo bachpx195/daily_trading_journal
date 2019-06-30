@@ -106,4 +106,14 @@ module ApplicationHelper
       "-"
     end
   end
+  
+  def trade_log_result log
+    if log.present?
+      if log.loss?
+        "Lỗ -#{log.money}Usdt"
+      else
+        "Lãi + #{log.money}Usdt"
+      end
+    end
+  end
 end

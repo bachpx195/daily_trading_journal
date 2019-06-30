@@ -47,11 +47,9 @@ class TradesController < ApplicationController
     respond_to do |format|
       if @trade.update(trade_params)
         @trades = Trade.all.order('start_date DESC')
-        format.html { redirect_to @trade, notice: 'Trade was successfully updated.' }
-        format.json { render :show, status: :ok, location: @trade }
+        format.js { render :layout => false }
       else
-        format.html { render :edit }
-        format.json { render json: @trade.errors, status: :unprocessable_entity }
+        format.js { render :layout => false }
       end
     end
   end
@@ -84,8 +82,8 @@ class TradesController < ApplicationController
     def trade_params
       params.require(:trade)
         .permit(:coin_id, :status, :start_date, :reason, :end_date,
-          trade_normal_method_attributes: [:id, :point_entry, :point_out, :stop_loss, :take_profit, :target, :fee],
-          log_attributes: [:id, :note, :rating]
+          trade_normal_method_attributes: [:id, :point_entry, :point_out, :stop_loss, :take_profit, :target, :fee, :amount],
+          log_attributes: [:id, :note, :rating, :datetime, :money, :fee, :result, :status]
         )
     end
 end

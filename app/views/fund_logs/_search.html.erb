@@ -86,7 +86,7 @@
       });
     }
 
-    $('input[type=radio]').on('change', function() {
+    $("input[name=change_type]").on('change', function() {
       $('#q_change_type_eq').attr('value', $(this).val())
       $("#searchForm").submit();
     });

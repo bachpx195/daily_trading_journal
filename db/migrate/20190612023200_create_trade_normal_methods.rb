@@ -8,6 +8,7 @@ class CreateTradeNormalMethods < ActiveRecord::Migration[5.2]
       t.float :stop_loss
       t.float :take_profit
       t.integer :target
+      t.float :amount
       t.timestamps
     end
   end

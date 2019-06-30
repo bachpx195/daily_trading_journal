@@ -1,21 +1,21 @@
 <% @trades.each do |trade| %>
   <tr>
     <td class="text-center">
-      <%= render partial: 'shared/action_buttons', locals: { edit_url: edit_trade_url(trade) } %>
+      <% if trade.close? || trade.draft? %>
+        <%= render partial: 'shared/action_buttons', locals: { show_url: trade_path(trade) } %>
+      <% else %>
+        <%= render partial: 'shared/action_buttons', locals: { show_url: trade_path(trade), close_url: close_trade_url(trade) } %>
+      <% end %>
     </td>
     <td class="text-center"><%= trade.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-    <td class="text-center"><%= trade.coin.slug %></td>
+    <td class="text-center"><%= trade.trade_normal_method&.amount %> <%= link_to trade.coin.slug, coins_path(trade.coin)  %></td>
     <td class="text-center"><%= trade.trade_normal_method.trade_method.name || trade.trade_pyramid_method.trade_method.name %></td>
     <td class="text-center"><%= format_trade_status(trade.status) %></td>
     <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_entry) %></td>
     <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_out) %></td>
-    <td class="text-center"><%= trade.end_date&.strftime("%d/%m/%Y %H:%M:%S") %></td>
+    <td class="text-center"><%= link_to(trade_log_result(trade.log), log_path(trade.log)) if trade.log.present? %></td>
     <td class="text-center">
-      <% if trade.close? %>
-        <%= render partial: 'shared/action_buttons', locals: { delete_url: trade } %>
-      <% else %>
-        <%= render partial: 'shared/action_buttons', locals: { delete_url: trade, close_url: close_trade_url(trade) } %>
-      <% end %>
+      <%= render partial: 'shared/action_buttons', locals: { delete_url: trade, edit_url: edit_trade_url(trade) } %>
     </td>
   </tr>
 <% end %>

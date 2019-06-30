@@ -1,10 +1,13 @@
 <% if defined? delete_url %>
   <%= link_to raw('<i class="fa fa-trash-o"></i>'), delete_url, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
-  <% if defined? close_url %>
-    <a class="btn green btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= close_url %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Đóng giao dịch"><i class="fa fa-files-o" aria-hidden="true"></i></a>
-  <% end %>
-<% else %>
-  <% if defined? edit_url %>
-    <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_url %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
-  <% end %>
 <% end %>
+<% if defined? close_url %>
+  <a class="btn orange btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= close_url %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Đóng giao dịch"><i class="fa fa-lock" aria-hidden="true"></i></a>
+<% end %>
+<% if defined? edit_url %>
+  <a class="btn green btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_url %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+<% end %>
+<% if defined? show_url %>
+  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= show_url %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Chi tiết"><i class="fa fa-sign-in"></i></a>
+<% end %>
+
