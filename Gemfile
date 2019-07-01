@@ -48,12 +48,12 @@ gem 'ckeditor', '~> 4.3'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
-gem 'jquery-datatables-rails', '~> 3.4.0'
-gem 'ajax-datatables-rails'
-
 gem 'ransack'
 
 gem 'devise'
+
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -14,13 +14,17 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery3
+//= require moment
+//= require fullcalendar
 //= require bootstrap
 //= require ckeditor/init
 //= require ckeditor/config
-//= require dataTables/jquery.dataTables
 //= require_tree .
 
 $(document).on('turbolinks:load', function() {
+    eventCalendar();
+
+
   $('.date-picker').change(function(){
   });
   if (jQuery().datepicker) {
@@ -31,6 +35,17 @@ $(document).on('turbolinks:load', function() {
     });
   }
 });
+
+$(document).on('turbolinks:before-cache', clearCalendar);
+
+function eventCalendar() {
+  return $('#calendar').fullCalendar({ });
+};
+
+function clearCalendar() {
+  $('#calendar').fullCalendar('delete');
+  $('#calendar').html('');
+};
 
 $(document).ready(function(){
   if ($('textarea').length > 0) {
@@ -43,7 +58,6 @@ $(document).ready(function(){
 });
 
 $(document).ready(function($) {
-
   //Download Link Highlight
   if($("body").data("page")==="frontpage"){
     $(window).scroll(function(){
@@ -61,6 +75,5 @@ $(document).ready(function($) {
     e.preventDefault();
     $(this).tab('show');
   })
-
-
 });
+
