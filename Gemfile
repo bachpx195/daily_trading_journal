@@ -44,6 +44,7 @@ gem "therubyracer"
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'ckeditor', '~> 4.3'
+gem 'awesome_nested_set'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
@@ -52,7 +53,6 @@ gem 'ransack'
 
 gem 'devise'
 
-gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
 group :development, :test do

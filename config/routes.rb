@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   resources :trade_methods
   resources :funds
   resources :wikis
-  resources :groups
   resources :daily_reports
   resources :news_sites
   resources :news

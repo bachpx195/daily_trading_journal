@@ -4,6 +4,7 @@ class CreateWikis < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :content
       t.string :brief
+      t.string :image
       t.references :tag, foreign_key: true
 
       t.timestamps

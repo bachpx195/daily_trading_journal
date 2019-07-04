@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require jquery3
 //= require moment
-//= require fullcalendar
 //= require bootstrap
 //= require ckeditor/init
 //= require ckeditor/config

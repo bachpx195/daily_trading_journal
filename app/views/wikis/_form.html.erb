@@ -1,4 +1,4 @@
-<%= form_with(model: wiki, local: true) do |form| %>
+<%= form_with(model: wiki, local: true, html: {class: "form-horizontal"}) do |form| %>
   <% if wiki.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(wiki.errors.count, "error") %> prohibited this wiki from being saved:</h2>
@@ -10,6 +10,20 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id=title">Tiêu đề</span>
+    <div class="col-sm-11">
+      <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
+    </div>
+    <% unless show_errors(blog, :title).nil? %>
+      <div class="col-sm-11 col-sm-offset-1">
+        <% show_errors(blog, :title).each do |msg| %>
+          <span class="help-block text-danger-ems"><%= msg %></span>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= form.label :title %>
@@ -24,6 +38,37 @@
   <div class="field">
     <%= form.label :brief %>
     <%= form.text_field :brief, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <span for="intro_image" class="col-sm-1 btn btn-primary nohover long-text">
+      <%= t "admin.blog.create.form.intro_image" %>
+    </span>
+    <div class="col-sm-11">
+      <div class="file-field">
+        <%= f.file_field :intro_image, class: "hide" %>
+        <%= f.hidden_field :intro_image_cache %>
+      </div>
+      <div class="image-preview">
+        <%= link_to "#",
+                    class: f.object.intro_image_url ? "" : "hide" do %>
+          <%= image_tag f.object.intro_image_url ? f.object.intro_image_url: "", class: "img-responsive" %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-1">
+      <p>必測/2MB以内/PNG,JPEGのみ</p>
+    </div>
+    <div class="col-sm-11 col-sm-offset-1">
+      <%= link_to t("admin.blog.create.form.open_file"), "javascript:void(0)", class: "edit-img btn btn-default" %>
+    </div>
+    <% unless show_errors(blog, :intro_image).nil? %>
+      <div class="col-sm-11 col-sm-offset-1">
+        <% show_errors(blog, :intro_image).each do |msg| %>
+          <span class="help-block text-danger-ems"><%= msg %></span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <div class="field">
