@@ -6,19 +6,19 @@ namespace :db do
 
 
     puts "1. create root tag"
-    root_tag = Tag.create! name: "root_tag"
-    coin = Tag.create! name: 'Coin categories', slug: 'Tags về coin'
-    news = Tag.create! name: 'News categories', slug: 'Tags về tin tức'
-    wiki = Tag.create! name: 'Wiki categories', slug: 'Tags về wiki'
-    site = Tag.create! name: 'Site categories', slug: 'Tags về website'
-    mark = Tag.create! name: 'Mark tags', slug: 'Tags khác'
+    root_tag = Tag.create! title: "root_tag"
+    coin = Tag.create! title: 'Coin categories', slug: 'Tags về coin'
+    news = Tag.create! title: 'News categories', slug: 'Tags về tin tức'
+    wiki = Tag.create! title: 'Wiki categories', slug: 'Tags về wiki'
+    site = Tag.create! title: 'Site categories', slug: 'Tags về website'
+    mark = Tag.create! title: 'Mark tags', slug: 'Tags khác'
 
     puts "2. create coin category tag"
-    currency = Tag.create! name: 'Currency', slug: 'tiền tệ'
-    platform = Tag.create! name: 'Platform', slug: 'nền tảng'
-    token = Tag.create! name: 'Token', slug: 'Ứng dụng'
-    exchange = Tag.create! name: 'Exchange', slug: 'Sàn'
-    shitcoin = Tag.create! name: 'Shitcoin/Scam', slug: 'Rác'
+    currency = Tag.create! title: 'Currency', slug: 'tiền tệ'
+    platform = Tag.create! title: 'Platform', slug: 'nền tảng'
+    token = Tag.create! title: 'Token', slug: 'Ứng dụng'
+    exchange = Tag.create! title: 'Exchange', slug: 'Sàn'
+    shitcoin = Tag.create! title: 'Shitcoin/Scam', slug: 'Rác'
     
     currency.move_to_child_of(coin)
     platform.move_to_child_of(coin)
@@ -28,10 +28,10 @@ namespace :db do
     coin.reload
     
     puts "3. create news category tag"
-    fomo = Tag.create! name: 'Fomo', slug: 'Good'
-    fud = Tag.create! name: 'Fud', slug: 'Bad'
-    event = Tag.create! name: 'Event', slug: 'Sự kiện'
-    predict = Tag.create! name: 'Predict', slug: 'Dự đoán'
+    fomo = Tag.create! title: 'Fomo', slug: 'Good'
+    fud = Tag.create! title: 'Fud', slug: 'Bad'
+    event = Tag.create! title: 'Event', slug: 'Sự kiện'
+    predict = Tag.create! title: 'Predict', slug: 'Dự đoán'
 
     fomo.move_to_child_of(news)
     fud.move_to_child_of(news)
@@ -41,16 +41,28 @@ namespace :db do
     news.reload
 
     puts "4. create wiki category tag"
-    concept = Tag.create! name: 'Concept', slug: 'Khái niệm'
-
-    concept.move_to_child_of(wiki)
+    concept = Tag.create! title: 'Concept', slug: 'Khái niệm'
+    til = Tag.create! title: 'TIL', slug: 'Today i leared'
+    ptkt = Tag.create! title: 'PTKT', slug: 'Phân tích kĩ thuật'
     
+    price_action = Tag.create! title: 'Price Action', slug: 'Đường giá'
+    fibbo = Tag.create! title: 'fibbo', slug: 'Fibbonance'
+    ema = Tag.create! title: 'EMA', slug: 'Đường trung bình'
+
+    price_action.move_to_child_of(ptkt)
+    fibbo.move_to_child_of(ptkt)
+    ema.move_to_child_of(ptkt)
+    ptkt.reload
+    
+    concept.move_to_child_of(wiki)
+    til.move_to_child_of(wiki)
+    ptkt.move_to_child_of(wiki)
     wiki.reload
 
     puts "5. create site category tag"
-    formal = Tag.create! name: 'Formal', slug: 'Chính thức'
-    blog = Tag.create! name: 'Blog', slug: 'Blog'
-    general = Tag.create! name: 'General', slug: 'Tổng hợp'
+    formal = Tag.create! title: 'Formal', slug: 'Chính thức'
+    blog = Tag.create! title: 'Blog', slug: 'Blog'
+    general = Tag.create! title: 'General', slug: 'Tổng hợp'
 
     formal.move_to_child_of(site)
     blog.move_to_child_of(site)
@@ -59,13 +71,13 @@ namespace :db do
     site.reload
     
     puts "6. create mark tag"
-    new =  Tag.create! name: 'New rising', slug: 'Mới'
-    hot = Tag.create! name: 'Hot', slug: 'Nóng'
-    bullish = Tag.create! name: 'Bullish', slug: 'Bò'
-    bearish = Tag.create! name: 'Bearish', slug: 'Gấu'
-    important = Tag.create! name: 'Important', slug: 'Quan trọng'
-    saved = Tag.create! name: 'Saved', slug: 'Đã lưu'
-    lol = Tag.create! name: 'Lol', slug: 'Hài đcđ'
+    new =  Tag.create! title: 'New rising', slug: 'Mới'
+    hot = Tag.create! title: 'Hot', slug: 'Nóng'
+    bullish = Tag.create! title: 'Bullish', slug: 'Bò'
+    bearish = Tag.create! title: 'Bearish', slug: 'Gấu'
+    important = Tag.create! title: 'Important', slug: 'Quan trọng'
+    saved = Tag.create! title: 'Saved', slug: 'Đã lưu'
+    lol = Tag.create! title: 'Lol', slug: 'Hài đcđ'
 
     new.move_to_child_of(mark)
     hot.move_to_child_of(mark)
@@ -138,6 +150,6 @@ namespace :db do
     TradeMethod.create! name: "Kim tự tháp", win_rate: 0
 
     puts "2. create coin"
-    Tag.find_by(name: "Currency").coins.create! slug: "BTC"
+    Tag.find_by(title: "Currency").coins.create! slug: "BTC"
   end
 end

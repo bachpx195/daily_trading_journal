@@ -12,7 +12,7 @@
       <tbody>
         <% tags.each_with_index do |f,index| %>
           <tr>
-            <td class="text-center"><%= link_to  f.name, [f] %></td>
+            <td class="text-center"><%= link_to  f.title, [f] %></td>
             <td class="text-center"><%= f.slug %></td>
             <td>
               <%= link_to 'Sửa', edit_tag_path(f) %>

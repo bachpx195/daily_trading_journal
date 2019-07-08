@@ -2,7 +2,7 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @tag.name %>
+  <%= @tag.title %>
 </p>
 
 <p>
@@ -12,8 +12,7 @@
 
 <p>
   <strong>Description:</strong>
-  <%= @tag.description %>
+  <%= @tag.content %>
 </p>
 
 <%= link_to 'Edit', edit_tag_path(@tag) %> |
-<%= link_to 'Back', tags_path %>

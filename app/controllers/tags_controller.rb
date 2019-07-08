@@ -1,10 +1,11 @@
 class TagsController < ApplicationController
+  include ::TheSortableTreeController::Rebuild
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
 
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    @tags = Tag.nested_set_scope.select('id, title, slug, parent_id').all
   end
 
   # GET /tags/1
@@ -69,6 +70,6 @@ class TagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
-      params.require(:tag).permit(:name, :slug, :description)
+      params.require(:tag).permit(:title, :slug, :content)
     end
 end
