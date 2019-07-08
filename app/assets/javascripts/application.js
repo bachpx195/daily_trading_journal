@@ -14,16 +14,21 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery3
+//= require jquery-ui
+//= require jquery_ujs
 //= require moment
 //= require bootstrap
+//= require simplemde.min
 //= require ckeditor/init
 //= require ckeditor/config
 //= require_tree .
 
+$(document).ready(function() {
+  var simplemde = new SimpleMDE({ element: document.getElementById("markdown"), tabSize: 1 });
+});
+
 $(document).on('turbolinks:load', function() {
-    eventCalendar();
-
-
+  TheSortableTree.SortableUI.init();
   $('.date-picker').change(function(){
   });
   if (jQuery().datepicker) {
@@ -34,17 +39,6 @@ $(document).on('turbolinks:load', function() {
     });
   }
 });
-
-$(document).on('turbolinks:before-cache', clearCalendar);
-
-function eventCalendar() {
-  return $('#calendar').fullCalendar({ });
-};
-
-function clearCalendar() {
-  $('#calendar').fullCalendar('delete');
-  $('#calendar').html('');
-};
 
 $(document).ready(function(){
   if ($('textarea').length > 0) {
@@ -75,4 +69,3 @@ $(document).ready(function($) {
     $(this).tab('show');
   })
 });
-

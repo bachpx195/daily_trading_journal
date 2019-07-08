@@ -16,28 +16,6 @@
     <div class="col-sm-11">
       <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
     </div>
-    <% unless show_errors(blog, :title).nil? %>
-      <div class="col-sm-11 col-sm-offset-1">
-        <% show_errors(blog, :title).each do |msg| %>
-          <span class="help-block text-danger-ems"><%= msg %></span>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "form-control" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content, class: "form-control", id: "markdown" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :brief %>
-    <%= form.text_field :brief, class: "form-control" %>
   </div>
 
   <div class="form-group">
@@ -45,38 +23,49 @@
       <%= t "admin.blog.create.form.intro_image" %>
     </span>
     <div class="col-sm-11">
-      <div class="file-field">
-        <%= f.file_field :intro_image, class: "hide" %>
-        <%= f.hidden_field :intro_image_cache %>
-      </div>
       <div class="image-preview">
-        <%= link_to "#",
-                    class: f.object.intro_image_url ? "" : "hide" do %>
-          <%= image_tag f.object.intro_image_url ? f.object.intro_image_url: "", class: "img-responsive" %>
+        <% if form.object.image? %>
+          <%= image_tag form.object.image.thumb.url %>
+          <%= form.label :remove_image %>
+          <%= form.check_box :remove_image %> 
         <% end %>
       </div>
     </div>
     <div class="col-sm-11 col-sm-offset-1">
-      <p>必測/2MB以内/PNG,JPEGのみ</p>
+      <%= form.file_field :image, class: "edit-img btn btn-default" %>
     </div>
-    <div class="col-sm-11 col-sm-offset-1">
-      <%= link_to t("admin.blog.create.form.open_file"), "javascript:void(0)", class: "edit-img btn btn-default" %>
-    </div>
-    <% unless show_errors(blog, :intro_image).nil? %>
-      <div class="col-sm-11 col-sm-offset-1">
-        <% show_errors(blog, :intro_image).each do |msg| %>
-          <span class="help-block text-danger-ems"><%= msg %></span>
-        <% end %>
-      </div>
-    <% end %>
   </div>
 
-  <div class="field">
-    <%= form.label :tag %>
-    <%= form.collection_select(:tag_id, Tag.all, :id, :name, {}, {class: "form-control"}) %>
+  <div class="form-group">
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Tag
+    </span>
+    <div class="col-sm-4">
+      <%= form.select :tag_id, options_for_select(Tag.find_by(name: 'Wiki categories').children.map{|s|[s.name, s.id]}),
+        {}, { :class => 'form-control select2_category' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover">Tóm tắt</span>
+    <div class="col-sm-11">
+      <%= form.text_area :brief, rows: 1, class: "form-control", id: "markdown", style: "height: 100px" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
+    <div class="col-sm-11">
+      <%= form.text_area :content, class: "ckeditor form-control", rows: 10 %>
+    </div>
   </div>
 
   <div class="form-actions">
-    <%= form.submit "Thực hiện", class: "btn btn-default" %>
+      <div class="row">
+        <div class="col-sm-1">
+          <button type="submit" class="btn btn-info">Lưu</button>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>

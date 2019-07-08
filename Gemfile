@@ -37,6 +37,7 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'bootstrap-sass'
 gem "font-awesome-rails"
 gem 'simple-line-icons-rails'
@@ -45,6 +46,7 @@ gem 'mini_magick'
 gem 'carrierwave'
 gem 'ckeditor', '~> 4.3'
 gem 'awesome_nested_set'
+gem "the_sortable_tree", "~> 2.5.0"
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
@@ -54,6 +56,10 @@ gem 'ransack'
 gem 'devise'
 
 gem 'momentjs-rails'
+
+gem "pygments.rb", "~> 0.6.3" 
+gem "redcarpet", "~> 3.3", ">= 3.3.4"
+gem "simplemde-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

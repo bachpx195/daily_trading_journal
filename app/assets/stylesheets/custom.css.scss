@@ -100,3 +100,9 @@ pre {
 .rating-stars ul > li.star.selected > i.fa {
   color:#FF912C;
 }
+
+
+.CodeMirror {
+  min-height: 0px !important;
+  height: 150px !important;
+}
