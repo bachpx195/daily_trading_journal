@@ -6,23 +6,25 @@ module ApplicationHelper
   end
 
   def markdown content
-    renderer = HTMLwithPygments.new(hard_wrap: true, filter_html: true, tables: true)
-    options = {
-      autolink: true,
-      no_intra_emphasis: true,
-      disable_indented_code_blocks: true,
-      fenced_code_blocks: true,
-      lax_html_blocks: true,
-      strikethrough: true,
-      superscript: true,
-      quote: true,
-      highlight: true,
-      tables: true,
-      emoji: true
-    }
-    Redcarpet::Markdown.new(renderer, options).render(content).html_safe
+    if content.present?
+      renderer = HTMLwithPygments.new(hard_wrap: true, filter_html: true, tables: true)
+      options = {
+        autolink: true,
+        no_intra_emphasis: true,
+        disable_indented_code_blocks: true,
+        fenced_code_blocks: true,
+        lax_html_blocks: true,
+        strikethrough: true,
+        superscript: true,
+        quote: true,
+        highlight: true,
+        tables: true,
+        emoji: true
+      }
+      Redcarpet::Markdown.new(renderer, options).render(content).html_safe
+    end
   end
-
+  
 	def total_money logs
 		sum = 0
 		logs.each do |log|
@@ -138,6 +140,15 @@ module ApplicationHelper
       else
         "Lãi + #{log.money}Usdt"
       end
+    end
+  end
+  
+  def random_color index
+    color_arr = ["red", "blue-hoki", "yellow", "purple", "green", "grey-cascade", "green-meadow"]
+    if index.present? && index.to_i < color_arr.length
+      color_arr[index.to_i]
+    else
+      color_arr.sample
     end
   end
 end

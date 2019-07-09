@@ -33,12 +33,11 @@ module RenderSortableTreeHelper
         url = h.url_for(:controller => options[:klass].pluralize, :action => :show, :id => node)
         title_field = options[:title]
 
-        "<h4>#{ h.link_to( [node.send(:title), node.send(:slug)].join("-") , url) }</h4>"
+        "<h4>#{ h.link_to( [node.send(:title), node.send(:slug)].join(" - ") , url) }</h4>"
       end
 
       def controls
         node = options[:node]
-
         edit_path = h.url_for(:controller => options[:klass].pluralize, :action => :edit, :id => node)
         destroy_path = h.url_for(:controller => options[:klass].pluralize, :action => :destroy, :id => node)
 
@@ -55,7 +54,6 @@ module RenderSortableTreeHelper
           "<ol class='nested_set'>#{ options[:children] }</ol>"
         end
       end
-
     end
   end
 end
