@@ -1,26 +1,4 @@
 <p id="notice"><%= notice %></p>
-<div class="row">
-  <%= link_to 'New Wiki', new_wiki_path %>
-
-  <div class="col-md-12">
-    <% @wikis.each do |wiki| %>
-      <div>
-        <h2>
-          <%= link_to wiki.title, wiki_path(wiki) %>
-        </h2>
-        <p>
-          <span class="glyphicon glyphicon-time"></span>&nbsp<%= new.created_at.strftime("%m/%d/%Y %I:%M") %>
-        </p>
-
-        <hr>
-        <p><strong><%= raw(wiki.brief) %></strong></p>
-      </div>
-    <% end %>
-      <!-- Pager -->
-    <%= will_paginate @wikis, previous_label: "trở lại", next_label: "tiếp theo", class: 'pull-right' %>
-
-  </div>
-</div>
 <div class="profile-content">
   <div class="row">
     <div class="col-md-12">
@@ -51,199 +29,48 @@
                         </div>
                       </div>
                       <div class="portlet-body">
-                        <%= markdown tag.content   %>
+                        <%= markdown tag.content %>
                         <div class="row">
-                          <div class="col-md-4">
-                            <div class="portlet box red">
-                              <div class="portlet-title">
-                                <div class="caption">
-                                  <i class="fa fa-gift"></i>Portlet2 </div>
-                                <div class="tools">
-                                  <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                                  <a href="" class="fullscreen" data-original-title="" title=""> </a>
-                                  <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
-                                </div>
-                                <div class="actions">
-                                  <a href="javascript:;" class="btn btn-default btn-sm">
-                                    <i class="fa fa-pencil"></i> Edit </a>
-                                </div>
-                              </div>
-                              <div class="portlet-body" style="display: block;">
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><div class="scroller" style="height: 200px; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="red" data-initialized="1">
-                                  <strong>Scroll is always visible</strong>
-                                  <br> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
-                                  eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit
-                                  amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. </div><div class="slimScrollBar" style="background: red; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 200px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: block; border-radius: 7px; background: blue; opacity: 0.2; z-index: 90; right: 1px;"></div></div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-md-4">
-                            <!-- BEGIN Portlet PORTLET-->
-                            <div class="portlet box green">
-                              <div class="portlet-title">
-                                <div class="caption">
-                                  <i class="fa fa-gift"></i>Portlet </div>
-                                <div class="tools">
-                                  <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                                  <a href="#portlet-config" data-toggle="modal" class="config" data-original-title="" title=""> </a>
-                                  <a href="javascript:;" class="reload" data-original-title="" title=""> </a>
-                                  <a href="" class="fullscreen" data-original-title="" title=""> </a>
-                                  <a href="javascript:;" class="remove" data-original-title="" title=""> </a>
-                                </div>
-                              </div>
-                              <div class="portlet-body">
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><div class="scroller" style="height: 200px; overflow: hidden; width: auto;" data-initialized="1">
-                                  <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula,
-                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-                                    consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. </p>
-                                  <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula,
-                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-                                    consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. </p>
-                                  <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula,
-                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-                                    consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. </p>
-                                </div><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 46.62px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
-                              </div>
-                            </div>
-                            <!-- END Portlet PORTLET-->
-                          </div>
-                          <div class="col-md-4">
-                            <!-- BEGIN Portlet PORTLET-->
-                            <div class="portlet box yellow">
-                              <div class="portlet-title">
-                                <div class="caption">
-                                  <i class="fa fa-gift"></i>Portlet </div>
-                                <div class="actions">
-                                  <a href="javascript:;" class="btn blue btn-sm">
-                                    <i class="fa fa-pencil"></i> Edit </a>
-                                  <div class="btn-group">
-                                    <a class="btn btn-sm green" href="javascript:;" data-toggle="dropdown">
-                                      <i class="fa fa-user"></i> User
-                                      <i class="fa fa-angle-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                      <li>
-                                        <a href="javascript:;">
-                                          <i class="fa fa-pencil"></i> Edit </a>
-                                      </li>
-                                      <li>
-                                        <a href="javascript:;">
-                                          <i class="fa fa-trash-o"></i> Delete </a>
-                                      </li>
-                                      <li>
-                                        <a href="javascript:;">
-                                          <i class="fa fa-ban"></i> Ban </a>
-                                      </li>
-                                      <li class="divider"> </li>
-                                      <li>
-                                        <a href="javascript:;"> Make admin </a>
-                                      </li>
-                                    </ul>
+                          <% tag.wikis.each_with_index do |wiki, index| %>
+                            <div class="col-md-4">
+                              <div class="portlet box <%= random_color %>">
+                                <div class="portlet-title">
+                                  <div class="caption">
+                                    <i class="fa fa-gift"></i><%= wiki.title %> 
+                                  </div>
+                                  <div class="tools">
+                                    <a href="javascript:;" class="expand" data-original-title="" title=""> </a>
+                                    <a href="" class="fullscreen" data-original-title="" title=""> </a>
+                                  </div>
+                                  <div class="actions">
+                                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                      <i class="fa fa-pencil"></i> Sửa </a>
                                   </div>
                                 </div>
-                              </div>
-                              <div class="portlet-body">
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><div class="scroller" style="height: 200px; overflow: hidden; width: auto;" data-initialized="1">
-                                  <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula,
-                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-                                    consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. </p>
-                                  <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula,
-                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-                                    consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. </p>
-                                  <p> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula,
-                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis
-                                    consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. </p>
-                                </div><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 46.62px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
-                              </div>
-                            </div>
-                            <!-- END Portlet PORTLET-->
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-6">
-                            <div class="portlet box red">
-                              <div class="portlet-title">
-                                <div class="caption">
-                                  <i class="fa fa-gift"></i>Portlet </div>
-                                <ul class="nav nav-tabs">
-                                  <li>
-                                    <a href="#portlet_tab_3" data-toggle="tab"> Tab 3 </a>
-                                  </li>
-                                  <li>
-                                    <a href="#portlet_tab_2" data-toggle="tab"> Tab 2 </a>
-                                  </li>
-                                  <li class="active">
-                                    <a href="#portlet_tab_1" data-toggle="tab"> Tab 1 </a>
-                                  </li>
-                                </ul>
-                              </div>
-                              <div class="portlet-body">
-                                <div class="tab-content">
-                                  <div class="tab-pane active" id="portlet_tab_1">
-                                    <p> Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
-                                      praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore
-                                      magna aliquam erat volutpat.ut laoreet dolore magna ut laoreet dolore magna. ut laoreet dolore magna. ut laoreet dolore magna. </p>
+                                <div class="portlet-body" style="display: none;">
+                                  <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><div class="scroller" style="height: 200px; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="red" data-initialized="1">
+                                    <div class="post-article markdown">
+                                      <%= markdown wiki.brief %>   
+                                    </div>
+                                    
+                                    <%= wiki.content %>
+                                    <strong>Scroll is always visible</strong>
+                                    <br> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit
+                                    amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
                                   </div>
-                                  <div class="tab-pane" id="portlet_tab_2">
-                                    <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-                                      dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-                                      invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo. </p>
+                                  <div class="slimScrollBar" style="background: red; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 200px;">
                                   </div>
-                                  <div class="tab-pane" id="portlet_tab_3">
-                                    <p> Ut wisi enim ad btn-smm veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit
-                                      esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
-                                      nulla facilisi. </p>
+                                  <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: block; border-radius: 7px; background: blue; opacity: 0.2; z-index: 90; right: 1px;">
                                   </div>
+                                </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div class="col-md-6">
-                            <!-- BEGIN Portlet PORTLET-->
-                            <div class="portlet solid grey-cascade">
-                              <div class="portlet-title">
-                                <div class="caption">
-                                  <i class="fa fa-gift"></i>Portlet </div>
-                                <div class="actions">
-                                  <a href="javascript:;" class="btn default btn-sm">
-                                    <i class="fa fa-pencil icon-black"></i> Edit </a>
-                                  <div class="btn-group">
-                                    <a class="btn btn-sm red" href="javascript:;" data-toggle="dropdown">
-                                      <i class="fa fa-user"></i> User
-                                      <i class="fa fa-angle-down "></i>
-                                    </a>
-                                    <ul class="dropdown-menu pull-right">
-                                      <li>
-                                        <a href="javascript:;">
-                                          <i class="fa fa-pencil"></i> Edit </a>
-                                      </li>
-                                      <li>
-                                        <a href="javascript:;">
-                                          <i class="fa fa-trash-o"></i> Delete </a>
-                                      </li>
-                                      <li>
-                                        <a href="javascript:;">
-                                          <i class="fa fa-ban"></i> Ban </a>
-                                      </li>
-                                      <li class="divider"> </li>
-                                      <li>
-                                        <a href="javascript:;"> Make admin </a>
-                                      </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="portlet-body"> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. est non commodo luctus, nisi erat porttitor ligula, eget
-                                lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.nisi erat porttitor
-                                ligula, eget lacinia odio sem nec elit. nisi erat porttitor ligula, eget lacinia odio sem nec elit. nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet
-                                fermentum </div>
-                            </div>
-                            <!-- END GRID PORTLET-->
-                          </div>
+                          <% end %>
                         </div>
                       </div>
                     </div>
-                    <!-- END Portlet PORTLET-->
                   </div>
                 </div>
               <% end %>

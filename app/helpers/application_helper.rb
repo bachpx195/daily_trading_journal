@@ -143,7 +143,7 @@ module ApplicationHelper
     end
   end
   
-  def random_color index
+  def random_color index=nil
     color_arr = ["red", "blue-hoki", "yellow", "purple", "green", "grey-cascade", "green-meadow"]
     if index.present? && index.to_i < color_arr.length
       color_arr[index.to_i]

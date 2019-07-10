@@ -41,7 +41,7 @@
       Tag
     </span>
     <div class="col-sm-4">
-      <%= form.select :tag_id, options_for_select(Tag.find_by(name: 'Wiki categories').children.map{|s|[s.name, s.id]}),
+      <%= form.select :tag_id, options_for_select(Tag.find_by(title: 'Wiki categories').descendants.map{|s|[s.title, s.id]}),
         {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>
