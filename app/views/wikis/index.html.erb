@@ -43,27 +43,20 @@
                                     <a href="" class="fullscreen" data-original-title="" title=""> </a>
                                   </div>
                                   <div class="actions">
-                                    <a href="javascript:;" class="btn btn-default btn-sm">
+                                    <a href="<%= edit_wiki_path wiki %>" class="btn btn-default btn-sm">
                                       <i class="fa fa-pencil"></i> Sửa </a>
                                   </div>
                                 </div>
                                 <div class="portlet-body" style="display: none;">
-                                  <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;"><div class="scroller" style="height: 200px; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="red" data-initialized="1">
-                                    <div class="post-article markdown">
-                                      <%= markdown wiki.brief %>   
+                                  <div class="slimScrollDiv" style="position: relative; overflow: auto; width: auto; height: 200px;">
+                                    <div class="scroller" style="height: 200px; overflow: auto; width: auto;" data-always-visible="1" data-rail-visible="1" data-rail-color="blue" data-handle-color="red" data-initialized="1">
+                                      <div class="post-article markdown">
+                                        <%= markdown wiki.brief.html_safe %>
+                                      </div>
+
+                                      <%= wiki.content.html_safe %>
                                     </div>
-                                    
-                                    <%= wiki.content %>
-                                    <strong>Scroll is always visible</strong>
-                                    <br> Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
-                                    eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit
-                                    amet fermentum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.
                                   </div>
-                                  <div class="slimScrollBar" style="background: red; width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 200px;">
-                                  </div>
-                                  <div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: block; border-radius: 7px; background: blue; opacity: 0.2; z-index: 90; right: 1px;">
-                                  </div>
-                                </div>
                                 </div>
                               </div>
                             </div>

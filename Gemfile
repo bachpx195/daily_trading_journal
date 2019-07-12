@@ -57,8 +57,8 @@ gem 'devise'
 
 gem 'momentjs-rails'
 
-gem "pygments.rb", "~> 0.6.3" 
-gem "redcarpet", "~> 3.3", ">= 3.3.4"
+gem "pygments.rb"
+gem "redcarpet"
 gem "simplemde-rails"
 
 group :development, :test do
