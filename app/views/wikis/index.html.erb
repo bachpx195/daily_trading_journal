@@ -48,13 +48,16 @@
                                   </div>
                                 </div>
                                 <div class="portlet-body" style="display: none;">
+                                  <div class="span4">
+                                    <% if wiki.image.present? %>
+                                      <%= image_tag wiki.image.url, class: "img-left" %>
+                                    <% end %>
+                                    <div class="post-article markdown">
+                                      <%= markdown wiki.brief.html_safe %>
+                                    </div>
 
-                                      <div class="post-article markdown">
-                                        <%= markdown wiki.brief.html_safe %>
-                                      </div>
-
-                                      <%= wiki.content.html_safe %>
-
+                                    <%#= wiki.content.html_safe %>
+                                  </div>
                                 </div>
                               </div>
                             </div>

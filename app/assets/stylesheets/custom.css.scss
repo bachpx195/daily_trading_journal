@@ -106,3 +106,14 @@ pre {
   min-height: 0px !important;
   height: 150px !important;
 }
+
+.span4 img {
+  margin-right: 10px;
+  width: 50%;
+}
+.span4 .img-left {
+  float: left;
+}
+.span4 .img-right {
+  float: right;
+}

@@ -69,6 +69,6 @@ class WikisController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wiki_params
-      params.require(:wiki).permit(:title, :content, :brief, :tag_id)
+      params.require(:wiki).permit(:title, :content, :brief, :tag_id, :image)
     end
 end

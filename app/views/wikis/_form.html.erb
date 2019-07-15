@@ -25,7 +25,7 @@
     <div class="col-sm-11">
       <div class="image-preview">
         <% if form.object.image? %>
-          <%= image_tag form.object.image.thumb.url %>
+          <%= image_tag form.object.image.blog.url %>
           <%= form.label :remove_image %>
           <%= form.check_box :remove_image %> 
         <% end %>
@@ -56,7 +56,7 @@
   <div class="form-group">
     <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
     <div class="col-sm-11">
-      <%= form.text_area :content, class: "ckeditor form-control", rows: 10 %>
+      <%= form.cktext_area :content, rows: 10, id: "editor1" %>
     </div>
   </div>
 
