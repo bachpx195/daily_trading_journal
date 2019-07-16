@@ -181,6 +181,7 @@ var App = function() {
         portlet.removeClass('portlet-fullscreen');
         $('body').removeClass('page-portlet-fullscreen');
         portlet.children('.portlet-body').css('height', 'auto');
+        portlet.find('.wiki-content').hide();
       } else {
         var height = App.getViewPort().height -
           portlet.children('.portlet-title').outerHeight() -
@@ -190,7 +191,9 @@ var App = function() {
         $(this).addClass('on');
         portlet.addClass('portlet-fullscreen');
         $('body').addClass('page-portlet-fullscreen');
+        portlet.children('.portlet-body').show();
         portlet.children('.portlet-body').css('height', height);
+        portlet.find('.wiki-content').show();
       }
     });
 

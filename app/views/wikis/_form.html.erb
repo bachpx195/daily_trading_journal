@@ -25,7 +25,7 @@
     <div class="col-sm-11">
       <div class="image-preview">
         <% if form.object.image? %>
-          <%= image_tag form.object.image.blog.url %>
+          <%= image_tag form.object.image.thumb.url %>
           <%= form.label :remove_image %>
           <%= form.check_box :remove_image %> 
         <% end %>
