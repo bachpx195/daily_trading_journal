@@ -24,10 +24,17 @@ Rails.application.routes.draw do
   resources :coins
   resources :tags do
     collection do
+      get :manage
       post :rebuild
     end
   end
   resources :calculates
 
   get "/pages/*page", to: "pages#show"
+
+  namespace :api do
+    namespace :v1 do
+      resources :tags
+    end
+  end
 end

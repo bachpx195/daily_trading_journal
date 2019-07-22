@@ -10,15 +10,9 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require tree
- *= require sortable_tree
- *= require nested_options
- *= the_sortable_tree/sortable_ui/base
-   ol.the-sortable-tree.the-sortable-tree--list(data={ max_levels: 5, rebuild_url: rebuild_hubs_url })
-    = sortable_tree @hubs
  *= require_tree .
  *= require_self
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import "jstree.min";

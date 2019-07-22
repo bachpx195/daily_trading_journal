@@ -45,8 +45,7 @@ gem "therubyracer"
 gem 'mini_magick'
 gem 'carrierwave'
 gem 'ckeditor', '~> 4.3'
-gem 'awesome_nested_set'
-gem "the_sortable_tree", "~> 2.5.0"
+gem 'awesome_nested_set' # gem 'nested_set'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
@@ -60,6 +59,8 @@ gem 'momentjs-rails'
 gem "pygments.rb"
 gem "redcarpet"
 gem "simplemde-rails"
+
+gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
