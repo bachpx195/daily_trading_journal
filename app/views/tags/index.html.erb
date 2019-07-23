@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" data-turbolinks="false">
   <div class="col-lg-12">
     <div class="panel panel-info">
       <div class="panel-body" id="table" >
@@ -11,3 +11,84 @@
   </div>
 </div>
 <div id="modal-window" class="modal fade" role="dialog"></div>
+
+<script>
+  $(document).ready(function($) {
+    $('#jstree-tags').jstree({
+      'core': {
+        'check_callback': true,
+        'data': {
+          'url': function (node) {
+            return 'api/v1/tags/index.json'
+          }
+        }
+      },
+      'plugins': ['dnd']
+    });
+
+    $('#jstree-tags').on('move_node.jstree', function (e, obj) {
+      // console.log(n.old_parent + ":" + n.old_position + " -> " + n.parent + ":" + n.position);
+      var id = obj.node.id,
+        parent_id = obj.node.parent,
+        new_position = obj.position;
+
+      var data = {'tag': {'parent_id': parent_id, 'new_position': new_position}},
+        url = '/tags/' + id;
+
+      // PATCH
+      $.ajax({
+        'type': 'PATCH',
+        'data': data,
+        'url': url
+      })
+    });
+
+    $('#create-tags').on('click', function () {
+      var jstree = $('#jstree-tags').jstree(true);
+      var selected = jstree.get_selected();
+      if (!selected.length) return false;
+
+      selected = selected[0];
+
+      // POST /categories.json
+      $.ajax({
+        'type': 'POST',
+        'data': {'category': {'name': 'New node', 'parent_id': selected}},
+        'url': '/categories.json',
+        'success': function (res) {
+          selected = jstree.create_node(selected, res);
+          if (selected) jstree.edit(selected);
+        }
+      })
+    });
+
+    $('#edit-tags').on('click', function () {
+      var jstree = $('#jstree-tags').jstree(true);
+      var selected = jstree.get_selected();
+      if (!selected.length) return false;
+
+      selected = selected[0];
+      jstree.edit(selected);
+      return false; // prevent reload page
+    });
+
+    $('#delete-tags').on('click', function () {
+      var jstree = $('#jstree-categories').jstree(true);
+      var selected = jstree.get_selected();
+      if (!selected.length) return false;
+
+      selected = selected[0];
+      var id = selected,
+        url = '/categories/' + id + '.json';
+
+      // Delete
+      $.ajax({
+        'type': 'DELETE',
+        'url': url,
+        'success': function () {
+          jstree.delete_node(selected);
+        }
+      })
+    });
+  })
+</script>

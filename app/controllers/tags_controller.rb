@@ -6,7 +6,6 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.nested_set_scope.select('id, title, slug, parent_id').all
   end
   
   # GET /tags/1
@@ -44,7 +43,7 @@ class TagsController < ApplicationController
   def update
     if @tag.update tag_params
       flash[:notice] = "Updated"
-      redirect_to tags_path
+      render :index
     else
       load_support
       flash[:alert] = "Failed"

@@ -22,6 +22,7 @@ class Tag < ApplicationRecord
       move_to_right_of prev_node
     else
       move_to_child_with_index parent, new_position.to_i
+      parent.reload
     end
   end
 end

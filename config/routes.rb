@@ -22,12 +22,7 @@ Rails.application.routes.draw do
   resources :coin_links
   resources :coin_sources
   resources :coins
-  resources :tags do
-    collection do
-      get :manage
-      post :rebuild
-    end
-  end
+  resources :tags
   resources :calculates
 
   get "/pages/*page", to: "pages#show"

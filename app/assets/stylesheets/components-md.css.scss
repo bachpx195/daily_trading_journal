@@ -17561,7 +17561,7 @@ li {
   background-repeat: no-repeat !important;
   text-indent: -10000px;
   outline: none;
-  background-image: url("../images/remove-icon-small.png") !important;
+  background-image: image_url("remove-icon-small.png") !important;
 }
 .dropup.open {
   >.dropdown-toggle {
