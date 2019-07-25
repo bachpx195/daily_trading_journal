@@ -4,9 +4,9 @@
       <div class="panel-body" id="table" >
         <div id="jstree-tags"></div>
       </div>
-      <%= link_to "Tạo mới", "#", class: "btn btn-success", id: "create_tags" %>
-      <%= link_to "Sửa", "#", class: "btn btn-warning", id: "edit_tags" %>
-      <%= link_to "Xóa", "#", class: "btn btn-danger", id: "delete_tags" %>
+      <%= link_to "Tạo mới", "javascript:;", class: "btn btn-success", id: "create-tags" %>
+      <%= link_to "Sửa", "#", class: "btn btn-warning", id: "edit-tags" %>
+      <%= link_to "Xóa", "#", class: "btn btn-danger", id: "delete-tags" %>
     </div>
   </div>
 </div>
@@ -43,9 +43,11 @@
       })
     });
 
-    $('#create-tags').on('click', function () {
+    $('#create-tags').on('click', function (e ) {
+      e.preventdefault;
       var jstree = $('#jstree-tags').jstree(true);
       var selected = jstree.get_selected();
+
       if (!selected.length) return false;
 
       selected = selected[0];
@@ -53,8 +55,8 @@
       // POST /categories.json
       $.ajax({
         'type': 'POST',
-        'data': {'category': {'name': 'New node', 'parent_id': selected}},
-        'url': '/categories.json',
+        'data': {'tag': {'name': 'New node', 'parent_id': selected}},
+        'url': '/tags',
         'success': function (res) {
           selected = jstree.create_node(selected, res);
           if (selected) jstree.edit(selected);
@@ -62,24 +64,29 @@
       })
     });
 
-    $('#edit-tags').on('click', function () {
+    $('#edit-tags').on('click', function (e) {
+      e.preventdefault;
+
       var jstree = $('#jstree-tags').jstree(true);
       var selected = jstree.get_selected();
       if (!selected.length) return false;
 
       selected = selected[0];
-      jstree.edit(selected);
+
+      var id = selected, url = '/tags/' + id;
       return false; // prevent reload page
     });
 
-    $('#delete-tags').on('click', function () {
-      var jstree = $('#jstree-categories').jstree(true);
+    $('#delete-tags').on('click', function (e) {
+      e.preventdefault;
+
+      var jstree = $('#jstree-tags').jstree(true);
       var selected = jstree.get_selected();
       if (!selected.length) return false;
 
       selected = selected[0];
-      var id = selected,
-        url = '/categories/' + id + '.json';
+
+      var id = selected, url = '/tags/' + id;
 
       // Delete
       $.ajax({

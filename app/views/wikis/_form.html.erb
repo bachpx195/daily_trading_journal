@@ -41,7 +41,7 @@
       Tag
     </span>
     <div class="col-sm-4">
-      <%= form.select :tag_id, options_for_select(Tag.find_by(title: 'Wiki categories').descendants.map{|s|[s.title, s.id]}),
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, wiki.id.present? ? wiki.tag.parent_id : params[:parent]) ,
         {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>

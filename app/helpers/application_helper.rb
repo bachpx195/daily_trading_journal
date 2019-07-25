@@ -144,7 +144,9 @@ module ApplicationHelper
   end
   
   def random_color index=nil
-    color_arr = ["red", "blue-hoki", "yellow", "purple", "green", "grey-cascade", "green-meadow"]
+    color_arr = %w[ purple blue blue-madison blue-chambray blue-ebonyclay blue-hoki blue-steel blue-soft blue-dark blue-sharp green green-meadow green-seagreen green-turquoise green-haze green-jungle
+                    green-soft green-dark green-sharp red-pink red-sunglo red red-intense red-thunderbird red-flamingo red-soft red-haze red-mint yellow yellow-gold yellow-casablanca yellow-crusta yellow-lemon yellow-saffron
+                    yellow-soft yellow-haze yellow-mint dark purple-plum purple-medium purple-studio purple-wisteria purple-seance purple-intense purple-sharp purple-soft default]
     if index.present? && index.to_i < color_arr.length
       color_arr[index.to_i]
     else
@@ -152,3 +154,8 @@ module ApplicationHelper
     end
   end
 end
+
+
+
+
+

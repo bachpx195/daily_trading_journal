@@ -1,8 +1,8 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
-
-
+  
+  
   # GET /tags
   # GET /tags.json
   def index
@@ -15,7 +15,7 @@ class TagsController < ApplicationController
 
   # GET /tags/new
   def new
-    load_support
+    @tag = Tag.new
   end
 
   # GET /tags/1/edit
@@ -26,15 +26,19 @@ class TagsController < ApplicationController
   # POST /tags.json
   def create
     @tag = Tag.new(tag_params)
-
-    respond_to do |format|
-      if @tag.save
-        format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
-        format.json { render :show, status: :created, location: @tag }
-      else
-        format.html { render :new }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
+    
+    if @tag.save
+      if params[:parent].present?
+        parent = Tag.find_by id: params[:parent]
+        if parent.present?
+          @tag.move_to_child_of(parent)
+          parent.reload
+          Tag.find(1).reload
+        end
       end
+      
+      flash[:notice] = "Updated"
+      render :index
     end
   end
 
@@ -55,10 +59,8 @@ class TagsController < ApplicationController
   # DELETE /tags/1.json
   def destroy
     @tag.destroy
-    respond_to do |format|
-      format.html { redirect_to tags_url, notice: 'Tag was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Updated"
+    render :index
   end
 
   private

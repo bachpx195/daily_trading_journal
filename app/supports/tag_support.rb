@@ -1,4 +1,4 @@
-class CategorySupport
+class TagSupport
   include CollectiveIdea::Acts::NestedSet::Helper
   
   def initialize tag

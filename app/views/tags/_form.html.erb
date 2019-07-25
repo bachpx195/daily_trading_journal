@@ -4,7 +4,6 @@
       <% if tag.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(tag.errors.count, "error") %> prohibited this tag from being saved:</h2>
-
           <ul>
           <% tag.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -12,7 +11,17 @@
           </ul>
         </div>
       <% end %>
+      <div class="form-group">
+        <span for="title" class="col-sm-1 btn btn-primary nohover">
+          Tag
+        </span>
 
+        <%# binding.pry %>
+
+        <div class="col-sm-4">
+          <%= select_tag 'parent', options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, @tag.present? ? @tag.parent_id : params[:parent]) , { :class => 'form-control select2_category' }%>
+        </div>
+      </div>
 
       <div class="form-group">
         <span class="col-sm-1 btn btn-primary nohover" id="title">Tên</span>
