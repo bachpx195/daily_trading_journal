@@ -40,7 +40,7 @@
                         <%= tag.content&.html_safe %>
                         <% if tag.children.present? %>
                           <div class="col-md-12" style="padding-left: 0px">
-                            <% tag.children.each do |child_tag, idx| %>
+                            <% tag.children.each_with_index do |child_tag, idx| %>
                               <div class="portlet box <%= random_color idx %>">
                                 <div class="portlet-title">
                                   <div class="caption">
@@ -61,7 +61,7 @@
                                   <div class="row">
                                     <% child_tag.wikis.each do |wiki| %>
                                       <div class="col-md-4">
-                                        <div class="portlet box yellow">
+                                        <div class="portlet box <%= random_color idx %>">
                                           <div class="portlet-title">
                                             <div class="caption">
                                               <i class="fa fa-gift"></i><%= wiki.title %>
