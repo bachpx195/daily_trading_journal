@@ -15,11 +15,8 @@
         <span for="title" class="col-sm-1 btn btn-primary nohover">
           Tag
         </span>
-
-        <%# binding.pry %>
-
         <div class="col-sm-4">
-          <%= select_tag 'parent', options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, @tag.present? ? @tag.parent_id : params[:parent]) , { :class => 'form-control select2_category' }%>
+          <%= select_tag 'parent', options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, @tag.id.present? ? @tag.parent_id : params[:parent]) , { :class => 'form-control select2_category' }%>
         </div>
       </div>
 

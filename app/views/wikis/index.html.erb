@@ -41,7 +41,7 @@
                         <% if tag.children.present? %>
                           <div class="col-md-12" style="padding-left: 0px">
                             <% tag.children.each_with_index do |child_tag, idx| %>
-                              <div class="portlet box <%= random_color idx %>">
+                              <div class="portlet box <%= random_color(idx + 1) %>">
                                 <div class="portlet-title">
                                   <div class="caption">
                                     <i class="fa fa-gift"></i><%= child_tag.slug %></div>
@@ -50,7 +50,9 @@
                                     <a href="" class="fullscreen" data-original-title="" title=""> </a>
                                   </div>
                                   <div class="actions">
-                                    <a href="<%= new_wiki_path(parent: child_tag.id) %>" class="btn btn-default btn-sm">
+<!--                                    <a href="<%#= new_wiki_path(parent: child_tag.id) %>" class="btn btn-default btn-sm">-->
+<!--                                      <i class="fa fa-plus"></i> Wiki </a>-->
+                                    <a href="javacript:;"  class="btn btn-default btn-sm fast-wiki">
                                       <i class="fa fa-plus"></i> Wiki </a>
                                     <a href="<%= edit_tag_path child_tag %>" class="btn btn-default btn-sm">
                                       <i class="fa fa-pencil"></i> Sửa </a>
@@ -61,7 +63,7 @@
                                   <div class="row">
                                     <% child_tag.wikis.each do |wiki| %>
                                       <div class="col-md-4">
-                                        <div class="portlet box <%= random_color idx %>">
+                                        <div class="portlet box <%= random_color(idx + 1) %>">
                                           <div class="portlet-title">
                                             <div class="caption">
                                               <i class="fa fa-gift"></i><%= wiki.title %>
@@ -101,7 +103,7 @@
                         <div class="row">
                           <% tag.wikis.each_with_index do |wiki, index| %>
                             <div class="col-md-4">
-                              <div class="portlet box blue">
+                              <div class="portlet box blue-steel">
                                 <div class="portlet-title">
                                   <div class="caption">
                                     <i class="fa fa-gift"></i><%= wiki.title %>
@@ -146,3 +148,14 @@
   </div>
 </div>
 <hr>
+<script>
+  $(document).ready(function(){
+    $('.fast-wiki').on('click', function (e) {
+      e.preventDefault()
+      $("#main-modal").html("<%= j(render partial: 'form', layout: 'shared/modal', locals: { type: "new", wiki: Wiki.new , params: {parent: 3} }) %>")
+      $("#main-modal").modal("show")
+    })
+  });
+</script>
+
+

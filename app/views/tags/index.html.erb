@@ -47,21 +47,14 @@
       e.preventdefault;
       var jstree = $('#jstree-tags').jstree(true);
       var selected = jstree.get_selected();
-
       if (!selected.length) return false;
 
       selected = selected[0];
 
-      // POST /categories.json
-      $.ajax({
-        'type': 'POST',
-        'data': {'tag': {'name': 'New node', 'parent_id': selected}},
-        'url': '/tags',
-        'success': function (res) {
-          selected = jstree.create_node(selected, res);
-          if (selected) jstree.edit(selected);
-        }
-      })
+      var id = selected,
+      url = '/tags/new?parent=' + id;
+      window.location.href=url;
+      return false; // prevent reload page
     });
 
     $('#edit-tags').on('click', function (e) {
@@ -73,7 +66,8 @@
 
       selected = selected[0];
 
-      var id = selected, url = '/tags/' + id;
+      var id = selected, url = '/tags/' + id + '/edit';
+      window.location.href=url;
       return false; // prevent reload page
     });
 
