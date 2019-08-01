@@ -5,142 +5,10 @@
       <div class="portlet light bordered">
         <div class="portlet-title tabbable-line">
           <div class="caption caption-md">
-            <ul class="nav nav-tabs">
-              <% Tag.find_by(title: 'Wiki categories').children.each_with_index do |tag, index| %>
-                <li class="<%= index == 0 ? 'active' : ''%>">
-                  <a href="<%= "#tab-#{ tag.id }" %>" data-toggle="tab" aria-expanded="false"><%= tag.slug %></a>
-                </li>
-              <% end %>
-            </ul>
+            <%= render 'wiki_index_tabs', tags: Tag.find_by(title: 'Wiki categories').children %>
           </div>
           <div class="portlet-body">
-            <div class="tab-content">
-              <% Tag.find_by(title: 'Wiki categories').children.each_with_index do |tag, index| %>
-                <div class="tab-pane <%= index == 0 ? 'active' : ''%>" id="<%= "tab-#{ tag.id }" %>">
-                  <div class="col-md-12" style="padding: 0px;">
-                    <!-- BEGIN Portlet PORTLET-->
-                    <div class="portlet box <%= random_color index %>">
-                      <div class="portlet-title">
-                        <div class="caption">
-                          <i class="fa fa-gift"></i>Notes...</div>
-                        <div class="tools">
-                          <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                          <a href="" class="fullscreen" data-original-title="" title=""> </a>
-                        </div>
-                        <div class="actions">
-                          <a href="<%= new_tag_path(parent: tag.id) %>" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Tag </a>
-                          <a href="<%= new_wiki_path(parent: tag.id) %>" class="btn btn-default btn-sm">
-                            <i class="fa fa-plus"></i> Wiki </a>
-                          <a href="<%= edit_tag_path tag %>" class="btn btn-default btn-sm">
-                            <i class="fa fa-pencil"></i> Sửa </a>
-                        </div>
-                      </div>
-                      <div class="portlet-body" style="overflow: auto;">
-                        <%= tag.content&.html_safe %>
-                        <% if tag.children.present? %>
-                          <div class="col-md-12" style="padding-left: 0px">
-                            <% tag.children.each_with_index do |child_tag, idx| %>
-                              <div class="portlet box <%= random_color(idx + 1) %>">
-                                <div class="portlet-title">
-                                  <div class="caption">
-                                    <i class="fa fa-gift"></i><%= child_tag.slug %></div>
-                                  <div class="tools">
-                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
-                                    <a href="" class="fullscreen" data-original-title="" title=""> </a>
-                                  </div>
-                                  <div class="actions">
-<!--                                    <a href="<%#= new_wiki_path(parent: child_tag.id) %>" class="btn btn-default btn-sm">-->
-<!--                                      <i class="fa fa-plus"></i> Wiki </a>-->
-                                    <a href="javacript:;"  class="btn btn-default btn-sm fast-wiki">
-                                      <i class="fa fa-plus"></i> Wiki </a>
-                                    <a href="<%= edit_tag_path child_tag %>" class="btn btn-default btn-sm">
-                                      <i class="fa fa-pencil"></i> Sửa </a>
-                                  </div>
-                                </div>
-                                <div class="portlet-body">
-                                  <%= child_tag.content&.html_safe %>
-                                  <div class="row">
-                                    <% child_tag.wikis.each do |wiki| %>
-                                      <div class="col-md-4">
-                                        <div class="portlet box <%= random_color(idx + 1) %>">
-                                          <div class="portlet-title">
-                                            <div class="caption">
-                                              <i class="fa fa-gift"></i><%= wiki.title %>
-                                            </div>
-                                            <div class="tools">
-                                              <a href="javascript:;" class="expand" data-original-title="" title=""> </a>
-                                              <a href="" class="fullscreen" data-original-title="" title=""> </a>
-
-                                            </div>
-                                            <div class="actions">
-                                              <a href="<%= edit_wiki_path wiki %>" class="btn btn-default btn-sm">
-                                                <i class="fa fa-pencil"></i> Sửa </a>
-                                            </div>
-                                          </div>
-                                          <div class="portlet-body" style="display: none; ">
-                                            <div class="span4" style="overflow: auto;">
-                                              <% if wiki.image.present? %>
-                                                <%= image_tag wiki.image.url, class: "img-right" %>
-                                              <% end %>
-                                              <div class="post-article markdown">
-                                                <%= markdown wiki.brief.html_safe %>
-                                              </div>
-                                              <div class="wiki-content" style="display: none;">
-                                                <%= wiki.content.html_safe %>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    <% end %>
-                                  </div>
-                                </div>
-                              </div>
-                            <% end %>
-                          </div>
-                        <% end %>
-                        <div class="row">
-                          <% tag.wikis.each_with_index do |wiki, index| %>
-                            <div class="col-md-4">
-                              <div class="portlet box blue-steel">
-                                <div class="portlet-title">
-                                  <div class="caption">
-                                    <i class="fa fa-gift"></i><%= wiki.title %>
-                                  </div>
-                                  <div class="tools">
-                                    <a href="javascript:;" class="expand" data-original-title="" title=""> </a>
-                                    <a href="" class="fullscreen" data-original-title="" title=""> </a>
-
-                                  </div>
-                                  <div class="actions">
-                                    <a href="<%= edit_wiki_path wiki %>" class="btn btn-default btn-sm">
-                                      <i class="fa fa-pencil"></i> Sửa </a>
-                                  </div>
-                                </div>
-                                <div class="portlet-body" style="display: none; ">
-                                  <div class="span4" style="overflow: auto;">
-                                    <% if wiki.image.present? %>
-                                      <%= image_tag wiki.image.url, class: "img-right" %>
-                                    <% end %>
-                                    <div class="post-article markdown">
-                                      <%= markdown wiki.brief.html_safe %>
-                                    </div>
-                                    <div class="wiki-content" style="display: none;">
-                                      <%= wiki.content.html_safe %>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          <% end %>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            </div>
+            <%= render 'wiki_index_content', tags: Tag.find_by(title: 'Wiki categories').children %>
           </div>
         </div>
       </div>
@@ -148,14 +16,4 @@
   </div>
 </div>
 <hr>
-<script>
-  $(document).ready(function(){
-    $('.fast-wiki').on('click', function (e) {
-      e.preventDefault()
-      $("#main-modal").html("<%= j(render partial: 'form', layout: 'shared/modal', locals: { type: "new", wiki: Wiki.new , params: {parent: 3} }) %>")
-      $("#main-modal").modal("show")
-    })
-  });
-</script>
-
 

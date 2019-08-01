@@ -1,0 +1,34 @@
+<div class="row" style="margin-right: 0px;">
+  <% wikis.each do |wiki| %>
+    <div class="col-md-4">
+      <div class="portlet box <%= color %>">
+        <div class="portlet-title">
+          <div class="caption">
+            <i class="fa fa-gift"></i><%= wiki.title %>
+          </div>
+          <div class="tools">
+            <a href="javascript:;" class="expand" data-original-title="" title=""> </a>
+            <a href="" class="fullscreen" data-original-title="" title=""> </a>
+          </div>
+          <div class="actions">
+            <a href="<%= edit_wiki_path wiki %>" class="btn btn-default btn-sm">
+              <i class="fa fa-pencil"></i>  </a>
+          </div>
+        </div>
+        <div class="portlet-body" style="display: none; ">
+          <div class="span4" style="overflow: auto;">
+            <% if wiki.image.present? %>
+              <%= image_tag wiki.image.url, class: "img-right" %>
+            <% end %>
+            <div class="post-article markdown">
+              <%= markdown wiki.brief.html_safe %>
+            </div>
+            <div class="wiki-content" style="display: none;">
+              <%= wiki.content.html_safe %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

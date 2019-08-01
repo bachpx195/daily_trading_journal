@@ -1,0 +1,47 @@
+<%= form_with(model: wiki, local: true, html: {class: "form-horizontal"}) do |form| %>
+  <div class="form-group">
+    <lable>Tiêu đề</lable>
+    <div class="col-sm-12">
+      <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <lable>Hình ảnh</lable>
+    <div class="col-sm-12">
+      <div class="image-preview">
+        <% if form.object.image? %>
+          <%= image_tag form.object.image.thumb.url %>
+          <%= form.label :remove_image %>
+          <%= form.check_box :remove_image %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <%= form.file_field :image, class: "edit-img btn btn-default" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <lable>Tóm tắt</lable>
+    <div class="col-sm-12">
+      <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-info">Lưu</button>
+      </div>
+    </div>
+  </div>
+  </div>
+<% end %>
+<script>
+  $('#main-modal').on('shown.bs.modal', function () {
+    if ($('.CodeMirror').length == 0) {
+      var simplemde = new SimpleMDE({element: document.getElementById("markdown"), tabSize: 1});
+    }
+  })
+</script>

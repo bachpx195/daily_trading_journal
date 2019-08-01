@@ -11,4 +11,7 @@
       <%= f.text_field :password, required: true, class: 'form-control form-control-solid placeholder-no-fix form-group', placeholder: 'Nhập mật khẩu' %>
     </div>
   </div>
+  <div style="display: none;">
+    <%= f.text_field :remember_me, :as => :hidden, :value => true if devise_mapping.rememberable? %>
+  </div>
 <% end %>
