@@ -7,6 +7,7 @@ class Tag < ApplicationRecord
   has_many :news, through: :news_tags
   has_many :coins
   has_many :wikis
+  has_many :news_sites
   
   def parent_id= parent_id
     if parent_id == "#"

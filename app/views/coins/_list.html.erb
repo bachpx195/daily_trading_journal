@@ -1,6 +1,6 @@
 <div class="tab-content">
-  <% Group.find_by(name: "Coin categories").tags.each_with_index do |tag, index| %>
-    <%= tag.name %>
+  <% Tag.find_by(title: "Coin categories").children.each_with_index do |tag, index| %>
+    <%= tag.slug %>
     <div class="tab-pane active" id="tag_tab<%= tag.id %>">
       <div class="text-right">
         <% if defined? new_url %>
@@ -16,7 +16,6 @@
             <th class="text-center">Tên</th>
             <th class="text-center">Code</th>
             <th class="text-center">Miêu tả</th>
-            <th class="text-center">Công nghệ</th>
             <th class="text-center">Theo dõi</th>
             <th></th>
           </tr>

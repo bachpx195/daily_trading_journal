@@ -22,7 +22,7 @@
       Tag
     </span>
     <div class="col-sm-4">
-      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, news_site.id.present? ? news_site.tag.parent_id : params[:parent]) ,
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, news_site.id.present? ? news_site.tag.parent_id : params[:tag]) ,
         {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>
