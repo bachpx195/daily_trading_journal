@@ -28,11 +28,9 @@ class NewsSitesController < ApplicationController
 
     respond_to do |format|
       if @news_site.save
-        format.html { redirect_to @news_site, notice: 'News site was successfully created.' }
-        format.json { render :show, status: :created, location: @news_site }
+        format.html { render :index, notice: 'News site was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @news_site.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +40,9 @@ class NewsSitesController < ApplicationController
   def update
     respond_to do |format|
       if @news_site.update(news_site_params)
-        format.html { redirect_to @news_site, notice: 'News site was successfully updated.' }
-        format.json { render :show, status: :ok, location: @news_site }
+        format.html { render :index, notice: 'News site was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @news_site.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,6 +65,6 @@ class NewsSitesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def news_site_params
-      params.require(:news_site).permit(:domain, :description, :tag)
+      params.require(:news_site).permit(:domain, :description, :tag_id)
     end
 end
