@@ -22,7 +22,7 @@
               <% tag.news_sites.each do |site| %>
                 <tr class="item-<%= site.id %>">
                   <td class="text-center">
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_news_site_url(site) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_news_site_url(site) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
                   </td>
                   <td class="text-center"><%= site.domain %></td>
                   <td><%= site.description %></td>
