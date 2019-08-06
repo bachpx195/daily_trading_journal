@@ -25,14 +25,12 @@ class WikisController < ApplicationController
   # POST /wikis.json
   def create
     @wiki = Wiki.new(wiki_params)
-
+    
     respond_to do |format|
       if @wiki.save
-        format.html { redirect_to @wiki, notice: 'Wiki was successfully created.' }
-        format.json { render :show, status: :created, location: @wiki }
+        format.html { redirect_to wikis_url(anchor: params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""), notice: 'Wiki was successfully created.' }
       else
         format.html { render :new }
-        format.json { render json: @wiki.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -42,11 +40,9 @@ class WikisController < ApplicationController
   def update
     respond_to do |format|
       if @wiki.update(wiki_params)
-        format.html { redirect_to @wiki, notice: 'Wiki was successfully updated.' }
-        format.json { render :show, status: :ok, location: @wiki }
+        format.html { redirect_to wikis_url(anchor: params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""), notice: 'Wiki was successfully updated.' }
       else
         format.html { render :edit }
-        format.json { render json: @wiki.errors, status: :unprocessable_entity }
       end
     end
   end

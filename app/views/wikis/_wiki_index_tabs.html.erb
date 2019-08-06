@@ -1,7 +1,7 @@
 <ul class="nav nav-tabs">
   <% tags.each_with_index do |tag, index| %>
     <li class="<%= index == 0 ? 'active' : ''%>">
-      <a href="<%= "#tab-#{ tag.id }" %>" data-toggle="tab" aria-expanded="false"><%= tag.slug %></a>
+      <a href="<%= "#tab-#{ tag.id }" %>" data-toggle="tab" aria-expanded="false"><strong><%= tag.slug %></strong></a>
     </li>
   <% end %>
 </ul>

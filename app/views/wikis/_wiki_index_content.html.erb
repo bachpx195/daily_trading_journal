@@ -14,9 +14,9 @@
             <div class="actions">
               <a href="<%= new_tag_path(parent: tag.id) %>" class="btn btn-default btn-sm">
                 <i class="fa fa-plus"></i> Tag </a>
-              <a href="<%= new_wiki_path(parent: tag.id) %>" class="btn btn-default btn-sm">
+              <a href="<%= new_wiki_path(parent: tag.id, root_tag: tag.id) %>" class="btn btn-default btn-sm">
                 <i class="fa fa-plus"></i> Wiki </a>
-              <a href="<%= edit_tag_path tag %>" class="btn btn-default btn-sm">
+              <a href="<%= edit_tag_path(id: tag.id, root_tag: tag.id) %>" class="btn btn-default btn-sm">
                 <i class="fa fa-pencil"></i> Sửa </a>
             </div>
           </div>
@@ -34,23 +34,23 @@
                         <a href="" class="fullscreen" data-original-title="" title=""> </a>
                       </div>
                       <div class="actions">
-                        <a href="<%= new_wiki_path(parent: child_tag.id) %>" class="btn btn-default btn-sm">
+                        <a href="<%= new_wiki_path(parent: child_tag.id, root_tag: tag.id) %>" class="btn btn-default btn-sm">
                           <i class="fa fa-plus"></i> Wiki </a>
 <!--                        <a href="javacript:;"  class="btn btn-default btn-sm fast-wiki">-->
 <!--                          <i class="fa fa-plus"></i> Wiki </a>-->
-                        <a href="<%= edit_tag_path child_tag %>" class="btn btn-default btn-sm">
+                        <a href="<%= edit_tag_path(id: child_tag.id, root_tag: tag.id) %>" class="btn btn-default btn-sm">
                           <i class="fa fa-pencil"></i> Sửa </a>
                       </div>
                     </div>
                     <div class="portlet-body">
                       <%= child_tag.content&.html_safe %>
-                      <%= render 'single_wiki_row', wikis: child_tag.wikis, color: random_color(idx + 1) %>
+                      <%= render 'single_wiki_row', wikis: child_tag.wikis, color: random_color(idx + 1), root_tag: tag %>
                     </div>
                   </div>
                 <% end %>
               </div>
             <% end %>
-            <%= render 'single_wiki_row', wikis: tag.wikis, color: 'blue-steel' %>
+            <%= render 'single_wiki_row', wikis: tag.wikis, color: 'blue-steel', root_tag: tag %>
           </div>
         </div>
       </div>
