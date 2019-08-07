@@ -1,24 +1,24 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @wiki.title %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @wiki.content %>
-</p>
-
-<p>
-  <strong>Brief:</strong>
-  <%= @wiki.brief %>
-</p>
-
-<p>
-  <strong>Tag:</strong>
-  <%= @wiki.tag %>
-</p>
-
-<%= link_to 'Edit', edit_wiki_path(@wiki) %> |
-<%= link_to 'Back', wikis_path %>
+<div class="portlet box <%= random_color %> portlet-fullscreen" style="background-color: white;">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-gift"></i><%= @wiki.title %>
+    </div>
+    <div class="actions">
+      <a href="<%= edit_wiki_path(id: @wiki.id) %>" class="btn btn-default btn-sm">
+        <i class="fa fa-pencil"></i>  </a>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="span4" style="overflow: auto;">
+      <% if @wiki.image.present? %>
+        <%= image_tag @wiki.image.url, class: "img-right" %>
+      <% end %>
+      <div class="post-article markdown">
+        <%= markdown @wiki.brief.html_safe %>
+      </div>
+    </div>
+    <div class="wiki-content">
+      <%= @wiki.content.html_safe %>
+    </div>
+  </div>
+</div>
