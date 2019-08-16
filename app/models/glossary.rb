@@ -1,0 +1,2 @@
+class Glossary < ApplicationRecord
+end

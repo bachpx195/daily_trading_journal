@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :coins
   resources :tags
   resources :calculates
+  resources :glossaries
 
   get "/pages/*page", to: "pages#show"
 

@@ -1,3 +1,5 @@
+require 'mechanize'
+
 namespace :db do
   desc "remake database data"
 
@@ -152,4 +154,19 @@ namespace :db do
     puts "2. create coin"
     Tag.find_by(title: "Currency").coins.create! slug: "BTC"
   end
+
+  desc "crawling data glossary"
+
+  task crawling_glossary_data: :environment do
+    require 'mechanize'
+    agent = Mechanize.new
+    root_path = "https://www.binance.vision"
+    
+    agent.get("#{root_path}/glossary")
+    glossaries = agent.page.search('.glossaryEntry')
+    glossaries.each do |glossary|
+      Glossary.create!(title: glossary.search("h2").map(&:text).map(&:strip)[0], brief: glossary.search("div").map(&:text).map(&:strip)[0], content: Mechanize.new.get("#{root_path}#{glossary.attributes['href'].value}").search(".fr-view")[0])
+    end
+  end
 end
+
