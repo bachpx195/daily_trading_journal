@@ -4,7 +4,7 @@ class GlossariesController < ApplicationController
   # GET /glossaries
   # GET /glossaries.json
   def index
-    @glossaries = Glossary.all
+    # @glossaries = Glossary.all
   end
 
   # GET /glossaries/1

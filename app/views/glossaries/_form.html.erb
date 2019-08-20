@@ -1,32 +1,48 @@
-<%= form_with(model: glossary, local: true) do |form| %>
+<%= form_with(model: glossary, local: true, html: {class: "form-horizontal"}) do |form| %>
   <% if glossary.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(glossary.errors.count, "error") %> prohibited this glossary from being saved:</h2>
-
       <ul>
-      <% glossary.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% glossary.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <% if params[:root_tag].present? %>
+    <%= hidden_field_tag 'root_tag', params[:root_tag] %>
+  <% end %>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="title">Tiêu đề</span>
+    <div class="col-sm-11">
+      <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :brief %>
-    <%= form.text_area :brief %>
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover">Tóm tắt</span>
+    <div class="col-sm-11">
+      <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
+    <div class="col-sm-11">
+      <%= form.cktext_area :content, rows: 10, id: "editor1" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-info">Lưu</button>
+      </div>
+    </div>
+  </div>
   </div>
 <% end %>
+
+

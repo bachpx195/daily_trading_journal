@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @glossary.title %>
-</p>
-
-<p>
-  <strong>Brief:</strong>
-  <%= @glossary.brief %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @glossary.content %>
-</p>
-
-<%= link_to 'Edit', edit_glossary_path(@glossary) %> |
-<%= link_to 'Back', glossaries_path %>
+<div class="portlet box <%= random_color %> portlet-fullscreen" style="background-color: white;">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-gift"></i><%= @glossary.title %>
+    </div>
+    <div class="actions">
+      <a href="<%= edit_glossary_path(id: @glossary.id) %>" class="btn btn-default btn-sm">
+        <i class="fa fa-pencil"></i>  </a>
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="span4" style="overflow: auto;">
+      <div class="post-article markdown">
+        <%= markdown @glossary.brief.html_safe %>
+      </div>
+    </div>
+    <div class="wiki-content">
+      <%= @glossary.content.html_safe %>
+    </div>
+  </div>
+</div>

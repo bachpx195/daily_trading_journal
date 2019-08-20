@@ -12,8 +12,8 @@
                 </div>
               </div>
               <% Glossary.order_alphabet(char)&.each do |glossary| %>
-                <a class="glossaryEntry" href="">
-                  <h2><%= glossary.title %>Absolute Advantage</h2>
+                <a class="glossaryEntry" href="<%= glossary_path(glossary) %>">
+                  <h2><%= glossary.title %></h2>
                   <div><%= glossary.brief %></div>
                 </a>
               <% end %>
