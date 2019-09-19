@@ -1,7 +1,7 @@
 <div class="portlet box <%= random_color %> portlet-fullscreen" style="background-color: white;">
   <div class="portlet-title">
     <div class="caption">
-      <i class="fa fa-gift"></i><%= @wiki.title %>
+      <a onclick="window.history.back();"><i class="fa fa-arrow-left"></i></a><%= @wiki.title %>
     </div>
     <div class="actions">
       <a href="<%= edit_wiki_path(id: @wiki.id) %>" class="btn btn-default btn-sm">

@@ -9,8 +9,8 @@
   font-weight: 400;
   line-height: 1.5;
   text-align: left;
-  color: #d1d1d1;
-  background-color: #2e2e2e;
+  color: #333333;
+  background-color: #fff;
 
 
   .homeBody, .homeHeader, .shardBlock, .searchViewBody, .halving .explanation .content {
@@ -141,7 +141,7 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: white;
+    color: #f0b90b;
     margin-bottom: 0.5rem;
   }
 
@@ -157,7 +157,7 @@
   }
 
   a {
-    color: #c4c4c4;
+    color: #333333;
     text-decoration: none;
     &:hover, &:focus {
       color: white;

@@ -20,6 +20,7 @@
 //= require ckeditor/plugins/preview/plugin
 //= require ckeditor/config
 //= require jstree.min
+//= require fullcalendar
 //= require_tree .
 
 
@@ -1688,6 +1689,11 @@ var Layout = function() {
 $(document).ready(function($) {
   App.init();
   Layout.init();
+
+  $('#calendar').fullCalendar({
+    lang: 'vi'
+  });
+
   var simplemde = new SimpleMDE({ element: document.getElementById("markdown"), tabSize: 1 });
   $('.date-picker').change(function(){
   });

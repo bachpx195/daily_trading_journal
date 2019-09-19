@@ -1,4 +1,8 @@
 <div class="profile-content">
+  <div class="btn-group btn-group-circle">
+    <a href="<%= wikis_path(wiki_type: 0) %>" class="btn grey-salsa btn-sm <%= params[:wiki_type].to_i == 0 ? 'active' : ''%>"> Crypto </a>
+    <a href="<%= wikis_path(wiki_type: 1) %>" class="btn grey-salsa btn-sm <%= params[:wiki_type].to_i == 1 ? 'active' : ''%>"> Forex </a>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <div class="portlet light bordered">

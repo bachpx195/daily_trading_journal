@@ -153,6 +153,25 @@ module ApplicationHelper
       color_arr.sample
     end
   end
+  
+  # def label_tag tag_name
+  #   case tag_name
+  #     when
+  #   end
+  #   data = ''
+  #   case id
+
+  #   end
+  #   data.html_safe
+  # end
+  
+  # def tag_icon id
+  #   # data = ''
+  #   # case id
+  #   #
+  #   # end
+  #   # data.html_safe
+  # end
 end
 
 

@@ -1,57 +1,80 @@
-<%= form_with(model: news, local: true) do |form| %>
-  <% if news.errors.any? %>
+<%= form_with(model: @new, local: true, :html => {class: 'form-horizontal', id: 'tradeForm'}) do |f| %>
+  <% if @new.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(news.errors.count, "error") %> prohibited this news from being saved:</h2>
-
+      <h2><%= pluralize(@new.errors.count, "error") %> prohibited this trade from being saved:</h2>
       <ul>
-      <% news.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% @new.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :url %>
-    <%= form.text_field :url %>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">Tiêu đề</label>
+    <div class="col-md-10">
+      <%= f.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">Ngày bắt đầu</label>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <% date = @new.start_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+          <%= f.text_field :start_date, as: :datepicker, class: 'form-control date-picker', id: "startDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
+        </div>
+      </div>
+    </div>
+    <label class="col-md-2 control-label">Ngày kết thúc</label>
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <% date = @new.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+          <%= f.text_field :end_date, as: :datepicker, class: 'form-control date-picker', id: "endDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :domain %>
-    <%= form.text_field :domain %>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">Nội dung: </label>
+    <div class="col-md-10">
+      <%= f.text_area :content, class: 'ckeditor', placeholder: "Nhập mô tả" %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :short_description %>
-    <%= form.text_area :short_description %>
+  <div class="form-group form-md-checkboxes">
+    <div class="col-md-offset-2 md-checkbox-inline">
+      <%= f.fields_for :trade_normal_method do |ff| %>
+          <%= ff.collection_check_boxes(:tag_id, Tag.find(6).children, :id, :slug) do |b| %>
+          <div class="md-checkbox">
+            <%= b.check_box class: 'md-check' %>
+            <%= b.label do %>
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span>
+              <div class="label label-sm label-warning"><%= b.object.slug %></div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :published_at %>
-    <%= form.date_select :published_at %>
-  </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
-  </div>
-
-  <div class="field">
-    <%= form.label :intended_date %>
-    <%= form.date_select :intended_date %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tag %>
-    <%= form.text_field :tag %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit "Thực hiện", class: "btn btn-default" %>
+  <div class="form-actions margin-top-10">
+    <div class="row">
+      <div class="col-md-8">
+        <span class="font-red-flamingo" id="error-people-in-room"></span>
+      </div>
+      <div class="col-md-4 text-right">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
+          <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i> Hủy
+        </button>
+        <button type="button" class="btn green" data-dismiss="modal" id="submmit_form">
+          <i class="fa fa-floppy-o" aria-hidden="true"></i> Tạo
+        </button>
+      </div>
+    </div>
   </div>
 <% end %>

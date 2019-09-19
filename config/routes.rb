@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => '/ckeditor'
 
   root "dashboard#index"
+  get "/pages/*page", to: "dashboard#show"
 
   devise_for :users
   resources :fund_logs
@@ -18,7 +19,11 @@ Rails.application.routes.draw do
   resources :wikis
   resources :daily_reports
   resources :news_sites
-  resources :news
+  resources :news do
+    collection do
+      get 'canlendar', to: 'news#canlendar'
+    end
+  end
   resources :coin_links
   resources :coin_sources
   resources :coins
@@ -26,11 +31,10 @@ Rails.application.routes.draw do
   resources :calculates
   resources :glossaries
 
-  get "/pages/*page", to: "pages#show"
-
   namespace :api do
     namespace :v1 do
       resources :tags
+      resources :news
     end
   end
 end

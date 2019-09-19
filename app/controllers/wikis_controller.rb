@@ -4,11 +4,13 @@ class WikisController < ApplicationController
   # GET /wikis
   # GET /wikis.json
   def index
-    @wikis = Wiki.all.paginate(page: params[:page])
+    @wikis = if params[:wiki_type].to_i == 0
+               Wiki.crypto_and_common.paginate(page: params[:page])
+             else
+               Wiki.forex_and_common.paginate(page: params[:page])
+             end
   end
 
-  # GET /wikis/1
-  # GET /wikis/1.json
   def show
   end
 

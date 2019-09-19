@@ -1,0 +1,16 @@
+$('#main-modal').on('shown.bs.modal', function () {
+  if ($('textarea').length > 0) {
+    CKEDITOR.config.height = 300;
+    $('form[data-remote]').bind("ajax:before", function(){
+      for (instance in CKEDITOR.instances){
+        CKEDITOR.instances[instance].updateElement();
+      }
+    });
+    var data = $('.ckeditor');
+    $.each(data, function(i) {
+      CKEDITOR.replace(data[i].id)
+    });
+  }
+})
+$("#main-modal").html("<%= j(render partial: 'form', layout: 'shared/modal', locals: { type: "new" }) %>")
+$("#main-modal").modal("show")

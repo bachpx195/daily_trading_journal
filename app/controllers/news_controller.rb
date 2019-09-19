@@ -6,15 +6,19 @@ class NewsController < ApplicationController
   def index
     @news = News.all
   end
+  
+  def canlendar
+    @news = News.event
+  end
 
   # GET /news/1
   # GET /news/1.json
   def show
   end
-
-  # GET /news/new
+  
   def new
-    @news = News.new
+    @new = News.new
+    render :layout => false
   end
 
   # GET /news/1/edit

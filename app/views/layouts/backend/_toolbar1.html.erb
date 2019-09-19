@@ -34,8 +34,14 @@
     </div>
     <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
       <a href="<%= news_sites_url %>" class="icon-btn <%= params[:controller] == 'news_sites' ? 'active' : '' %>">
-        <i class="fa fa-internet-explorer"></i> - F5
+        <i class="fa fa-internet-explorer"></i> - F6
         <div>TRANG TIN TỨC</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= canlendar_news_index_url %>" class="icon-btn <%= params[:controller] == 'news' ? 'active' : '' %>">
+        <i class="fa fa-calendar"></i> - F7
+        <div>LỊCH</div>
       </a>
     </div>
   </div>

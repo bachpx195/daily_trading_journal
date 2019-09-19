@@ -50,6 +50,15 @@
   </div>
 
   <div class="form-group">
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Thị trường
+    </span>
+    <div class="col-sm-4">
+      <%= form.collection_select(:market_type, Wiki.market_types, :first, :first, {},{class: "form-control select2_category"}) %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <span class="col-sm-1 btn btn-primary nohover">Tóm tắt</span>
     <div class="col-sm-11">
       <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
@@ -72,5 +81,4 @@
     </div>
   </div>
 <% end %>
-
 
