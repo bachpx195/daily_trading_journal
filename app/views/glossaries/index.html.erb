@@ -23,6 +23,7 @@
             <% Glossary::ALPHABET.each do |char| %>
               <%= link_to char, "##{char}" %>
             <% end %>
+            <%= link_to "+", new_glossary_path %>
           </div>
         </div>
       </div>
