@@ -1,3 +1,5 @@
+<% tags =  params[:wiki_type].to_i == 0 ?  Tag.find_by(title: 'Crypto') : Tag.find_by(title: 'Forex') %>
+
 <div class="profile-content">
   <div class="btn-group btn-group-circle">
     <a href="<%= wikis_path(wiki_type: 0) %>" class="btn grey-salsa btn-sm <%= params[:wiki_type].to_i == 0 ? 'active' : ''%>"> Crypto </a>
@@ -8,10 +10,10 @@
       <div class="portlet light bordered">
         <div class="portlet-title tabbable-line">
           <div class="caption caption-md">
-            <%= render 'wiki_index_tabs', tags: Tag.find_by(title: 'Wiki categories').children %>
+            <%= render 'wiki_index_tabs', tags: tags.children %>
           </div>
           <div class="portlet-body">
-            <%= render 'wiki_index_content', tags: Tag.find_by(title: 'Wiki categories').children %>
+            <%= render 'wiki_index_content', tags: tags.children %>
           </div>
         </div>
       </div>
