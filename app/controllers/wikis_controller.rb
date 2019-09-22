@@ -30,7 +30,9 @@ class WikisController < ApplicationController
     
     respond_to do |format|
       if @wiki.save
-        format.html { redirect_to wikis_url(anchor: params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""), notice: 'Wiki was successfully created.' }
+        anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
+        wiki_type = @wiki.parent_id.to_i == 45 ? 0 : 1
+        format.html { redirect_to wikis_url(anchor: anchor, wiki_type: wiki_type), notice: 'Wiki was successfully created.' }
       else
         format.html { render :new }
       end
@@ -42,7 +44,9 @@ class WikisController < ApplicationController
   def update
     respond_to do |format|
       if @wiki.update(wiki_params)
-        format.html { redirect_to wikis_url(anchor: params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""), notice: 'Wiki was successfully updated.' }
+        anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
+        wiki_type = @wiki.parent_id.to_i == 45 ? 0 : 1
+        format.html { redirect_to wikis_url(anchor: anchor, wiki_type: wiki_type), notice: 'Wiki was successfully updated.' }
       else
         format.html { render :edit }
       end
