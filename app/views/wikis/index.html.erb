@@ -1,9 +1,9 @@
-<% tags = params[:wiki_type].to_i == 0 ?  Tag.find_by(title: 'Crypto') : Tag.find_by(title: 'Forex') %>
+<% tags = params[:wiki_type].to_i == 0 ?  Tag.find_by(title: 'Forex') : Tag.find_by(title: 'Crypto') %>
 
 <div class="profile-content">
   <div class="btn-group btn-group-circle">
-    <a href="<%= wikis_path(wiki_type: 0) %>" class="btn grey-salsa btn-sm <%= params[:wiki_type].to_i == 0 ? 'active' : ''%>"> Crypto </a>
-    <a href="<%= wikis_path(wiki_type: 1) %>" class="btn grey-salsa btn-sm <%= params[:wiki_type].to_i == 1 ? 'active' : ''%>"> Forex </a>
+    <a href="<%= wikis_path(wiki_type: 0) %>" class="btn grey-salsa btn-sm <%= params[:wiki_type].to_i == 0 ? 'active' : ''%>"> Forex </a>
+    <a href="<%= wikis_path(wiki_type: 1) %>" class="btn grey-salsa btn-sm <%= params[:wiki_type].to_i == 1 ? 'active' : ''%>">  Crypto</a>
   </div>
   <div class="row">
     <div class="col-md-12">
@@ -21,4 +21,3 @@
   </div>
 </div>
 <hr>
-
