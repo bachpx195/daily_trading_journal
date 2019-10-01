@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :symbolfxes
   mount Ckeditor::Engine => '/ckeditor'
 
   root "dashboard#index"

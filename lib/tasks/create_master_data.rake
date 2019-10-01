@@ -10,6 +10,7 @@ namespace :db do
     puts "1. create root tag"
     root_tag = Tag.create! title: "root_tag"
     coin = Tag.create! title: 'Coin categories', slug: 'Tags về coin'
+    symbol = Tag.create! title: 'Symbol categories', slug: 'Tags về symbol forex'
     news = Tag.create! title: 'News categories', slug: 'Tags về tin tức'
     wiki = Tag.create! title: 'Wiki categories', slug: 'Tags về wiki'
     site = Tag.create! title: 'Site categories', slug: 'Tags về website'
@@ -90,8 +91,15 @@ namespace :db do
     lol.move_to_child_of(mark)
     
     mark.reload
+
+    puts "7. create symbol category tag"
+    currencyfx = Tag.create! title: 'Currency', slug: 'tiền tệ'
+
+    currencyfx.move_to_child_of(symbol)
+    symbol.reload
     
     coin.move_to_child_of(root_tag)
+    symbol.move_to_child_of(root_tag)
     news.move_to_child_of(root_tag)
     wiki.move_to_child_of(root_tag)
     site.move_to_child_of(root_tag)

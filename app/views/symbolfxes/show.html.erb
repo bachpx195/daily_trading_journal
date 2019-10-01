@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @symbolfx.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @symbolfx.slug %>
+</p>
+
+<p>
+  <strong>Base:</strong>
+  <%= @symbolfx.base %>
+</p>
+
+<p>
+  <strong>Quote:</strong>
+  <%= @symbolfx.quote %>
+</p>
+
+<p>
+  <strong>Winrate:</strong>
+  <%= @symbolfx.winrate %>
+</p>
+
+<p>
+  <strong>Desciption:</strong>
+  <%= @symbolfx.desciption %>
+</p>
+
+<p>
+  <strong>Is follow:</strong>
+  <%= @symbolfx.is_follow %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @symbolfx.tag %>
+</p>
+
+<%= link_to 'Edit', edit_symbolfx_path(@symbolfx) %> |
+<%= link_to 'Back', symbolfxes_path %>
