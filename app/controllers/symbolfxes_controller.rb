@@ -69,6 +69,6 @@ class SymbolfxesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def symbolfx_params
-      params.require(:symbolfx).permit(:name, :slug, :base_id, :country, :tag_id)
+      params.require(:symbolfx).permit(:name, :slug, :base_id, :country, :desciption, :tag_id)
     end
 end
