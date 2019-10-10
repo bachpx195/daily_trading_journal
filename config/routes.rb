@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :currency_pairs
   resources :symbolfxes
   mount Ckeditor::Engine => '/ckeditor'
 

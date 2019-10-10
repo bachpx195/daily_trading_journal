@@ -11,10 +11,10 @@
       </div>
     <% end %>
     <div class="form-group form-md-line-input">
-      <label class="col-md-2 control-label">Coin
+      <label class="col-md-2 control-label">Cặp tiền
         <span class="required" aria-required="true"> * </span> :</label>
       <div class="col-md-4">
-        <%= f.collection_select(:coin_id, Coin.all, :id, :slug, {}, {class: "form-control"}) %>
+        <%= f.collection_select(:currency_pair_id, CurrencyPair.all, :id, :slug, {}, {class: "form-control"}) %>
       </div>
       <label class="col-md-2 control-label">Ngày bắt đầu</label>
       <div class="col-md-4">

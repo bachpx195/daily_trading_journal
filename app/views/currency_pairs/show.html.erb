@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @currency_pair.name %>
+</p>
+
+<p>
+  <strong>Slug:</strong>
+  <%= @currency_pair.slug %>
+</p>
+
+<p>
+  <strong>Base:</strong>
+  <%= @currency_pair.base %>
+</p>
+
+<p>
+  <strong>Quote:</strong>
+  <%= @currency_pair.quote %>
+</p>
+
+<p>
+  <strong>Winrate:</strong>
+  <%= @currency_pair.winrate %>
+</p>
+
+<p>
+  <strong>Desciption:</strong>
+  <%= @currency_pair.desciption %>
+</p>
+
+<p>
+  <strong>Is follow:</strong>
+  <%= @currency_pair.is_follow %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @currency_pair.tag %>
+</p>
+
+<%= link_to 'Edit', edit_currency_pair_path(@currency_pair) %> |
+<%= link_to 'Back', currency_pairs_path %>

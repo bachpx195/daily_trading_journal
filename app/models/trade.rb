@@ -1,6 +1,7 @@
 class Trade < ApplicationRecord
   has_many :comments, as: :commentable
-  belongs_to :coin
+  belongs_to :coin, optional: true
+  belongs_to :symbolfx, optional: true
   has_one :trade_normal_method, dependent: :destroy
   has_one :trade_pyramid_method, dependent: :destroy
   has_one :log, dependent: :destroy

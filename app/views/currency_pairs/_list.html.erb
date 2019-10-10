@@ -1,0 +1,41 @@
+<div class="tab-content">
+  <% Tag.find_by(title: "Symbol categories").children.each_with_index do |tag, index| %>
+    <%= tag.slug %>
+    <div class="tab-pane active" id="tag_tab<%= tag.id %>">
+      <div class="text-right">
+        <% if defined? new_url %>
+            <a class="btn green btn-outline btn-circle btn-sm" data-remote="true" href="<%= new_url %>?tag=<%= tag.id %>"><i class="fa fa-plus"></i>Thêm</a>
+        <% end %>
+      </div>
+
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+          <tr>
+            <th></th>
+            <th class="text-center">Tên</th>
+            <th class="text-center">Winrate</th>
+            <th class="text-center">Theo dõi</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody class="item-container-<%= tag.id %>">
+            <% tag.currency_pair.each do |currency_pair| %>
+              <tr class="item-<%= currency_pair.id %>">
+                <td class="text-center">
+                  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                </td>
+                <td class="text-center"><%= currency_pair.slug %></td>
+                <td class="text-center"><%= currency_pair.winrate %></td>
+                <td><%= currency_pair.is_follow %></td>
+                <td class="text-center">
+                  <%= link_to raw('<i class="fa fa-trash-o"></i>'), currency_pair, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>

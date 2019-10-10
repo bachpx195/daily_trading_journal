@@ -1,9 +1,9 @@
-<%= form_with(model: symbolfx, local: true, html: {class: "form-horizontal"}) do |form| %>
-  <% if symbolfx.errors.any? %>
+<%= form_with(model: currency_pair, local: true, html: {class: "form-horizontal"}) do |form| %>
+  <% if currency_pair.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(symbolfx.errors.count, "error") %> prohibited this symbolfx from being saved:</h2>
+      <h2><%= pluralize(currency_pair.errors.count, "error") %> prohibited this currency_pair from being saved:</h2>
       <ul>
-        <% symbolfx.errors.full_messages.each do |message| %>
+        <% currency_pair.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -25,9 +25,23 @@
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="slug">Quốc gia</span>
+    <span class="col-sm-1 btn btn-primary nohover" id="base">Base currency</span>
     <div class="col-sm-11">
-      <%= form.text_field :country, autocomplete: "off", id: "slug", class: "form-control" %>
+      <%= form.text_field :base, autocomplete: "off", id: "base", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="quote">Quote currency</span>
+    <div class="col-sm-11">
+      <%= form.text_field :quote, autocomplete: "off", id: "quote", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="quote">Tỉ lệ thắng %</span>
+    <div class="col-sm-11">
+      <%= form.number_field :winrate, autocomplete: "off", id: "winrate", class: "form-control" %>
     </div>
   </div>
 
@@ -36,7 +50,7 @@
       Tag
     </span>
     <div class="col-sm-4">
-      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, symbolfx.id.present? ? symbolfx.tag.id : params[:parent]) ,
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, currency_pair.id.present? ? symbolfx.tag.id : params[:parent]) ,
                       {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>

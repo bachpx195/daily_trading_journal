@@ -2,20 +2,14 @@
   <% Tag.find_by(title: "Symbol categories").children.each_with_index do |tag, index| %>
     <%= tag.slug %>
     <div class="tab-pane active" id="tag_tab<%= tag.id %>">
-      <div class="text-right">
-        <% if defined? new_url %>
-            <a class="btn green btn-outline btn-circle btn-sm" data-remote="true" href="<%= new_url %>?tag=<%= tag.id %>"><i class="fa fa-plus"></i>Thêm</a>
-        <% end %>
-      </div>
-
       <div class="table-scrollable">
         <table class="table table-striped table-bordered table-hover">
           <thead>
           <tr>
             <th></th>
+            <th class="text-center">Kí hiệu</th>
             <th class="text-center">Tên</th>
-            <th class="text-center">Winrate</th>
-            <th class="text-center">Theo dõi</th>
+            <th class="text-center">Quốc gia</th>
             <th></th>
           </tr>
           </thead>
@@ -23,11 +17,11 @@
             <% tag.symbolfxes.each do |symbolfx| %>
               <tr class="item-<%= symbolfx.id %>">
                 <td class="text-center">
-                  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_symbolfx_url(symbolfx) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                  <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_symbolfx_url(symbolfx) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
                 </td>
                 <td class="text-center"><%= symbolfx.slug %></td>
-                <td class="text-center"><%= symbolfx.winrate %></td>
-                <td><%= symbolfx.is_follow %></td>
+                <td class="text-center"><%= symbolfx.name %></td>
+                <td><%= symbolfx.country %></td>
                 <td class="text-center">
                   <%= link_to raw('<i class="fa fa-trash-o"></i>'), symbolfx, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
                 </td>
