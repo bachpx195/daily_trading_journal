@@ -69,6 +69,6 @@ class CurrencyPairsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def currency_pair_params
-      params.require(:currency_pair).permit(:name, :slug, :base_id, :quote_id, :winrate, :country, :desciption, :tag_id)
+      params.require(:currency_pair).permit(:name, :slug, :base_id, :quote_id, :winrate, :country, :desciption, :tag_id, :crosses_related, :liquid_rate)
     end
 end

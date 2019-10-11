@@ -52,6 +52,20 @@
   </div>
 
   <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="quote">Tính thanh khoản</span>
+    <div class="col-sm-11">
+      <%= form.number_field :liquid_rate, autocomplete: "off", id: "liquid_rate", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="name">Các cặp tiền liên quan</span>
+    <div class="col-sm-11">
+      <%= form.text_field :crosses_related, autocomplete: "off", id: "crosses_related", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <span for="title" class="col-sm-1 btn btn-primary nohover">
       Tag
     </span>
