@@ -25,16 +25,22 @@
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="base">Base currency</span>
-    <div class="col-sm-11">
-      <%= form.text_field :base, autocomplete: "off", id: "base", class: "form-control" %>
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Tử só
+    </span>
+    <div class="col-sm-4">
+      <%= form.select :base_id, options_from_collection_for_select(Symbolfx.all, :id, :slug) ,
+                      {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="quote">Quote currency</span>
-    <div class="col-sm-11">
-      <%= form.text_field :quote, autocomplete: "off", id: "quote", class: "form-control" %>
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Mấu số
+    </span>
+    <div class="col-sm-4">
+      <%= form.select :quote_id, options_from_collection_for_select(Symbolfx.all, :id, :slug) ,
+                      {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>
 
@@ -50,7 +56,7 @@
       Tag
     </span>
     <div class="col-sm-4">
-      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, currency_pair.id.present? ? symbolfx.tag.id : params[:parent]) ,
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, currency_pair.id.present? ? currency_pair.tag.id : params[:parent]) ,
                       {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>

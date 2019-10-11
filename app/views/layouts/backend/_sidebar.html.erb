@@ -61,22 +61,33 @@
 
       <li class="nav-item start">
         <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-bar-chart" aria-hidden="true"></i>
-          <span class="title">THỐNG KÊ/ BÁO CÁO</span>
+          <i class="fa fa-briefcase" aria-hidden="true"></i>
+          <span class="title">QUẢN LÝ TAG</span>
           <span class="selected"></span>
           <span class="arrow open"></span>
         </a>
         <ul class="sub-menu">
           <li class="nav-item start">
-            <a href="#" class="nav-link ">
-              <i class="icon-bar-chart"></i>
-              <span class="title">PHÒNG TRỐNG</span>
+            <a href="<%= tags_path %>" class="nav-link ">
+              <i class="fa fa-sitemap" aria-hidden="true"></i>
+              <span class="title">DANH SÁCH</span>
             </a>
           </li>
+        </ul>
+      </li>
+
+      <li class="nav-item start">
+        <a href="javascript:;" class="nav-link nav-toggle">
+          <i class="fa fa-bar-chart" aria-hidden="true"></i>
+          <span class="title">QUẢN LÝ SYMBOL</span>
+          <span class="selected"></span>
+          <span class="arrow open"></span>
+        </a>
+        <ul class="sub-menu">
           <li class="nav-item start">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-pie-chart" aria-hidden="true"></i>
-              <span class="title">BÁO CÁO TÀI CHÍNH</span>
+            <a href="<%= symbolfxes_path %>" class="nav-link ">
+              <i class="fa fa-sitemap" aria-hidden="true"></i>
+              <span class="title">DANH SÁCH</span>
             </a>
           </li>
         </ul>
@@ -100,23 +111,6 @@
             <a href="<%= new_glossary_path %>" class="nav-link ">
               <i class="icon-bar-chart"></i>
               <span class="title">THÊM MỚI</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item start">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-briefcase" aria-hidden="true"></i>
-          <span class="title">QUẢN LÝ TAG</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item start">
-            <a href="<%= tags_path %>" class="nav-link ">
-              <i class="fa fa-sitemap" aria-hidden="true"></i>
-              <span class="title">DANH SÁCH</span>
             </a>
           </li>
         </ul>
