@@ -31,7 +31,7 @@ class WikisController < ApplicationController
     respond_to do |format|
       if @wiki.save
         anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
-        wiki_type = @wiki.tag.is_or_is_descendant_of?(Tag.find_by(title: 'Forex')) ? 1 : 0
+        wiki_type = @wiki.tag.is_or_is_descendant_of?(Tag.find_by(title: 'Forex')) ? 0 : 1
         format.html { redirect_to wikis_url(anchor: anchor, wiki_type: wiki_type), notice: 'Wiki was successfully created.' }
       else
         format.html { render :new }
@@ -45,7 +45,7 @@ class WikisController < ApplicationController
     respond_to do |format|
       if @wiki.update(wiki_params)
         anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
-        wiki_type = @wiki.tag.is_or_is_descendant_of?(Tag.find_by(title: 'Forex')) ? 1 : 0
+        wiki_type = @wiki.tag.is_or_is_descendant_of?(Tag.find_by(title: 'Forex')) ? 0 : 1
         format.html { redirect_to wikis_url(anchor: anchor, wiki_type: wiki_type), notice: 'Wiki was successfully updated.' }
       else
         format.html { render :edit }
