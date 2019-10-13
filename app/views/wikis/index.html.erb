@@ -10,10 +10,10 @@
       <div class="portlet light bordered">
         <div class="portlet-title tabbable-line">
           <div class="caption caption-md">
-            <%= render 'wiki_index_tabs', tags: tags.children %>
+            <%= render 'wiki_index_tabs', tags: tags&.children %>
           </div>
           <div class="portlet-body">
-            <%= render 'wiki_index_content', tags: tags.children %>
+            <%= render 'wiki_index_content', tags: tags&.children %>
           </div>
         </div>
       </div>

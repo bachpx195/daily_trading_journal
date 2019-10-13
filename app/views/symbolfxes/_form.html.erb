@@ -42,6 +42,13 @@
   </div>
 
   <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover">Tóm tắt</span>
+    <div class="col-sm-11">
+      <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
     <div class="col-sm-11">
       <%= form.cktext_area :desciption, rows: 10, id: "editor1" %>
