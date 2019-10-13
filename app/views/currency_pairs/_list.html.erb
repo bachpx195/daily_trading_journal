@@ -21,7 +21,7 @@
           <tbody class="item-container-<%= tag.id %>">
             <% tag.currency_pairs.each do |currency_pair| %>
               <tr class="item-<%= currency_pair.id %>">
-                <td class="text-center <%= currency_pair.unfollow? : 'active' : 'success'%>">
+                <td class="text-center <%= currency_pair.unfollow? ? 'active' : 'success'%>">
                   <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
                 </td>
                 <td class="text-center"><%= currency_pair.slug %></td>
