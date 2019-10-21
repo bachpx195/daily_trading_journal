@@ -29,7 +29,7 @@ class CurrencyPairsController < ApplicationController
     respond_to do |format|
       if @currency_pair.save
         format.html { redirect_to @currency_pair, notice: 'Currency pair was successfully created.' }
-        format.json { render :show, status: :created, location: @currency_pair }
+        format.json { render :index, status: :created, location: @currency_pair }
       else
         format.html { render :new }
         format.json { render json: @currency_pair.errors, status: :unprocessable_entity }
@@ -43,7 +43,7 @@ class CurrencyPairsController < ApplicationController
     respond_to do |format|
       if @currency_pair.update(currency_pair_params)
         format.html { redirect_to @currency_pair, notice: 'Currency pair was successfully updated.' }
-        format.json { render :show, status: :ok, location: @currency_pair }
+        format.json { render :index, status: :ok, location: @currency_pair }
       else
         format.html { render :edit }
         format.json { render json: @currency_pair.errors, status: :unprocessable_entity }
@@ -69,6 +69,6 @@ class CurrencyPairsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def currency_pair_params
-      params.require(:currency_pair).permit(:name, :slug, :base_id, :quote_id, :winrate, :country, :desciption, :tag_id, :crosses_related, :liquid_rate, :brief, :spread)
+      params.require(:currency_pair).permit(:name, :slug, :base_id, :quote_id, :winrate, :country, :desciption, :tag_id, :crosses_related, :liquid_rate, :brief, :spread, :is_follow)
     end
 end

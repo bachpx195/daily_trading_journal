@@ -8,7 +8,7 @@
           <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
         </div>
       </div>
-      <div class="portlet-body" style="display: block;">
+      <div class="portlet-body" style="display: <% tag.is_follow? ? 'block' : 'none' %>;">
         <%= tag.content&.html_safe %>
         <div class="tab-pane active" id="tag_tab<%= tag.id %>">
           <div class="table-scrollable">
@@ -32,8 +32,8 @@
                     <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
                   </td>
                   <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
-                  <td class="text-center"><%= currency_pair.winrate %></td>
-                  <td class="text-center"><%= currency_pair.spread %></td>
+                  <td class="text-center"><%= currency_pair.winrate %>%</td>
+                  <td class="text-center"><%= currency_pair.spread %>point</td>
                   <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
                   <td class="text-center"><%= currency_pair.crosses_related %></td>
                   <td class="text-center"><%= currency_pair.liquid_rate %></td>

@@ -11,6 +11,8 @@ class Tag < ApplicationRecord
   has_many :wikis
   has_many :news_sites
   
+  enum is_follow: {unfollow: 0, followed: 1}
+
   def parent_id= parent_id
     if parent_id == "#"
       move_to_root

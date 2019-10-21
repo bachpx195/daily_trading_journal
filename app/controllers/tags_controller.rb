@@ -71,7 +71,7 @@ class TagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
-      params.require(:tag).permit(:title, :slug, :content, :new_position, :parent_id)
+      params.require(:tag).permit(:title, :slug, :content, :new_position, :parent_id, :is_follow)
     end
 
     def load_support

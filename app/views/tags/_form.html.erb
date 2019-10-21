@@ -35,6 +35,13 @@
       </div>
 
       <div class="form-group">
+        <span class="col-sm-1 btn btn-primary nohover" id=content">Theo dõi</span>
+        <div class="col-sm-11">
+          <%= form.check_box :is_follow %>
+        </div>
+      </div>
+
+      <div class="form-group">
         <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
         <div class="col-sm-11">
           <%= form.text_area :content, class: "ckeditor form-control", rows: 10 %>
