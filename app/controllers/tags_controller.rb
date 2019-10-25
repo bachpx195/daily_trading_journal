@@ -2,7 +2,6 @@ class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
   
-  
   # GET /tags
   # GET /tags.json
   def index
@@ -47,7 +46,7 @@ class TagsController < ApplicationController
   def update
     if @tag.update tag_params
       flash[:notice] = "Updated"
-      render :index
+      redirect_to tags_url
     else
       load_support
       flash[:alert] = "Failed"
@@ -71,6 +70,7 @@ class TagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
+      params[:tag][:is_follow] = params[:tag][:is_follow].to_i
       params.require(:tag).permit(:title, :slug, :content, :new_position, :parent_id, :is_follow)
     end
 
