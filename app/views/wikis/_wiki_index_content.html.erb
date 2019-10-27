@@ -20,7 +20,7 @@
                 <i class="fa fa-pencil"></i> Sửa </a>
             </div>
           </div>
-          <div class="portlet-body" style="overflow: auto; display: <%= tag.followed? ? 'block' : 'none' %>;">
+          <div class="portlet-body" style="overflow: auto;">
             <%= tag.content&.html_safe %>
             <% if tag.children.present? %>
               <div class="col-md-12" style="padding-left: 0px">
@@ -41,7 +41,7 @@
                           <i class="fa fa-pencil"></i> Sửa </a>
                       </div>
                     </div>
-                    <div class="portlet-body">
+                    <div class="portlet-body" style="display: <%= child_tag.followed? ? 'block' : 'none' %>;">
                       <%= child_tag.content&.html_safe %>
                       <%= render 'single_wiki_row', wikis: child_tag.wikis, color: random_color(idx + 1), root_tag: tag %>
                     </div>
