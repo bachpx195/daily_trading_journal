@@ -20,15 +20,14 @@
                 <i class="fa fa-pencil"></i> Sửa </a>
             </div>
           </div>
-          <div class="portlet-body" style="overflow: auto;">
+          <div class="portlet-body" style="overflow: auto; display: <%= tag.followed? ? 'block' : 'none' %>;">
             <%= tag.content&.html_safe %>
             <% if tag.children.present? %>
               <div class="col-md-12" style="padding-left: 0px">
                 <% tag.children.each_with_index do |child_tag, idx| %>
                   <div class="portlet box <%= random_color(idx + 1) %>">
                     <div class="portlet-title">
-                      <div class="caption">
-                        <i class="fa fa-gift"></i><%= child_tag.slug %></div>
+                      <div class="caption" style="width: 75%; overflow: hidden;"><%= child_tag.slug %></div>
                       <div class="tools">
                         <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
                         <a href="" class="fullscreen" data-original-title="" title=""> </a>

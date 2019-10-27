@@ -37,7 +37,7 @@
       <div class="form-group">
         <span class="col-sm-1 btn btn-primary nohover" id=content">Theo dõi</span>
         <div class="col-sm-11">
-          <%= form.check_box :is_follow, value: form.object.is_follow %>
+          <%= form.check_box :is_follow, checked: form.object.followed? ? "checked" : "" %>
         </div>
       </div>
 
