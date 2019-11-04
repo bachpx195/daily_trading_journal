@@ -52,16 +52,23 @@
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="quote">Tỉ lệ thắng %</span>
+    <span class="col-sm-1 btn btn-primary nohover" id="winrate">Tỉ lệ thắng %</span>
     <div class="col-sm-11">
       <%= form.number_field :winrate, autocomplete: "off", id: "winrate", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="quote">Spread TB</span>
+    <span class="col-sm-1 btn btn-primary nohover" id="spread">Spread TB</span>
     <div class="col-sm-11">
       <%= form.number_field :spread, autocomplete: "off", id: "spread", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="range">Range (ngày/tháng)</span>
+    <div class="col-sm-11">
+      <%= form.number_field :range, autocomplete: "off", id: "range", class: "form-control" %>
     </div>
   </div>
 

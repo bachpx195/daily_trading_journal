@@ -21,6 +21,7 @@
               <th class="text-center">Tên</th>
               <th class="text-center">Winrate</th>
               <th class="text-center">Spread</th>
+              <th class="text-center">Range(ngày)</th>
               <th class="text-center">Lưu ý cần lưu ý</th>
               <th class="text-center">liên quan</th>
               <th class="text-center">Thanh khoản</th>
@@ -36,6 +37,7 @@
                   <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
                   <td class="text-center"><%= currency_pair.winrate %>%</td>
                   <td class="text-center"><%= currency_pair.spread %>point</td>
+                  <td class="text-center"><%= currency_pair.range %>point</td>
                   <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
                   <td class="text-center"><%= currency_pair.crosses_related %></td>
                   <td class="text-center"><%= currency_pair.liquid_rate %></td>
@@ -76,6 +78,7 @@
                 <th class="text-center">Tên</th>
                 <th class="text-center">Winrate</th>
                 <th class="text-center">Spread</th>
+                <th class="text-center">Range(ngày)</th>
                 <th class="text-center">Lưu ý cần lưu ý</th>
                 <th class="text-center">liên quan</th>
                 <th class="text-center">Thanh khoản</th>
@@ -91,6 +94,7 @@
                     <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
                     <td class="text-center"><%= currency_pair.winrate %>%</td>
                     <td class="text-center"><%= currency_pair.spread %>point</td>
+                    <td class="text-center"><%= currency_pair.range %>point</td>
                     <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
                     <td class="text-center"><%= currency_pair.crosses_related %></td>
                     <td class="text-center"><%= currency_pair.liquid_rate %></td>
