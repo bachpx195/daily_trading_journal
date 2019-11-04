@@ -1,44 +1,128 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @symbolfx.name %>
-</p>
-
-<p>
-  <strong>Slug:</strong>
-  <%= @symbolfx.slug %>
-</p>
-
-<p>
-  <strong>Base:</strong>
-  <%= @symbolfx.base %>
-</p>
-
-<p>
-  <strong>Quote:</strong>
-  <%= @symbolfx.quote %>
-</p>
-
-<p>
-  <strong>Winrate:</strong>
-  <%= @symbolfx.winrate %>
-</p>
-
-<p>
-  <strong>Desciption:</strong>
-  <%= @symbolfx.desciption %>
-</p>
-
-<p>
-  <strong>Is follow:</strong>
-  <%= @symbolfx.is_follow %>
-</p>
-
-<p>
-  <strong>Tag:</strong>
-  <%= @symbolfx.tag %>
-</p>
-
-<%= link_to 'Edit', edit_symbolfx_path(@symbolfx) %> |
-<%= link_to 'Back', symbolfxes_path %>
+<div class="invoice-content-2 bordered">
+  <div class="row invoice-head">
+    <div class="col-md-7 col-xs-6">
+      <div class="invoice-logo">
+        <h1 class="uppercase"><%= @symbolfx.slug %><a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_symbolfx_url(@symbolfx) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a></h1>
+      </div>
+    </div>
+  </div>
+  <div class="row invoice-cust-add">
+    <div class="col-xs-3">
+      <h2 class="invoice-title uppercase">Tên</h2>
+      <p class="invoice-desc"><%= @symbolfx.name %></p>
+    </div>
+    <div class="col-xs-3">
+      <h2 class="invoice-title uppercase">Tag</h2>
+      <p class="invoice-desc"><%= link_to @symbolfx.tag.slug , tag_path(@symbolfx.tag) %></p>
+    </div>
+    <div class="col-xs-3 invoice-subtotal">
+      <h2 class="invoice-title uppercase">Quốc gia</h2>
+      <p class="invoice-desc grand-total"><%= @symbolfx.country %></p>
+    </div>
+  </div>
+  <div class="row invoice-body">
+    <div class="col-xs-12 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th class="invoice-title uppercase">Tóm tắt</th>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="post-article markdown">
+            <%= markdown @symbolfx.brief&.html_safe %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="profile-content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="portlet light bordered">
+          <div class="portlet-title tabbable-line">
+            <div class="caption caption-md">
+              <ul class="nav nav-tabs">
+                <li class='active'>
+                  <a href="<%= "#tab-1" %>" data-toggle="tab" aria-expanded="false"><strong>Miêu tả</strong></a>
+                </li>
+              </ul>
+            </div>
+            <div class="portlet-body">
+              <div class="tab-content">
+                <div class="tab-pane active" id="tab-1">
+                  <div class="col-md-12" style="padding: 0px;">
+                    <%= @symbolfx.desciption&.html_safe %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+              <!-- BEGIN PORTLET-->
+              <div class="portlet light bordered">
+                <div class="portlet-title">
+                  <div class="caption">
+                    <i class="icon-bubble font-red-sunglo"></i>
+                    <span class="caption-subject font-red-sunglo bold uppercase">Nhật kí</span>
+                  </div>
+                  <div class="actions">
+                    <div class="portlet-input input-inline">
+                      <div class="input-icon right">
+                        <i class="icon-magnifier"></i>
+                        <input type="text" class="form-control input-circle" placeholder="search..."> </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="portlet-body" id="chats">
+                  <div>
+                    <ul class="chats">
+                      <% @comments.each do |comment| %>
+                        <% if comment.importand? %>
+                          <li class="out">
+                            <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg">
+                            <div class="message">
+                              <span class="arrow"> </span>
+                              <a href="javascript:;" class="name">Lưu ý quan trọng</a>
+                              <span class="datetime"> at <%= comment.created_at.strftime("%d/%m/%Y %H:%M") %> </span>
+                              <span class="body"> <%= markdown comment.content&.html_safe %> </span>
+                            </div>
+                          </li>
+                        <% else %>
+                          <li class="in">
+                            <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar1.jpg">
+                            <div class="message">
+                              <span class="arrow"> </span>
+                              <a href="javascript:;" class="name">Lưu ý</a>
+                              <span class="datetime"> at <%= comment.created_at.strftime("%d/%m/%Y %H:%M") %> </span>
+                              <span class="body"> <%= markdown comment.content&.html_safe %> </span>
+                            </div>
+                          </li>
+                        <% end %>
+                      <% end %>
+                    </ul>
+                  </div></div>
+                <div class="chat-form">
+                  <%= form_for Comment.new, method: :post do |form| %>
+                    <div class="input-cont">
+                      <%= form.text_area :content, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+                      <span>Theo dõi</span>
+                      <%= form.check_box :is_importand, checked: form.object.importand? ? "checked" : "" %>
+                      <%= form.hidden_field :commmentable, value: @symbolfx.class %>
+                      <%= form.hidden_field :commmentable_id, value: @symbolfx.id %>
+                      <div class="btn-cont">
+                        <span class="arrow"> </span>
+                        <button type="submit" class="btn btn-info">Lưu</button>
+                      </div>
+                  <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

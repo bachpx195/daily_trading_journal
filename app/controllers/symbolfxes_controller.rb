@@ -10,6 +10,8 @@ class SymbolfxesController < ApplicationController
   # GET /symbolfxes/1
   # GET /symbolfxes/1.json
   def show
+    @commentable = @symbolfx
+    @comments = @commentable.comments&.order('created_at DESC')
   end
 
   # GET /symbolfxes/new

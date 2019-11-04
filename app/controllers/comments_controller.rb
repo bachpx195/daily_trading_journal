@@ -15,6 +15,8 @@ class CommentsController < ApplicationController
     if @comment.save
       if params[:comment][:commmentable] == 'CurrencyPair'
         redirect_to currency_pair_path(@commentable)
+      elsif params[:comment][:commmentable] == 'Symbolfx'
+        redirect_to symbolfx_path(@commentable)
       end
     end
   end
