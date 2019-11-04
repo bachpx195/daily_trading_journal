@@ -10,6 +10,8 @@ class CurrencyPairsController < ApplicationController
   # GET /currency_pairs/1
   # GET /currency_pairs/1.json
   def show
+    @commentable = @currency_pair
+    @comments = @commentable.comments&.order('created_at DESC')
   end
 
   # GET /currency_pairs/new
