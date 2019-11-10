@@ -24,7 +24,7 @@
                 <td class="text-center"><%= link_to symbolfx.slug, symbolfx_path(symbolfx) %></td>
                 <td class="text-center"><%= symbolfx.name %></td>
                 <td class="text-center"><%= symbolfx.country %></td>
-                <td class="text-center"><%= symbolfx.country %></td>
+                <td class="text-center"><%= symbolfx.center_bank %></td>
                 <td class="text-center"><%= symbolfx.brief&.html_safe %></td>
                 <td class="text-center">
                   <%= link_to raw('<i class="fa fa-trash-o"></i>'), symbolfx, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
