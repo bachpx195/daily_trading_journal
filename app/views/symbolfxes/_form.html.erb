@@ -25,9 +25,16 @@
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="slug">Quốc gia</span>
+    <span class="col-sm-1 btn btn-primary nohover" id="country">Quốc gia</span>
     <div class="col-sm-11">
-      <%= form.text_field :country, autocomplete: "off", id: "slug", class: "form-control" %>
+      <%= form.text_field :country, autocomplete: "off", id: "country", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="center_bank">Bank</span>
+    <div class="col-sm-11">
+      <%= form.text_field :center_bank, autocomplete: "off", id: "center_bank", class: "form-control" %>
     </div>
   </div>
 

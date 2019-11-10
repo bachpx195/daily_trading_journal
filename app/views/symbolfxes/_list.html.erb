@@ -10,6 +10,8 @@
             <th class="text-center">Kí hiệu</th>
             <th class="text-center">Tên</th>
             <th class="text-center">Quốc gia</th>
+            <th class="text-center">Ngân hàng</th>
+            <th class="text-center">Ghi chú</th>
             <th></th>
           </tr>
           </thead>
@@ -19,8 +21,9 @@
                 <td class="text-center">
                   <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_symbolfx_url(symbolfx) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
                 </td>
-                <td class="text-center"><%= symbolfx.slug %></td>
+                <td class="text-center"><%= link_to symbolfx.slug, symbolfx_path(symbolfx) %></td>
                 <td class="text-center"><%= symbolfx.name %></td>
+                <td class="text-center"><%= symbolfx.country %></td>
                 <td class="text-center"><%= symbolfx.country %></td>
                 <td class="text-center"><%= symbolfx.brief&.html_safe %></td>
                 <td class="text-center">

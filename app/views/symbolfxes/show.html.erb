@@ -19,6 +19,10 @@
       <h2 class="invoice-title uppercase">Quốc gia</h2>
       <p class="invoice-desc grand-total"><%= @symbolfx.country %></p>
     </div>
+    <div class="col-xs-3 invoice-subtotal">
+      <h2 class="invoice-title uppercase">Bank</h2>
+      <p class="invoice-desc grand-total"><%= @symbolfx.center_bank %></p>
+    </div>
   </div>
   <div class="row invoice-body">
     <div class="col-xs-12 table-responsive">
