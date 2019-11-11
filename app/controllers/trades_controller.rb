@@ -81,7 +81,7 @@ class TradesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def trade_params
       params.require(:trade)
-        .permit(:coin_id, :status, :start_date, :reason, :end_date,
+        .permit(:currency_pair_id, :status, :start_date, :reason, :end_date, :order_type,
           trade_normal_method_attributes: [:id, :point_entry, :point_out, :stop_loss, :take_profit, :target, :fee, :amount],
           log_attributes: [:id, :note, :rating, :datetime, :money, :fee, :result, :status]
         )

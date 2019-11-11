@@ -14,7 +14,7 @@ class Log < ApplicationRecord
 	private
 	
 	def genarate_code
-		self.code =  self.trade.coin.slug.upcase + self.created_at.to_i.to_s
+		self.code =  self.trade.currency_pair.slug.upcase + self.created_at.to_i.to_s
 	end
 	
 	def update_fund_log

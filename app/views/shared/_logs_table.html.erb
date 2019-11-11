@@ -5,7 +5,7 @@
       <th></th>
       <th class="text-center">stt</th>
       <th class="text-center">Ngày</th>
-      <th class="text-center">Coin</th>
+      <th class="text-center">Cặp tiên</th>
       <th class="text-center">Kêt quả</th>
       <th class="text-center">Lãi/Lỗ</th>
       <th class="text-center">Ghi chú</th>
@@ -22,7 +22,7 @@
           </td>
           <td class="text-center"><%= index + 1  %></td>
           <td class="text-center"><%= format_date_ddMMyyyHHmm f.datetime, "%H:%M" %></td>
-          <td class="text-center"><%= f.trade.coin.slug %></td>
+          <td class="text-center"><%= f.trade.currency_pair.slug %></td>
           <td class="text-center"><%= format_log_status f.status %></td>
           <td class="text-center"><%= format_money_with_fund f.money.to_i %></td>
           <td class="text-center"><%= f.note %></td>

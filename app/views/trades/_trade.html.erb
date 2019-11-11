@@ -8,11 +8,16 @@
       <% end %>
     </td>
     <td class="text-center"><%= trade.created_at.strftime("%d/%m/%Y %H:%M:%S") %></td>
-    <td class="text-center"><%= trade.trade_normal_method&.amount %> <%= link_to trade.coin.slug, coins_path(trade.coin)  %></td>
+    <td class="text-center"><%= trade.trade_normal_method&.amount %> <%= link_to trade.currency_pair.slug, currency_pairs_path(trade.currency_pair)  %></td>
+    <td class="text-center">
+      <% if trade.buy? %>
+        <span class="label label-sm label-info">Buy</span>
+      <% else %>
+        <span class="label label-sm label-danger">Sell</span>
+      <% end %>
+    </td>
     <td class="text-center"><%= trade.trade_normal_method.trade_method.name || trade.trade_pyramid_method.trade_method.name %></td>
     <td class="text-center"><%= format_trade_status(trade.status) %></td>
-    <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_entry) %></td>
-    <td class="text-center"><%= format_money_with_fund(trade.trade_normal_method&.point_out) %></td>
     <td class="text-center"><%= link_to(trade_log_result(trade.log), log_path(trade.log)) if trade.log.present? %></td>
     <td class="text-center">
       <%= render partial: 'shared/action_buttons', locals: { delete_url: trade, edit_url: edit_trade_url(trade) } %>
