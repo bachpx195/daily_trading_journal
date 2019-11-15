@@ -23,6 +23,30 @@ class LogsController < ApplicationController
   def show
   end
 
+  def import_logs
+    ActiveRecord::Base.transaction do
+      if params[:file_logs].present?
+        @error_branches << "Please enter csv format" if params[:file_branches].content_type != "text/csv"
+        @branch_importer = BranchImporter.new(
+          @company,
+          params[:file_branches]
+        )
+        @branch_importer.execute
+        @branches = @branch_importer.branches
+        @error_branches = @branch_importer.errors
+        notice << 'Branches'
+      end
+    end
+  
+    respond_to do |format|
+      if @error_positions.present? || @error_branches.present? || @error_images.present?
+        format.html { render :upload_csv }
+      else
+        format.html { redirect_to upload_csv_company_path, notice: "#{notice.join(',')} were successfully imported." }
+      end
+    end
+  end
+  
   private
   def find_log
     @log = Log.find_by id: params[:id]

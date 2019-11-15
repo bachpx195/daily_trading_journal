@@ -8,7 +8,11 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :fund_logs
-  resources :logs
+  resources :logs do
+    collection do
+      post :import_logs
+    end
+  end
   resources :trades do
     member do
       get 'close', to: 'trades#close'
