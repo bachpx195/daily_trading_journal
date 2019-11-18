@@ -6,6 +6,32 @@ class LogsController < ApplicationController
     @logs = Log.paginate(:page => params[:page], :per_page => 10)
   end
 
+  def new
+    @log = Log.new
+  end
+
+  def create
+    ActiveRecord::Base.transaction do
+      binding.pry
+
+      if params[:file_logs].present?
+        @errors << "Please enter csv format" if params[:file_logs].content_type != "text/csv"
+        @log_importer = LogImporter.new(
+          params[:file_logs]
+        )
+        @branch_importer.execute
+        @branches = @branch_importer.branches
+        @error_branches = @branch_importer.errors
+        notice << 'Branches'
+      end
+    end
+  
+    respond_to do |format|
+      @logs = Log.paginate(:page => params[:page], :per_page => 10)
+      format.js {render layout: false}
+    end
+  end
+
   def update
     @log.update_attributes log_params
     @logs = Log.paginate(:page => params[:page], :per_page => 10)
@@ -21,30 +47,6 @@ class LogsController < ApplicationController
   end
 
   def show
-  end
-
-  def import_logs
-    ActiveRecord::Base.transaction do
-      if params[:file_logs].present?
-        @error_branches << "Please enter csv format" if params[:file_branches].content_type != "text/csv"
-        @branch_importer = BranchImporter.new(
-          @company,
-          params[:file_branches]
-        )
-        @branch_importer.execute
-        @branches = @branch_importer.branches
-        @error_branches = @branch_importer.errors
-        notice << 'Branches'
-      end
-    end
-  
-    respond_to do |format|
-      if @error_positions.present? || @error_branches.present? || @error_images.present?
-        format.html { render :upload_csv }
-      else
-        format.html { redirect_to upload_csv_company_path, notice: "#{notice.join(',')} were successfully imported." }
-      end
-    end
   end
   
   private

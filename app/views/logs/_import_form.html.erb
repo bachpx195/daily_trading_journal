@@ -1,0 +1,22 @@
+<%= form_with(model: @log, remote: true, :html => {class: 'form-horizontal'}) do |f| %>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">File csv</label>
+    <div class="col-md-4">
+      <%= file_field_tag :file_logs,  :accept => 'text/csv' %>
+      <div class="form-control-focus"></div>
+    </div>
+  </div>
+
+  <div class="form-actions margin-top-10">
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="show-main-modal">
+          <i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>Hủy
+        </button>
+        <%= f.button :button, class: 'btn green' do %>
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>Lưu
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

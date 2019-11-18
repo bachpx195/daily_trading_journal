@@ -16,6 +16,11 @@
       <% end %>
       <div class="modal-body">
         <div class="form-group">
+          <%= f.label :server_code, "Code" %>
+          <%= f.text_field :server_code, class: "form-control",
+            placeholder: "Please input money" %>
+        </div>
+        <div class="form-group">
           <%= f.label :money, "Số tiền" %>
           <%= f.number_field :money, class: "form-control",
             placeholder: "Please input money" %>
