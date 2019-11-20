@@ -19,7 +19,7 @@ class LogImporter
                 else
                   files
                 end
-    
+
     return if @csv_file.blank?
     
     CSV.foreach(

@@ -12,14 +12,14 @@ class LogsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      binding.pry
+      if params[:log][:file_logs].present?
+        @errors << "Please enter csv format" if params[:log][:file_logs].content_type != "text/csv"
 
-      if params[:file_logs].present?
-        @errors << "Please enter csv format" if params[:file_logs].content_type != "text/csv"
         @log_importer = LogImporter.new(
-          params[:file_logs]
+          params[:log][:file_logs]
         )
-        @branch_importer.execute
+
+        @log_importer.execute
         @branches = @branch_importer.branches
         @error_branches = @branch_importer.errors
         notice << 'Branches'
