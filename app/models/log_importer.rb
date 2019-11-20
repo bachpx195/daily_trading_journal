@@ -28,28 +28,22 @@ class LogImporter
       header_converters: lambda { |f| f.strip },
       converters: lambda { |f| f ? f.strip : nil }
     ).with_index do |row, i|
-      binding.pry
-
-
-      city = City.find_by(name: row['市区町村*'])
       
-      if city.present?
-        branch = Branch.new(
-          name: row.first.last,
-          name_kana: row['店舗名カナ'],
-          brand: row['ブランド'],
-          address: row['住所*'],
-          phone_number: row['電話番号*'],
-          email: row['メールアドレス'],
-          access: row['アクセス'],
-          post_code: row['郵便番号'],
-          city_id: city.id
-        )
-        @errors << "[案件一覧:#{i + 1}][ポジション] #{branch.errors.full_messages.to_sentence}"  unless branch.valid?
-        @branches << branch
-      else
-        @errors << "[案件一覧:#{i + 1}][ポジション] City's name not found"
-      end
+      
+      log = Log.new(
+        server_code: row['Ticket'],
+        name_kana: row['店舗名カナ'],
+        brand: row['ブランド'],
+        address: row['住所*'],
+        phone_number: row['電話番号*'],
+        email: row['メールアドレス'],
+        access: row['アクセス'],
+        post_code: row['郵便番号'],
+        city_id: city.id
+      )
+      @errors << "[案件一覧:#{i + 1}][ポジション] #{branch.errors.full_messages.to_sentence}"  unless branch.valid?
+      @branches << branch
+
     end
     
     return if @errors.present?
@@ -57,6 +51,13 @@ class LogImporter
   end
   
   private
+  
+  def get_currency_pair_id str
+    if str.include? 'XAU'
+      CurrencyPair.find_by
+    end
+  end
+  
   
   def create_logs
     @logs.each do |log|
