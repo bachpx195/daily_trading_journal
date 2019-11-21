@@ -28,8 +28,6 @@ class LogImporter
       header_converters: lambda { |f| f.strip },
       converters: lambda { |f| f ? f.strip : nil }
     ).with_index do |row, i|
-      
-      
       log = Log.new(
         server_code: row['Ticket'],
         name_kana: row['店舗名カナ'],
@@ -41,9 +39,15 @@ class LogImporter
         post_code: row['郵便番号'],
         city_id: city.id
       )
+      
+      trade = Trade.new(
+        currency_pair_id: get_currency_pair_id(row['Symbol']),
+        start_date: get_datetime_server(row['Open Time']),
+        end_date: get_datetime_server(row['Close Time']),
+        order_type: get_order_type(row['Action'])
+      )
       @errors << "[案件一覧:#{i + 1}][ポジション] #{branch.errors.full_messages.to_sentence}"  unless branch.valid?
       @branches << branch
-
     end
     
     return if @errors.present?
@@ -52,12 +56,39 @@ class LogImporter
   
   private
   
-  def get_currency_pair_id str
-    if str.include? 'XAU'
-      CurrencyPair.find_by
+  def get_order_type str
+    if str == 'SELL'
+      0
+    else
+      1
     end
   end
   
+  def get_datetime_server str
+    return unless str.present?
+    DateTime.strptime("#{str[2]}-#{str[1]}-#{str[0]} #{str[3]}", '%Y-%B-%d %H:%M').utc
+  end
+  
+  def get_currency_pair_id str
+    if str.include? 'XAU'
+      return CurrencyPair.find_by(slug: 'XAU/USD').id
+    end
+    symbol_arr = []
+    Symbolfx.pluck(:slug).each do |symbol|
+      symbol_arr << symbol if str.include? symbol
+    end
+
+    symbol_pair = symbol_arr.join('/')
+    symbol_pair_reverse = symbol_arr&.reverse.join('/')
+
+    currency = nil
+    
+    if symbol_pair.present?
+      currency = CurrencyPair.find_by(slug: symbol_pair) || CurrencyPair.find_by(slug: symbol_pair_reverse)
+    end
+
+    currency.id
+  end
   
   def create_logs
     @logs.each do |log|
