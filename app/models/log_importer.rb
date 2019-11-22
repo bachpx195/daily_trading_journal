@@ -28,26 +28,19 @@ class LogImporter
       header_converters: lambda { |f| f.strip },
       converters: lambda { |f| f ? f.strip : nil }
     ).with_index do |row, i|
-      log = Log.new(
-        server_code: row['Ticket'],
-        name_kana: row['店舗名カナ'],
-        brand: row['ブランド'],
-        address: row['住所*'],
-        phone_number: row['電話番号*'],
-        email: row['メールアドレス'],
-        access: row['アクセス'],
-        post_code: row['郵便番号'],
-        city_id: city.id
-      )
-      
       trade = Trade.new(
         currency_pair_id: get_currency_pair_id(row['Symbol']),
         start_date: get_datetime_server(row['Open Time']),
         end_date: get_datetime_server(row['Close Time']),
-        order_type: get_order_type(row['Action'])
+        order_type: get_order_type(row['Action']),
+        trade_normal_method_attributes: {point_entry: row['Open Price'].to_f, point_out: row['Close Price'].to_f},
+        log_attributes: { server_code: row['Ticket'],
+         status: get_log_status(row['Profit'], row['Comm.'], row['Sw.']),
+         fee: row['Comm.'].to_f + row['Sw.'].to_f,
+         money: row['Profit'].to_f, datetime: Time.zone.now}
       )
-      @errors << "[案件一覧:#{i + 1}][ポジション] #{branch.errors.full_messages.to_sentence}"  unless branch.valid?
-      @branches << branch
+      @logs << trade
+      @errors << "[Lỗi:#{i + 1}] #{trade.errors.full_messages.to_sentence}"  unless trade.valid?
     end
     
     return if @errors.present?
@@ -55,6 +48,17 @@ class LogImporter
   end
   
   private
+  
+  def get_log_status str, fee, swap
+    profit = str.to_f + fee.to_f + swap.to_f
+    if str.to_f <= 5 || str.to_f >= -5
+      0
+    elsif str.to_f > 5
+      1
+    else
+      2
+    end
+  end
   
   def get_order_type str
     if str == 'SELL'
@@ -66,28 +70,31 @@ class LogImporter
   
   def get_datetime_server str
     return unless str.present?
-    DateTime.strptime("#{str[2]}-#{str[1]}-#{str[0]} #{str[3]}", '%Y-%B-%d %H:%M').utc
+    str1 = str.split(" ")
+    DateTime.strptime("#{str1[2]}-#{str1[1]}-#{str1[0]} #{str1[3]}", '%Y-%B-%d %H:%M').utc
   end
   
   def get_currency_pair_id str
-    if str.include? 'XAU'
-      return CurrencyPair.find_by(slug: 'XAU/USD').id
-    end
-    symbol_arr = []
-    Symbolfx.pluck(:slug).each do |symbol|
-      symbol_arr << symbol if str.include? symbol
-    end
-
-    symbol_pair = symbol_arr.join('/')
-    symbol_pair_reverse = symbol_arr&.reverse.join('/')
-
-    currency = nil
-    
-    if symbol_pair.present?
-      currency = CurrencyPair.find_by(slug: symbol_pair) || CurrencyPair.find_by(slug: symbol_pair_reverse)
-    end
-
-    currency.id
+    # if str.include? 'XAU'
+    #   return CurrencyPair.find_by(slug: 'XAU/USD').id
+    # end
+    # symbol_arr = []
+    # Symbolfx.pluck(:slug).each do |symbol|
+    #   symbol_arr << symbol if str.include? symbol
+    # end
+    #
+    # symbol_pair = symbol_arr.join('/')
+    # symbol_pair_reverse = symbol_arr&.reverse.join('/')
+    #
+    # currency = nil
+    #
+    # if symbol_pair.present?
+    #   currency = CurrencyPair.find_by(slug: symbol_pair) || CurrencyPair.find_by(slug: symbol_pair_reverse)
+    # end
+    #
+    # currency.id
+    #
+    CurrencyPair.first.id
   end
   
   def create_logs

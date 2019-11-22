@@ -110,14 +110,14 @@
           <% if @trade_method.point_out.present? && @trade_method.point_entry > @trade_method.point_out %>
             <span style='font-size:100px;'>&#128546;</span>
             <div class="mt-step-col error">
-              <div class="mt-step-title uppercase font-grey-cascade">- <%= @trade.log&.money %> Usdt (<%= @trade.log&.result %>%)</div>
-              <div class="mt-step-content font-grey-cascade">fee: <%= @trade.log&.fee %> Usdt</div>
+              <div class="mt-step-title uppercase font-grey-cascade">- <%= @trade.log&.money %> USD (<%= @trade.log&.result %>%)</div>
+              <div class="mt-step-content font-grey-cascade">fee: <%= @trade.log&.fee %> USD</div>
             </div>
           <% else %>
             <span style='font-size:100px;'>&#128512;</span>
             <div class="mt-step-col done">
-              <div class="mt-step-title uppercase font-grey-cascade">+ <%= @trade.log&.money %> Usdt (<%= @trade.log&.result %> %)</div>
-              <div class="mt-step-content font-grey-cascade">fee: <%= @trade.log&.fee %> Usdt</div>
+              <div class="mt-step-title uppercase font-grey-cascade">+ <%= @trade.log&.money %> USD (<%= @trade.log&.result %> %)</div>
+              <div class="mt-step-content font-grey-cascade">fee: <%= @trade.log&.fee %> USD</div>
             </div>
           <% end %>
         </div>
@@ -163,11 +163,11 @@
 
       if(entry > out) {
         $('#trade_log_attributes_status').val('loss')
-        var html = '<span style=\'font-size:100px;\'>&#128546;</span><div class="mt-step-col error"><div class="mt-step-title uppercase font-grey-cascade">'  + '- ' + total + ' Usdt' + '(' + fund_percent + '% )</div> <div class="mt-step-content font-grey-cascade">fee: ' + fee + ' Usdt</div></div>'
+        var html = '<span style=\'font-size:100px;\'>&#128546;</span><div class="mt-step-col error"><div class="mt-step-title uppercase font-grey-cascade">'  + '- ' + total + ' USD' + '(' + fund_percent + '% )</div> <div class="mt-step-content font-grey-cascade">fee: ' + fee + ' USD</div></div>'
         $('#review-icon').html(html)
       }else{
         $('#trade_log_attributes_status').val('interest')
-        var html = '<span style=\'font-size:100px;\'>&#128512;</span><div class="mt-step-col done"><div class="mt-step-title font-grey-cascade">'  + '+ ' + total + ' Usdt ' + '( ' + fund_percent + '% )</div> <div class="mt-step-content font-grey-cascade">fee: ' + fee + ' Usdt</div></div>'
+        var html = '<span style=\'font-size:100px;\'>&#128512;</span><div class="mt-step-col done"><div class="mt-step-title font-grey-cascade">'  + '+ ' + total + ' USD ' + '( ' + fund_percent + '% )</div> <div class="mt-step-content font-grey-cascade">fee: ' + fee + ' USD</div></div>'
         $('#review-icon').html(html)
       }
     });

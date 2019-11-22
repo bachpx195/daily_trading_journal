@@ -72,10 +72,10 @@ module ApplicationHelper
       if str == 0 || str.nil?
         ''
       else
-        fund_log_change_money(status) + number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT"
+        fund_log_change_money(status) + number_with_delimiter(str, delimiter: ".", separator: ",")+" USD"
       end
     else
-      number_with_delimiter(str, delimiter: ".", separator: ",")+" USDT" if str.present?
+      number_with_delimiter(str, delimiter: ".", separator: ",")+" USD" if str.present?
     end
   end
 
@@ -136,9 +136,9 @@ module ApplicationHelper
   def trade_log_result log
     if log.present?
       if log.loss?
-        "Lỗ -#{log.money}Usdt"
+        "Lỗ -#{log.money}Usd"
       else
-        "Lãi + #{log.money}Usdt"
+        "Lãi + #{log.money}Usd"
       end
     end
   end

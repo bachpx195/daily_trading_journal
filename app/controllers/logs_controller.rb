@@ -20,9 +20,7 @@ class LogsController < ApplicationController
         )
 
         @log_importer.execute
-        @branches = @branch_importer.branches
-        @error_branches = @branch_importer.errors
-        notice << 'Branches'
+        @errors = @log_importer.errors
       end
     end
   

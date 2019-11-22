@@ -3,7 +3,7 @@ class Log < ApplicationRecord
 	has_many :fund_logs
 	
 	before_create :genarate_code
-	before_save :update_fund_log
+	after_save :update_fund_log
 	
 	scope :order_desc, -> {order(datetime: :desc)}
 	scope :get_logs_by_date, ->date {where("DATE(datetime) = ?", date).success}
@@ -20,7 +20,7 @@ class Log < ApplicationRecord
 	def update_fund_log
 		return unless self.status.present?
 		ActiveRecord::Base.transaction do
-			if self.loss?
+			if self.money + self.fee < 0
 				self.fund_logs.create! change_type: :loss, change_amount: self.money
 				self.fund_logs.create! change_type: :fee, change_amount: self.fee
 			else
