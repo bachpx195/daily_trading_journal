@@ -22,7 +22,7 @@
       Tử só
     </span>
     <div class="col-sm-4">
-      <%= form.select :base_id, options_from_collection_for_select(Symbolfx.all, :id, :slug) ,
+      <%= form.select :base_id, options_from_collection_for_select(Symbolfx.all, :id, :slug, form.object.base_id) ,
                       {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>
@@ -32,7 +32,7 @@
       Mấu số
     </span>
     <div class="col-sm-4">
-      <%= form.select :quote_id, options_from_collection_for_select(Symbolfx.all, :id, :slug) ,
+      <%= form.select :quote_id, options_from_collection_for_select(Symbolfx.all, :id, :slug, form.object.quote_id) ,
                       {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>

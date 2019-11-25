@@ -13,7 +13,7 @@ class LogsController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       if params[:log][:file_logs].present?
-        @errors << "Please enter csv format" if params[:log][:file_logs].content_type != "text/csv"
+        @errors << "Please enter csv format" if params[:log][:file_logs].content_type != "text/html"
 
         @log_importer = LogImporter.new(
           params[:log][:file_logs]
