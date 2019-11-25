@@ -39,31 +39,29 @@ class LogImporter
     logs = agent.page.search('tr')
     logs.each_with_index do |log, i|
       row = log.search('td').map(&:text).map(&:strip)
-      if row.count == 14 && !Log.find_by(server_code: row[0]).present?
+      if row.count == 14 && !Log.find_by(server_code: row[0]).present? && row[0] != "Ticket"
         trade = Trade.new(
           start_date: get_datetime_server(row[1]),
           order_type: get_order_type(row[2]),
           currency_pair_id: get_currency_pair_id(row[4]),
-          end_date: get_datetime_server(row[9]),
+          end_date: get_datetime_server(row[8]),
           status: 2,
           trade_normal_method_attributes: {point_entry: row[5].to_f,
-           point_out: row[6].to_f,
-           stop_loss: row[7].to_f,
-           take_profit: row[8].to_f,
-           amount: row[3]},
+            point_out: row[6].to_f,
+            stop_loss: row[7].to_f,
+            take_profit: row[8].to_f,
+            amount: row[3]},
           log_attributes: { server_code: row[0],
-           status: get_log_status(row[13], row[10], row[12]),
-           fee: row[10].to_f + row[12].to_f,
-           money: row[13].to_f,
-           datetime: Time.zone.now}
+            status: get_log_status(row[13], row[10], row[12]),
+            fee: row[10].to_f + row[12].to_f,
+            money: row[13].to_f,
+            datetime: Time.zone.now}
         )
         @logs << trade
         @errors << "[Lỗi:#{i + 1}] #{trade.errors.full_messages.to_sentence}"  unless trade.valid?
       end
     end
-
-
-
+    
     # CSV.foreach(
     #   csv_file.path,
     #   headers: true,
@@ -96,7 +94,6 @@ class LogImporter
   private
   
   def get_log_status str, fee, swap
-    profit = str.to_f + fee.to_f + swap.to_f
     if str.to_f <= 5 || str.to_f >= -5
       0
     elsif str.to_f > 5

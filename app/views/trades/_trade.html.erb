@@ -7,7 +7,7 @@
         <%= render partial: 'shared/action_buttons', locals: { show_url: trade_path(trade), close_url: close_trade_url(trade) } %>
       <% end %>
     </td>
-    <td class="text-center"><%= trade.start_date.strftime("%d/%m %H:%M") %> - <%= trade.end_date.strftime("%d/%m %H:%M") %></td>
+    <td class="text-center"><%= trade.start_date&.strftime("%d/%m %H:%M") %> - <%= trade.end_date&.strftime("%d/%m %H:%M") %></td>
     <td class="text-center"><%= trade.trade_normal_method&.amount %> <%= link_to trade.currency_pair.slug, currency_pairs_path(trade.currency_pair)  %></td>
     <td class="text-center">
       <% if trade.buy? %>
