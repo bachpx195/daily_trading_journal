@@ -136,10 +136,10 @@ module ApplicationHelper
   def trade_log_result log
     if log.present?
       if log.money + log.fee < 0
-        "Lỗ -#{(log.money + log.fee).round(2)}Usd"
+        "Lỗ #{(log.money + log.fee).round(2)}Usd"
 
       else
-        "Lãi + #{(log.money + log.fee).round(2)}Usd"
+        "Lãi #{(log.money + log.fee).round(2)}Usd"
       end
     end
   end

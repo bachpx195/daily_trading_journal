@@ -5,8 +5,8 @@ class TradesController < ApplicationController
   # GET /trades
   # GET /trades.json
   def index
-    @q = Trade.includes(:trade_normal_method).search(params[:q])
-    @trades = @q.result(distinct: true).order('start_date DESC')
+    @q = Trade.includes(:trade_normal_method, :currency_pair).search(params[:q])
+    @trades = @q.result(distinct: true).order('start_date DESC').paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /trades/1
@@ -33,7 +33,7 @@ class TradesController < ApplicationController
 
     respond_to do |format|
       if @trade.save
-        @trades = Trade.includes(:trade_normal_method).order('start_date DESC')
+        @trades = Trade.includes(:trade_normal_method, :currency_pair).order('start_date DESC').paginate(:page => params[:page], :per_page => 10)
         format.js { render :layout => false }
       else
         format.js { render :layout => false }
@@ -46,7 +46,7 @@ class TradesController < ApplicationController
   def update
     respond_to do |format|
       if @trade.update(trade_params)
-        @trades = Trade.all.order('created_at DESC')
+        @trades = Trade.includes(:trade_normal_method, :currency_pair).order('start_date DESC').paginate(:page => params[:page], :per_page => 10)
         format.js { render :layout => false }
       else
         format.js { render :layout => false }
