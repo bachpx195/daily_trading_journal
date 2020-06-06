@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :coin_sources
   resources :coins
   resources :tags
+  resources :plans
   resources :calculates
   resources :glossaries
   resources :comments
@@ -37,6 +38,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :tags
+      resources :plans
       resources :news
     end
   end

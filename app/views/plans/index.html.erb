@@ -1,0 +1,95 @@
+<div class="row" data-turbolinks="false">
+  <div class="col-lg-12">
+    <div class="panel panel-info">
+      <div class="panel-body" id="table" >
+        <div id="jstree-plans"></div>
+      </div>
+      <%= link_to "Tạo mới", "javascript:;", class: "btn btn-success", id: "create-plans" %>
+      <%= link_to "Sửa", "#", class: "btn btn-warning", id: "edit-plans" %>
+      <%= link_to "Xóa", "#", class: "btn btn-danger", id: "delete-plans" %>
+    </div>
+  </div>
+</div>
+<div id="modal-window" class="modal fade" role="dialog"></div>
+
+<script>
+  $(document).ready(function($) {
+    $('#jstree-plans').jstree({
+      'core': {
+        'check_callback': true,
+        'data': {
+          'url': function (node) {
+            return 'api/v1/plans/index.json'
+          }
+        }
+      },
+      'plugins': ['dnd']
+    });
+
+    $('#jstree-plans').on('move_node.jstree', function (e, obj) {
+      // console.log(n.old_parent + ":" + n.old_position + " -> " + n.parent + ":" + n.position);
+      var id = obj.node.id,
+        parent_id = obj.node.parent,
+        new_position = obj.position;
+
+      var data = {'plan': {'parent_id': parent_id, 'new_position': new_position}},
+        url = '/plans/' + id;
+
+      // PATCH
+      $.ajax({
+        'type': 'PATCH',
+        'data': data,
+        'url': url
+      })
+    });
+
+    $('#create-plans').on('click', function (e ) {
+      e.preventdefault;
+      var jstree = $('#jstree-plans').jstree(true);
+      var selected = jstree.get_selected();
+      if (!selected.length) return false;
+
+      selected = selected[0];
+
+      var id = selected,
+      url = '/plans/new?parent=' + id;
+      window.location.href=url;
+      return false; // prevent reload page
+    });
+
+    $('#edit-plans').on('click', function (e) {
+      e.preventdefault;
+
+      var jstree = $('#jstree-plans').jstree(true);
+      var selected = jstree.get_selected();
+      if (!selected.length) return false;
+
+      selected = selected[0];
+
+      var id = selected, url = '/plans/' + id + '/edit';
+      window.location.href=url;
+      return false; // prevent reload page
+    });
+
+    $('#delete-plans').on('click', function (e) {
+      e.preventdefault;
+
+      var jstree = $('#jstree-plans').jstree(true);
+      var selected = jstree.get_selected();
+      if (!selected.length) return false;
+
+      selected = selected[0];
+
+      var id = selected, url = '/plans/' + id;
+
+      // Delete
+      $.ajax({
+        'type': 'DELETE',
+        'url': url,
+        'success': function () {
+          jstree.delete_node(selected);
+        }
+      })
+    });
+  })
+</script>
