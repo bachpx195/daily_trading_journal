@@ -27,6 +27,23 @@
         </div>
       </div>
 
+      <div class="form-group">
+        <span for="title" class="col-sm-2 btn btn-primary nohover">
+          Ngày bắt đầu
+        </span>
+        <div class="col-sm-4">
+          <% start_date = plan.start_date&.strftime("%d/%m/%Y %I:%M") || Time.now.strftime("%d/%m/%Y") %>
+          <%= form.text_field :start_date, as: :datetimepicker, class: 'form-control date-picker', id: "startDate", placeholder: "dd/mm/yyyy hh", 'data-date-format': 'dd/mm/yyyy', value: start_date %>
+        </div>
+        <span for="title" class="col-sm-2 btn btn-primary nohover">
+          Ngày kết thúc
+        </span>
+        <div class="col-sm-4">
+          <% end_date = plan.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+          <%= form.text_field :start_date, as: :datetimepicker, class: 'form-control date-picker', id: "endDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: end_date %>
+        </div>
+      </div>
+
       <div class="form-actions">
         <div style="text-align: center">
             <button type="submit" class="col-sm-1 btn btn-info">Lưu</button>
