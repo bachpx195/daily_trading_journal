@@ -33,6 +33,7 @@
                 <tr class="item-<%= currency_pair.id %> <%= currency_pair.unfollow? ? 'active' : 'success'%>">
                   <td class="text-center">
                     <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_currency_pair_path(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
                   </td>
                   <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
                   <td class="text-center"><%= currency_pair.winrate %>%</td>

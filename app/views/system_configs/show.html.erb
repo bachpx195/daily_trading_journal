@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Key:</strong>
+  <%= @system_config.key %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @system_config.value %>
+</p>
+
+<p>
+  <strong>Value type:</strong>
+  <%= @system_config.value_type %>
+</p>
+
+<%= link_to 'Edit', edit_system_config_path(@system_config) %> |
+<%= link_to 'Back', system_configs_path %>

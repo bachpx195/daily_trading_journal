@@ -1,0 +1,23 @@
+<%= render partial: 'list', layout: 'shared/index_tabs', locals: {new_url: new_coin_url, title: "Import Data"} %>
+
+<h3>Import Json</h3>
+
+<%= form_with(model: Candlestick.new, url: candlesticks_currency_pair_path(@currency_pair), :html => {class: 'form-horizontal'}) do |f| %>
+  <div class="form-group form-md-line-input">
+    <label class="col-md-2 control-label">File json</label>
+    <div class="col-md-4">
+      <%= f.file_field :file_json %>
+      <div class="form-control-focus"></div>
+    </div>
+  </div>
+
+  <div class="form-actions margin-top-10">
+    <div class="row">
+      <div class="col-md-12 text-right">
+        <%= f.button :button, class: 'btn green' do %>
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>Lưu
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

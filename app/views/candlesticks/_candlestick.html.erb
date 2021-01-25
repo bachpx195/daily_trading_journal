@@ -1,0 +1,10 @@
+<% @candlesticks.each do |candlestick| %>
+  <tr>
+    <td class="text-center"><%= candlestick.date.strftime("%d/%m/%Y %H:%M:%S") %></td>
+    <td class="text-center"><%= candlestick.open %></td>
+    <td class="text-center"><%= candlestick.high %></td>
+    <td class="text-center"><%= candlestick.low %></td>
+    <td class="text-center"><%= candlestick.close %></td>
+    <td class="text-center"><%= candlestick.atr14 %></td>
+  </tr>
+<% end %>

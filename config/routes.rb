@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :currency_pairs
+  resources :system_configs
+  resources :currency_pairs do
+    member do
+      get 'candlesticks', to: "candlesticks#index"
+      post 'candlesticks', to: "candlesticks#create"
+    end
+  end
   resources :symbolfxes
   mount Ckeditor::Engine => '/ckeditor'
 

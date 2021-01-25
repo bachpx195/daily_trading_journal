@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>System Configs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Value</th>
+      <th>Value type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @system_configs.each do |system_config| %>
+      <tr>
+        <td><%= system_config.key %></td>
+        <td><%= system_config.value %></td>
+        <td><%= system_config.value_type %></td>
+        <td><%= link_to 'Show', system_config %></td>
+        <td><%= link_to 'Edit', edit_system_config_path(system_config) %></td>
+        <td><%= link_to 'Destroy', system_config, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New System Config', new_system_config_path %>
