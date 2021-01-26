@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  resources :blogs
   resources :system_configs
   resources :currency_pairs do
     member do
@@ -9,10 +12,13 @@ Rails.application.routes.draw do
   resources :symbolfxes
   mount Ckeditor::Engine => '/ckeditor'
 
-  root "dashboard#index"
+  root "blog/blogs#index"
+  get '/blog/:id', to: 'blog/blogs#show'
+
+
+  get "dashboard", to: "dashboard#index"
   get "/pages/*page", to: "dashboard#show"
 
-  devise_for :users
   resources :fund_logs
   resources :logs
   resources :trades do

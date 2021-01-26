@@ -1,0 +1,41 @@
+<% @blogs.each do |blog| %>
+    <div class="post">
+    <h3 class="post__title">
+        <a href="<%= @gl%>"><%= blog.title %></a>
+    </h3>
+    <div class="post__intro">
+        <p>{{excerpt}}</p>
+    </div>
+    <div class="post__metadata">
+        <time datetime="{{date format="ddd, D MMMM, YYYY"}}" class="post__creation-date">
+        {{date format="MMM DD, YYYY"}}</time>
+        <span class="post__reading-time">{{reading_time}}</span>
+        <span class="post__reading-time">
+            <i class="fa fa-comment-alt"></i>
+            <a href="" class="comment-count" id="{{url}}"></a>
+        </span>
+        <span class="tagging">
+        {{#if tags}}
+            {{#foreach tags}}
+                <a href="{{url}}" title="{{name}}" class="tagging__item">#{{name}}</a>
+            {{/foreach}}
+        {{/if}}
+        </span>
+    </div>
+    </div>
+<% end %>
+{{/foreach}}
+{{ pagination }}
+<script id="dsq-count-scr" src="https://http-bachpham-info.disqus.com/count.js" async>
+</script>
+<script>
+  $(document).ready(function() {
+    var base_url = window.location.origin;
+    $.each($(".comment-count"), function() {
+      url_without_blackslash = $(this).attr("id").replace(/\//g, "");
+      full_url = base_url + '/' + url_without_blackslash + "#disqus_thread"
+      $(this).attr("href", full_url);
+    });
+    DISQUSWIDGETS.getCount()
+  })
+</script>

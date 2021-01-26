@@ -1,0 +1,114 @@
+<div class="tab-content">
+  <div class="portlet box blue">
+    <div class="portlet-title">
+      <div class="caption">
+        <i class="fa fa-comments"></i>Cặp tiền theo dõi</div>
+      <div class="tools">
+        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+      </div>
+      <div class="actions">
+        <a href="<%= edit_tag_path(id: tag.id, root_tag: tag.id) %>" class="btn btn-default btn-sm">
+          <i class="fa fa-pencil"></i> Sửa </a>
+      </div>
+    </div>
+    <div class="portlet-body">
+      <div class="tab-pane active" id="tag_tab<%= tag.id %>">
+        <div class="table-scrollable">
+          <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+              <th></th>
+              <th class="text-center">Tên</th>
+              <th class="text-center">Winrate</th>
+              <th class="text-center">Spread</th>
+              <th class="text-center">Range(ngày)</th>
+              <th class="text-center">Lưu ý cần lưu ý</th>
+              <th class="text-center">liên quan</th>
+              <th class="text-center">Thanh khoản</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody class="item-container-<%= tag.id %>">
+              <% CurrencyPair.followed.each do |currency_pair| %>
+                <tr class="item-<%= currency_pair.id %> <%= currency_pair.unfollow? ? 'active' : 'success'%>">
+                  <td class="text-center">
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_currency_pair_path(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
+                  </td>
+                  <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
+                  <td class="text-center"><%= currency_pair.winrate %>%</td>
+                  <td class="text-center"><%= currency_pair.spread %>point</td>
+                  <td class="text-center"><%= currency_pair.range %>point</td>
+                  <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
+                  <td class="text-center"><%= currency_pair.crosses_related %></td>
+                  <td class="text-center"><%= currency_pair.liquid_rate %></td>
+                  <td class="text-center">
+                    <%= link_to raw('<i class="fa fa-trash-o"></i>'), currency_pair, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <% Tag.find_by(title: "Currency pair categories").children.each_with_index do |tag, index| %>
+    <div class="portlet box blue">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="fa fa-comments"></i><%= tag.slug %></div>
+        <div class="tools">
+          <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+        </div>
+        <div class="actions">
+          <a href="<%= edit_tag_path(id: tag.id, root_tag: tag.id) %>" class="btn btn-default btn-sm">
+            <i class="fa fa-pencil"></i> Sửa </a>
+        </div>
+      </div>
+      <div class="portlet-body" style="display: <%= tag.followed? ? 'block' : 'none' %>;">
+        <%= tag.content&.html_safe %>
+        <div class="tab-pane active" id="tag_tab<%= tag.id %>">
+          <div class="table-scrollable">
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+              <tr>
+                <th></th>
+                <th class="text-center">Tên</th>
+                <th class="text-center">Winrate</th>
+                <th class="text-center">Spread</th>
+                <th class="text-center">Range(ngày)</th>
+                <th class="text-center">Lưu ý cần lưu ý</th>
+                <th class="text-center">liên quan</th>
+                <th class="text-center">Thanh khoản</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody class="item-container-<%= tag.id %>">
+                <% tag.currency_pairs.each do |currency_pair| %>
+                  <tr class="item-<%= currency_pair.id %> <%= currency_pair.unfollow? ? 'active' : 'success'%>">
+                    <td class="text-center">
+                      <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                    </td>
+                    <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
+                    <td class="text-center"><%= currency_pair.winrate %>%</td>
+                    <td class="text-center"><%= currency_pair.spread %>point</td>
+                    <td class="text-center"><%= currency_pair.range %>point</td>
+                    <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
+                    <td class="text-center"><%= currency_pair.crosses_related %></td>
+                    <td class="text-center"><%= currency_pair.liquid_rate %></td>
+                    <td class="text-center">
+                      <%= link_to raw('<i class="fa fa-trash-o"></i>'), currency_pair, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
