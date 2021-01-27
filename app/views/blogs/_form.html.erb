@@ -9,24 +9,12 @@
       </ul>
     </div>
   <% end %>
-
   <div class="form-group">
     <span class="col-sm-1 btn btn-primary nohover" id="title">Tiêu đề</span>
     <div class="col-sm-11">
       <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
     </div>
   </div>
-
-  <div class="form-group">
-    <span for="title" class="col-sm-1 btn btn-primary nohover">
-      Tag
-    </span>
-    <div class="col-sm-4">
-      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, blog.id.present? ? blog.tag.id : params[:parent]) ,
-                      {}, { :class => 'form-control select2_category' } %>
-    </div>
-  </div>
-
   <div class="form-group">
     <span for="intro_image" class="col-sm-1 btn btn-primary nohover long-text">
       Hình ảnh
@@ -44,7 +32,6 @@
       <%= form.file_field :intro_image, class: "edit-img btn btn-default" %>
     </div>
   </div>
-
   <div class="form-group">
     <span for="title" class="col-sm-1 btn btn-primary nohover">
       Ngày đăng
@@ -54,21 +41,55 @@
       <%= form.text_field :public_time, as: :datepicker, class: 'form-control date-picker', id: "publicTime", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
     </div>
   </div>
-
   <div class="form-group">
     <span class="col-sm-1 btn btn-primary nohover" id="content">Công khai</span>
     <div class="col-sm-11">
       <%= form.check_box :public_status, checked: form.object.published? ? "checked" : "" %>
     </div>
   </div>
-
   <div class="form-group">
     <span class="col-sm-1 btn btn-primary nohover" id="content">Nội dung</span>
     <div class="col-sm-11">
       <%= form.cktext_area :content, rows: 10, id: "editor1" %>
     </div>
   </div>
-
+  <div class="form-group">
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Tag
+    </span>
+    <div class="col-sm-8">
+      <%= f.fields_for :milestones, index: index do |fm| %>
+        <%= fm.hidden_field :name, value: milestone.name %>
+        <!-- Create a checkbox to add the milestone_id to the project -->
+        <%= fm.label milestone.name %>
+        <%= fm.check_box :milestone_template_id,{}, milestone.id %>
+        <br>
+        <% milestone.task_templates.each_with_index do |task, another_index| %>
+          <%= fm.fields_for :tasks, index: another_index do |ft| %>
+            <!-- Create a checkbox for each task in the milestone -->
+            <%= ft.label task.name %>
+            <%= ft.check_box :task_ids, {}, task.id %>
+          <% end %>
+        <% end %>
+        <br>
+      <% end %>
+      <%= Tag.find_by(slug: "blog_tags").children.each_with_index do |tag, index| %>
+        <%= form.fields_for :blog_tags, index: index do |ff| %>
+          <%= ff.label tag.slug %>
+          <%= ff.check_box :tag_id,{}, tag.id %>
+        <% end %>
+        <div class="md-checkbox">
+          <%= check_box_tag 'blog[_ids][]' class: 'md-check' %>
+          <%= b.label do %>
+            <span class="inc"></span>
+            <span class="check"></span>
+            <span class="box"></span>
+            <div class="label label-sm label-warning"><%= b.object.slug %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
   <div class="form-actions">
     <div class="row">
       <div class="col-sm-2">

@@ -7,7 +7,10 @@ class Blog < ApplicationRecord
 
   mount_uploader :intro_image, ImageUploader
 
-  belongs_to :tag
+  has_many :blog_tags, dependent: :destroy, inverse_of: :blog
+  has_many :tags, through: :blog_tags
+
+  accepts_nested_attributes_for :blog_tags, reject_if: proc { |attributes| attributes['tag_id'].blank? }
 
   validates :title, presence: true
   validates :public_time, presence: true
