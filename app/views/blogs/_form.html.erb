@@ -58,35 +58,27 @@
       Tag
     </span>
     <div class="col-sm-8">
-      <%= f.fields_for :milestones, index: index do |fm| %>
-        <%= fm.hidden_field :name, value: milestone.name %>
-        <!-- Create a checkbox to add the milestone_id to the project -->
-        <%= fm.label milestone.name %>
-        <%= fm.check_box :milestone_template_id,{}, milestone.id %>
-        <br>
-        <% milestone.task_templates.each_with_index do |task, another_index| %>
-          <%= fm.fields_for :tasks, index: another_index do |ft| %>
-            <!-- Create a checkbox for each task in the milestone -->
-            <%= ft.label task.name %>
-            <%= ft.check_box :task_ids, {}, task.id %>
-          <% end %>
-        <% end %>
-        <br>
-      <% end %>
-      <%= Tag.find_by(slug: "blog_tags").children.each_with_index do |tag, index| %>
-        <%= form.fields_for :blog_tags, index: index do |ff| %>
-          <%= ff.label tag.slug %>
-          <%= ff.check_box :tag_id,{}, tag.id %>
-        <% end %>
-        <div class="md-checkbox">
-          <%= check_box_tag 'blog[_ids][]' class: 'md-check' %>
-          <%= b.label do %>
+      <% Tag.find_by(slug: "blog_tags").children.each_with_index do |tag, index| %>
+        <%= form.fields_for :blog_tags, Tag.new do |ff| %>
+          <div class="md-checkbox">
+            <%= check_box_tag 'blog[blog_tags][tag_id]', tag., class: 'md-check' %>
             <span class="inc"></span>
             <span class="check"></span>
             <span class="box"></span>
-            <div class="label label-sm label-warning"><%= b.object.slug %></div>
-          <% end %>
-        </div>
+            <div class="label label-sm label-warning"><%= tag.slug %></div>
+          </div>
+        <% end %>
+        <% if false %>
+          <div class="md-checkbox">
+            <%= check_box_tag 'blog[blog_tags][tag_id]', class: 'md-check' %>
+            <%= b.label do %>
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span>
+              <div class="label label-sm label-warning"><%= b.object.slug %></div>
+            <% end %>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

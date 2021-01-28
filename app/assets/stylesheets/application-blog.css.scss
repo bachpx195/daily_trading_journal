@@ -8,6 +8,9 @@ body {
   font-size: 12pt;
   font-weight: 400;
   background: #fdfdfd;
+  max-width: 800px;
+  text-align: justify;
+  margin-top: 15px;
 }
 
 #post-title {
@@ -6039,4 +6042,13 @@ Orginal Style from ethanschoonover.com/solarized (c) Jeremy Hull <sourdrums@gmai
 
 .em.em-flag-um {
   background-position: 95% 62.5%;
+}
+
+.header__link {
+  display: inline-block;
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0 15px;
+  color: #666;
+  font-size: 0.9em;
 }

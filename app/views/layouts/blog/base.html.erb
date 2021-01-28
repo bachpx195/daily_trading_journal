@@ -18,104 +18,128 @@
     <%= stylesheet_link_tag "application-blog", media: "all" %>
     <%= javascript_include_tag "application-blog" %>
     <script>
-       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-       ga('create', 'UA-104840979-1', 'auto');
-       ga('send', 'pageview');
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-104840979-1', 'auto');
+      ga('send', 'pageview');
     </script>
-   </head>
+  </head>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <body>
-  <script>
-    $(document).ready(function() {
-      if(window.location.pathname == "/"){
-        $('.navigation').removeClass('display-none');
-        $('.site-name').removeClass('display-none');
-        $('.page-description').removeClass('display-none');
-      }
-    })
-  </script>
+    <script>
+      $(document).ready(function() {
+        if(window.location.pathname == "/"){
+          $('.navigation').removeClass('display-none');
+          $('.site-name').removeClass('display-none');
+          $('.page-description').removeClass('display-none');
+        }
+      })
+    </script>
     <p></p>
     <header class="header">
-        <h1 class="site-name display-none">Bách's Trading Room</h1>
-        <div class="page-description display-none">
-            Nhật kí của một người mê tiền chân chính
-        </div>
-        <a class="avatar" href="bachpham.com">
-            <%= image_tag("logo.jpeg", alt: 'BachPham', width: "120", height: "120") %>
-        </a>
-        <hr class="header-line" noshade/>
+      <h1 class="site-name display-none">Bách's Trading Room</h1>
+      <div class="page-description display-none">
+        Nhật kí của một người mê tiền chân chính.
+      </div>
+      <a class="avatar" href="bachpham.com">
+        <%= image_tag("logo.jpeg", alt: 'BachPham', width: "120", height: "120") %>
+      </a>
+      <hr class="header-line" noshade/>
     </header>
     <div class="navigation display-none">
-        <ul class="pages">
-            <li>
-                <a href="test">Lập trình</a>
-            </li>
-            <li>
-                <a href="test">Khoa hoc du lieu</a>
-            </li>
-        </ul>
+      <ul class="pages">
+        <li>
+          <a class="header__link" target="_blank" href="#">
+            <i class="fas fa-money-bill-alt"></i><br>
+            Đầu tư
+          </a>
+        </li>
+        <li>
+          <a class="header__link" target="_blank" href="#">
+            <i class="fas fa-code"></i><br>
+            Lập trình
+          </a>
+        </li>
+        <li>
+          <a class="header__link" target="_blank" href="#">
+            <i class="fas fa-database"></i><br>
+            Khoa học dữ liệu
+          </a>
+        </li>
+        <li>
+          <a class="header__link" target="_blank" href="#">
+            <i class="fas fa-book"></i><br>
+            Review sách
+          </a>
+        </li>
+        <li>
+          <a class="header__link" target="_blank" href="#">
+            <i class="fas fa-dove"></i><br>
+            Linh tinh
+          </a>
+        </li>
+      </ul>
     </div>
-
     <div class="site site--home">
-       <div class="site__content">
-          <div class="site">
-             <div class="essays essays--home">
-                <!-- BEGIN PAGE BASE CONTENT -->
-                <%= yield %>
-                <!-- END PAGE BASE CONTENT -->
-             </div>
-             <div id="fb-root"></div>
-
-             <script>(function(d, s, id) {
-                var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) return;
-                js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
-                fjs.parentNode.insertBefore(js, fjs);
-                }(document, 'script', 'facebook-jssdk'));
-             </script>
-             <hr class="posts-line" noshade/>
+      <div class="site__content">
+        <div class="site">
+          <div class="essays essays--home">
+            <!-- BEGIN PAGE BASE CONTENT -->
+            <%= yield %>
+            <!-- END PAGE BASE CONTENT -->
           </div>
-       </div>
+          <div id="fb-root"></div>
+          <script>
+            (function(d, s, id) {
+                            var js, fjs = d.getElementsByTagName(s)[0];
+                            if (d.getElementById(id)) return;
+                            js = d.createElement(s); js.id = id;
+                            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10";
+                            fjs.parentNode.insertBefore(js, fjs);
+                            }(document, 'script', 'facebook-jssdk'));
+          </script>
+          <hr class="posts-line" noshade/>
+        </div>
+      </div>
+      <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbach.pham.blog&tabs=timeline&width=0&height=0&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="0" height="0" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       <div class="fb-page fb_iframe_widget">
         <span>
-          <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCuli-k%C3%AD-s%E1%BB%B1-187202278834836&tabs=timeline&width=340&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+          <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fbach.pham.blog&tabs=timeline&width=0&height=0&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
         </span>
       </div>
     </div>
     <footer>
-        <ul class="pages">
-            <li>
-            <a href="#">Về tác giả</a>
-            </li>
-            <li>
-            <a href="#">Dữ liệu</a>
-            </li>
-            <li>
-            <a href="#">Tham khảo</a>
-            </li>
-            <li>
-            <a href="/rss/">RSS</a>
-            </li>
-        </ul>
-        <p class="credit">
-            <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
-        </p>
+      <ul class="pages">
+        <li>
+          <a href="#">Về tác giả</a>
+        </li>
+        <li>
+          <a href="#">Dữ liệu</a>
+        </li>
+        <li>
+          <a href="#">Tham khảo</a>
+        </li>
+        <li>
+          <a href="/rss/">RSS</a>
+        </li>
+      </ul>
+      <p class="credit">
+        <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png" /></a>
+      </p>
     </footer>
-    <script src="assets/js/main.js"></script>
+    <%# <script src="assets/js/main.js"></script> %>
     <script>
-        if (window.ga_id) {
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-            ga('create', window.ga_id, 'auto');
-            ga('require', 'linkid', 'linkid.js');
-            ga('send', 'pageview');
-        }
+      if (window.ga_id) {
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          ga('create', window.ga_id, 'auto');
+          ga('require', 'linkid', 'linkid.js');
+          ga('send', 'pageview');
+      }
     </script>
   </body>
 </html>
