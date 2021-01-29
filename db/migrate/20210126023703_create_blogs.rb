@@ -6,6 +6,7 @@ class CreateBlogs < ActiveRecord::Migration[5.2]
       t.integer :public_status, null: false, default: 0
       t.string :intro_image
       t.text :content
+      t.string :description
 
       t.timestamps
     end

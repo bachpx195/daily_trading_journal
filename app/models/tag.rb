@@ -1,7 +1,7 @@
 class Tag < ApplicationRecord
   acts_as_nested_set
 
-  UPDATABLE_ATTRIBUTES = [:title, :slug, :content, :new_position, :parent_id]
+  UPDATABLE_ATTRIBUTES = [:title, :slug, :content, :new_position, :parent_id, :tag_image]
 
   has_many :news_tags
   has_many :news, through: :news_tags
@@ -14,6 +14,8 @@ class Tag < ApplicationRecord
   has_many :news_sites
 
   enum is_follow: {unfollow: 0, followed: 1}
+
+  mount_uploader :tag_image, ImageUploader
 
   def parent_id= parent_id
     if parent_id == "#"
