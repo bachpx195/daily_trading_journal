@@ -1,16 +1,16 @@
 class Tag < ApplicationRecord
   acts_as_nested_set
-  
+
   UPDATABLE_ATTRIBUTES = [:title, :slug, :content, :new_position, :parent_id]
-  
+
   has_many :news_tags
   has_many :news, through: :news_tags
   has_many :coins
-  has_many :symbolfxes
+  has_many :merchandises
   has_many :currency_pairs
   has_many :wikis
   has_many :news_sites
-  
+
   enum is_follow: {unfollow: 0, followed: 1}
 
   def parent_id= parent_id

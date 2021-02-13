@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :currency_pairs
-  resources :symbolfxes
+  resources :merchandises
   mount Ckeditor::Engine => '/ckeditor'
 
   root "dashboard#index"
@@ -26,8 +26,6 @@ Rails.application.routes.draw do
       get 'canlendar', to: 'news#canlendar'
     end
   end
-  resources :coin_links
-  resources :coin_sources
   resources :coins
   resources :tags
   resources :plans
