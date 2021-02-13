@@ -5,13 +5,13 @@ require 'mechanize'
 
 class LogImporter
   attr_reader :files, :csv_file, :logs, :errors
-  
+
   def initialize(files)
     @files = files
     @errors = []
     @logs = []
   end
-  
+
   def execute
     # @csv_file = if files.instance_of?(Array)
     #               files.find { |f| File.extname(f.original_filename).casecmp('.csv').zero? }
@@ -34,7 +34,7 @@ class LogImporter
     return if @html_file.blank?
 
     agent = Mechanize.new
-    page = agent.get("file:///#{files.path}") 
+    page = agent.get("file:///#{files.path}")
 
     logs = agent.page.search('tr')
     logs.each_with_index do |log, i|
@@ -61,7 +61,7 @@ class LogImporter
         @errors << "[Lỗi:#{i + 1}] #{trade.errors.full_messages.to_sentence}"  unless trade.valid?
       end
     end
-    
+
     # CSV.foreach(
     #   csv_file.path,
     #   headers: true,
@@ -86,13 +86,13 @@ class LogImporter
     #     @errors << "[Lỗi:#{i + 1}] #{trade.errors.full_messages.to_sentence}"  unless trade.valid?
     #   end
     # end
-    
+
     return if @errors.present?
     create_logs
   end
-  
+
   private
-  
+
   def get_log_status str, fee, swap
     if str.to_f <= 5 || str.to_f >= -5
       0
@@ -102,7 +102,7 @@ class LogImporter
       2
     end
   end
-  
+
   def get_order_type str
     if str == 'sell'
       0
@@ -110,18 +110,18 @@ class LogImporter
       1
     end
   end
-  
+
   def get_datetime_server str
     return unless str.present?
     DateTime.strptime("#{str} +0", '%Y.%m.%d %H:%M:%S %z')
   end
-  
+
   def get_currency_pair_id str
     # if str.include? 'xau'
     #   return CurrencyPair.find_by(slug: 'XAU/USD').id
     # end
     # symbol_arr = []
-    # Symbolfx.pluck(:slug).each do |symbol|
+    # Merchandise.pluck(:slug).each do |symbol|
     #   symbol_arr << symbol if str.include? symbol.downcase
     # end
     #
@@ -138,7 +138,7 @@ class LogImporter
     #
     CurrencyPair.first.id
   end
-  
+
   def create_logs
     @logs.each do |log|
       next unless log.save

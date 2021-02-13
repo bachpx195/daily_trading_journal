@@ -1,6 +1,6 @@
 class CreateSymbolfxes < ActiveRecord::Migration[5.2]
   def change
-    create_table :symbolfxes do |t|
+    create_table :merchandises do |t|
       t.string :name
       t.string :slug
       t.string :base

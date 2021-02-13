@@ -10,7 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_12_023722) do
+ActiveRecord::Schema.define(version: 2021_02_13_050946) do
+
+  create_table "blog_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "tag_id"
+    t.bigint "blog_id"
+    t.integer "blog_count"
+    t.index ["blog_id"], name: "index_blog_tags_on_blog_id"
+    t.index ["tag_id"], name: "index_blog_tags_on_tag_id"
+  end
+
+  create_table "blogs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.datetime "public_time"
+    t.integer "public_status", default: 0, null: false
+    t.string "intro_image"
+    t.text "content"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "candlesticks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "currency_pair_id"
+    t.integer "time_type"
+    t.float "open"
+    t.float "high"
+    t.float "close"
+    t.float "low"
+    t.float "atr14"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["currency_pair_id"], name: "index_candlesticks_on_currency_pair_id"
+  end
 
   create_table "ckeditor_assets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "data_file_name", null: false
@@ -24,35 +57,17 @@ ActiveRecord::Schema.define(version: 2019_06_12_023722) do
     t.index ["type"], name: "index_ckeditor_assets_on_type"
   end
 
-  create_table "coin_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "url"
-    t.string "kind"
-    t.bigint "coin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["coin_id"], name: "index_coin_links_on_coin_id"
-  end
-
-  create_table "coin_sources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "domain_slug"
-    t.string "website"
-    t.bigint "coin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["coin_id"], name: "index_coin_sources_on_coin_id"
-  end
-
   create_table "coins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "slug"
     t.string "title"
     t.text "description"
     t.string "code"
     t.integer "rank"
+    t.integer "is_follow", default: 0
     t.string "meta_title"
-    t.float "market_cap_usd"
-    t.float "price_usd"
+    t.string "platform"
     t.bigint "tag_id"
+    t.float "win_rate", default: 100.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_coins_on_tag_id"
@@ -62,11 +77,31 @@ ActiveRecord::Schema.define(version: 2019_06_12_023722) do
     t.text "content"
     t.string "commentable_type"
     t.bigint "commentable_id"
+    t.integer "is_importand"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["commentable_type"], name: "index_comments_on_commentable_type"
+  end
+
+  create_table "currency_pairs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "base_id"
+    t.integer "quote_id"
+    t.float "winrate"
+    t.text "desciption"
+    t.integer "is_follow", default: 0
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "liquid_rate", default: "0"
+    t.string "crosses_related"
+    t.text "brief"
+    t.integer "spread", default: 0
+    t.integer "range", default: 0
+    t.index ["tag_id"], name: "index_currency_pairs_on_tag_id"
   end
 
   create_table "daily_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -80,49 +115,75 @@ ActiveRecord::Schema.define(version: 2019_06_12_023722) do
     t.index ["new_id"], name: "index_daily_reports_on_new_id"
   end
 
+  create_table "fund_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "log_id"
+    t.float "change_amount"
+    t.integer "change_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["log_id"], name: "index_fund_logs_on_log_id"
+  end
+
   create_table "funds", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.float "initial_capital"
     t.float "present_value"
-    t.float "future_value"
-    t.float "desposit"
-    t.float "withdraw"
-    t.float "rate_of_growth"
+    t.float "fee"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
+  create_table "glossaries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.text "brief"
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "code"
     t.integer "status"
     t.float "result"
     t.text "note"
     t.float "money"
+    t.float "fee"
     t.datetime "datetime"
-    t.integer "period_time"
     t.integer "rating"
     t.bigint "trade_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "server_code"
+    t.datetime "open_date"
+    t.datetime "end_date"
     t.index ["trade_id"], name: "index_logs_on_trade_id"
+  end
+
+  create_table "merchandises", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.text "desciption"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "country"
+    t.text "brief"
+    t.string "center_bank"
+    t.index ["tag_id"], name: "index_merchandises_on_tag_id"
   end
 
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "url"
-    t.string "domain"
     t.text "short_description"
     t.string "tilte"
     t.date "published_at"
     t.integer "status"
-    t.date "intended_date"
     t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "news_type", default: 0
+    t.text "content"
     t.index ["tag_id"], name: "index_news_on_tag_id"
   end
 
@@ -144,21 +205,48 @@ ActiveRecord::Schema.define(version: 2019_06_12_023722) do
     t.index ["tag_id"], name: "index_news_tags_on_tag_id"
   end
 
-  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "slug"
-    t.text "description"
+  create_table "plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "status"
+    t.integer "category"
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
+    t.integer "depth", default: 0, null: false
+    t.integer "children_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["lft"], name: "index_plans_on_lft"
+    t.index ["parent_id"], name: "index_plans_on_parent_id"
+    t.index ["rgt"], name: "index_plans_on_rgt"
+  end
+
+  create_table "system_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "key"
+    t.float "value"
+    t.integer "value_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags_groups", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "group_id"
-    t.bigint "tag_id"
+  create_table "tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.string "slug"
+    t.text "content"
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
+    t.integer "depth", default: 0, null: false
+    t.integer "children_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_id"], name: "index_tags_groups_on_group_id"
-    t.index ["tag_id"], name: "index_tags_groups_on_tag_id"
+    t.integer "is_follow", default: 0
+    t.string "tag_image"
+    t.index ["lft"], name: "index_tags_on_lft"
+    t.index ["parent_id"], name: "index_tags_on_parent_id"
+    t.index ["rgt"], name: "index_tags_on_rgt"
   end
 
   create_table "trade_methods", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -176,6 +264,8 @@ ActiveRecord::Schema.define(version: 2019_06_12_023722) do
     t.float "point_out"
     t.float "stop_loss"
     t.float "take_profit"
+    t.integer "target"
+    t.float "amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["trade_id"], name: "index_trade_normal_methods_on_trade_id"
@@ -199,31 +289,50 @@ ActiveRecord::Schema.define(version: 2019_06_12_023722) do
     t.text "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "currency_pair_id"
+    t.integer "order_type"
     t.index ["coin_id"], name: "index_trades_on_coin_id"
+    t.index ["currency_pair_id"], name: "index_trades_on_currency_pair_id"
+  end
+
+  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   create_table "wikis", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.string "brief"
+    t.text "brief"
+    t.string "image"
     t.bigint "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "market_type", default: 0, null: false
     t.index ["tag_id"], name: "index_wikis_on_tag_id"
   end
 
-  add_foreign_key "coin_links", "coins"
-  add_foreign_key "coin_sources", "coins"
+  add_foreign_key "blog_tags", "blogs"
+  add_foreign_key "blog_tags", "tags"
+  add_foreign_key "candlesticks", "currency_pairs"
   add_foreign_key "coins", "tags"
+  add_foreign_key "currency_pairs", "tags"
   add_foreign_key "daily_reports", "coins"
   add_foreign_key "daily_reports", "news", column: "new_id"
+  add_foreign_key "fund_logs", "logs"
   add_foreign_key "logs", "trades"
+  add_foreign_key "merchandises", "tags"
   add_foreign_key "news", "tags"
   add_foreign_key "news_sites", "tags"
   add_foreign_key "news_tags", "news", column: "new_id"
   add_foreign_key "news_tags", "tags"
-  add_foreign_key "tags_groups", "groups"
-  add_foreign_key "tags_groups", "tags"
   add_foreign_key "trade_normal_methods", "trade_methods"
   add_foreign_key "trade_normal_methods", "trades"
   add_foreign_key "trade_pyramid_methods", "trade_methods"

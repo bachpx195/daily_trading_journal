@@ -1,0 +1,108 @@
+<div class="post">
+  <h3 class="post__title">
+    <a href="#">Khoa học dữ liệu cho người mới bắt đầu</a>
+  </h3>
+  <div class="post__intro">
+    <p>Danh sách các tài nguyên Python cho chủ đề thống kê mà bạn cần biết để vượt trội trong khoa học dữ liệu.</p>
+  </div>
+  <div class="post__metadata">
+    <time datetime="CN, 15 thg 11, 2020" class="post__creation-date">
+      CN, 15 thg 11, 2020</time>
+    <span class="post__reading-time">5 phút</span>
+    <span class="post__reading-time">
+      <i class="fa fa-comment-alt"></i>
+      <a href="" class="comment-count" id="#">2</a>
+    </span>
+    <span class="tagging">
+      <a href="#" title="##" class="tagging__item">#PYTHON</a>
+      <a href="#" title="##" class="tagging__item">#DATA</a>
+      <a href="#" title="##" class="tagging__item">#CODE</a>
+    </span>
+  </div>
+</div>
+<div class="post">
+  <h3 class="post__title">
+    <a href="#">Tôi đã làm blog với giá 5$ như thế nào</a>
+  </h3>
+  <div class="post__intro">
+    <p>Chỉ với chi phí khoảng 10 đô tương đương với 230.000 đồng, tôi đã tạo ra blog này. Thật đấy!</p>
+  </div>
+  <div class="post__metadata">
+    <time datetime="CN, 15 thg 11, 2020" class="post__creation-date">
+      CN, 15 thg 11, 2020</time>
+    <span class="post__reading-time">10 phút</span>
+    <span class="post__reading-time">
+      <i class="fa fa-comment-alt"></i>
+      <a href="" class="comment-count" id="#">9</a>
+    </span>
+    <span class="tagging">
+      <a href="#" title="##" class="tagging__item">#LINHTINH</a>
+      <a href="#" title="##" class="tagging__item">#CODE</a>
+    </span>
+  </div>
+</div>
+<div class="post">
+  <h3 class="post__title">
+    <a href="#">James Harris: Cuộc đời và cái chết của một Trader giao dịch nội gián bí ẩn</a>
+  </h3>
+  <div class="post__intro">
+    <p>Những điếu xì gà đắt tiền, chiếc Ferrari cổ điển sang trọng, những câu lạc bộ xa xỉ, và cái chết cô độc trong căn hộ tại London. James Harris đã sống cuộc đời của một trader giao dịch nội gián như thế nào?</p>
+  </div>
+  <div class="post__metadata">
+    <time datetime="CN, 15 thg 11, 2020" class="post__creation-date">
+      CN, 15 thg 11, 2020</time>
+    <span class="post__reading-time">6 phút</span>
+    <span class="post__reading-time">
+      <i class="fa fa-comment-alt"></i>
+      <a href="" class="comment-count" id="#">1</a>
+    </span>
+    <span class="tagging">
+      <a href="#" title="##" class="tagging__item">#FINANCE</a>
+    </span>
+  </div>
+</div>
+<div class="browse-more">
+  <a rel="prev" class="browse-more__item" href="{{page_url next}}#open">Đọc nữa &rarr;</a>
+</div>
+<% if false %>
+  <% @blogs.each do |blog| %>
+    <div class="post">
+      <h3 class="post__title">
+        <a href="<%= @gl%>"><%= blog.title %></a>
+      </h3>
+      <div class="post__intro">
+        <p>{{excerpt}}</p>
+      </div>
+      <div class="post__metadata">
+        <time datetime="{{date format="ddd, D MMMM, YYYY"}}" class="post__creation-date">
+          {{date format="MMM DD, YYYY"}}</time>
+        <span class="post__reading-time">{{reading_time}}</span>
+        <span class="post__reading-time">
+          <i class="fa fa-comment-alt"></i>
+          <a href="" class="comment-count" id="{{url}}"></a>
+        </span>
+        <span class="tagging">
+          {{#if tags}}
+          {{#foreach tags}}
+          <a href="{{url}}" title="{{name}}" class="tagging__item">#{{name}}</a>
+          {{/foreach}}
+          {{/if}}
+        </span>
+      </div>
+    </div>
+  <% end %>
+  {{/foreach}}
+  {{ pagination }}
+  <script id="dsq-count-scr" src="https://http-bachpham-info.disqus.com/count.js" async></script>
+  <script>
+    $(document).ready(function() {
+        var base_url = window.location.origin;
+        $.each($(".comment-count"), function() {
+        url_without_blackslash = $(this).attr("id").replace(/\//g, "");
+        full_url = base_url + '/' + url_without_blackslash + "#disqus_thread"
+        $(this).attr("href", full_url);
+        });
+        DISQUSWIDGETS.getCount()
+    })
+  </script>
+<% end %>

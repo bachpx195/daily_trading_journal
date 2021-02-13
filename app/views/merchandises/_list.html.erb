@@ -1,0 +1,39 @@
+<div class="tab-content">
+  <% Tag.find_by(title: "Symbol categories").children.each_with_index do |tag, index| %>
+    <%= tag.slug %>
+    <div class="tab-pane active" id="tag_tab<%= tag.id %>">
+      <div class="table-scrollable">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+          <tr>
+            <th></th>
+            <th class="text-center">Kí hiệu</th>
+            <th class="text-center">Tên</th>
+            <th class="text-center">Quốc gia</th>
+            <th class="text-center">Ngân hàng</th>
+            <th class="text-center">Ghi chú</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody class="item-container-<%= tag.id %>">
+            <% tag.merchandises.each do |merchandise| %>
+              <tr class="item-<%= merchandise.id %>">
+                <td class="text-center">
+                  <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_url(merchandise) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                </td>
+                <td class="text-center"><%= link_to merchandise.slug, merchandise_path(merchandise) %></td>
+                <td class="text-center"><%= merchandise.name %></td>
+                <td class="text-center"><%= merchandise.country %></td>
+                <td class="text-center"><%= merchandise.center_bank %></td>
+                <td class="text-center"><%= merchandise.brief&.html_safe %></td>
+                <td class="text-center">
+                  <%= link_to raw('<i class="fa fa-trash-o"></i>'), merchandise, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+</div>
