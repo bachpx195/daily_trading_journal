@@ -3,11 +3,7 @@
 # Version of your assets, change this if you want to expire all your assets.
 Rails.application.config.assets.version = '1.0'
 
-<<<<<<< HEAD
 Rails.application.config.assets.precompile += %w[ckeditor/config.js application-blog.css.scss application-blog.js]
-=======
-Rails.application.config.assets.precompile += %w[ckeditor/config.js application-blog.css application-blog.js]
->>>>>>> 612f21f (upload)
 
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path

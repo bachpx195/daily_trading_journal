@@ -4,11 +4,7 @@
       <div class="caption">
         <i class="fa fa-comments"></i>Cặp tiền theo dõi</div>
       <div class="tools">
-<<<<<<< HEAD
         <a href="" class="collapse" data-original-title="" title=""> </a>
-=======
-        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
->>>>>>> 612f21f (upload)
       </div>
       <div class="actions">
         <a href="<%= edit_tag_path(id: tag.id, root_tag: tag.id) %>" class="btn btn-default btn-sm">
@@ -33,17 +29,11 @@
             </tr>
             </thead>
             <tbody class="item-container-<%= tag.id %>">
-<<<<<<< HEAD
               <% MerchandiseRate.followed.each do |merchandise_rate| %>
                 <tr class="item-<%= merchandise_rate.id %> <%= merchandise_rate.unfollow? ? 'active' : 'success'%>">
                   <td class="text-center">
-<<<<<<<< HEAD:app/views/blogs/_list.html.erb
                     <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
                     <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_merchandise_rate_path(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
-========
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_currency_pair_path(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
->>>>>>>> 612f21f (upload):app/views/currency_pairs/_list.html.erb
                   </td>
                   <td class="text-center"><%= link_to merchandise_rate.slug, merchandise_rate_path(merchandise_rate) %></td>
                   <td class="text-center"><%= merchandise_rate.winrate %>%</td>
@@ -54,23 +44,6 @@
                   <td class="text-center"><%= merchandise_rate.liquid_rate %></td>
                   <td class="text-center">
                     <%= link_to raw('<i class="fa fa-trash-o"></i>'), merchandise_rate, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
-=======
-              <% CurrencyPair.followed.each do |currency_pair| %>
-                <tr class="item-<%= currency_pair.id %> <%= currency_pair.unfollow? ? 'active' : 'success'%>">
-                  <td class="text-center">
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_currency_pair_path(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
-                  </td>
-                  <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
-                  <td class="text-center"><%= currency_pair.winrate %>%</td>
-                  <td class="text-center"><%= currency_pair.spread %>point</td>
-                  <td class="text-center"><%= currency_pair.range %>point</td>
-                  <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
-                  <td class="text-center"><%= currency_pair.crosses_related %></td>
-                  <td class="text-center"><%= currency_pair.liquid_rate %></td>
-                  <td class="text-center">
-                    <%= link_to raw('<i class="fa fa-trash-o"></i>'), currency_pair, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
->>>>>>> 612f21f (upload)
                   </td>
                 </tr>
               <% end %>
@@ -114,7 +87,6 @@
               </tr>
               </thead>
               <tbody class="item-container-<%= tag.id %>">
-<<<<<<< HEAD
                 <% tag.merchandise_rates.each do |merchandise_rate| %>
                   <tr class="item-<%= merchandise_rate.id %> <%= merchandise_rate.unfollow? ? 'active' : 'success'%>">
                     <td class="text-center">
@@ -129,22 +101,6 @@
                     <td class="text-center"><%= merchandise_rate.liquid_rate %></td>
                     <td class="text-center">
                       <%= link_to raw('<i class="fa fa-trash-o"></i>'), merchandise_rate, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
-=======
-                <% tag.currency_pairs.each do |currency_pair| %>
-                  <tr class="item-<%= currency_pair.id %> <%= currency_pair.unfollow? ? 'active' : 'success'%>">
-                    <td class="text-center">
-                      <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
-                    </td>
-                    <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
-                    <td class="text-center"><%= currency_pair.winrate %>%</td>
-                    <td class="text-center"><%= currency_pair.spread %>point</td>
-                    <td class="text-center"><%= currency_pair.range %>point</td>
-                    <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
-                    <td class="text-center"><%= currency_pair.crosses_related %></td>
-                    <td class="text-center"><%= currency_pair.liquid_rate %></td>
-                    <td class="text-center">
-                      <%= link_to raw('<i class="fa fa-trash-o"></i>'), currency_pair, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
->>>>>>> 612f21f (upload)
                     </td>
                   </tr>
                 <% end %>
