@@ -13,11 +13,11 @@
     </div>
     <div class="col-xs-3">
       <h2 class="invoice-title uppercase">Tử số</h2>
-      <p class="invoice-desc"><%= link_to @currency_pair.base.name , symbolfx_path(@currency_pair.base) %></p>
+      <p class="invoice-desc"><%= link_to @currency_pair.base.name , merchandise_path(@currency_pair.base) %></p>
     </div>
     <div class="col-xs-3">
       <h2 class="invoice-title uppercase">Mẫu số</h2>
-      <p class="invoice-desc inv-address"><%= link_to @currency_pair.quote.name , symbolfx_path(@currency_pair.quote) %></p>
+      <p class="invoice-desc inv-address"><%= link_to @currency_pair.quote.name , merchandise_path(@currency_pair.quote) %></p>
     </div>
     <div class="col-xs-3 invoice-subtotal">
       <h2 class="invoice-title uppercase">Winrate</h2>
@@ -86,67 +86,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-12 col-sm-12">
-              <!-- BEGIN PORTLET-->
-              <div class="portlet light bordered">
-                <div class="portlet-title">
-                  <div class="caption">
-                    <i class="icon-bubble font-red-sunglo"></i>
-                    <span class="caption-subject font-red-sunglo bold uppercase">Nhật kí</span>
-                  </div>
-                  <div class="actions">
-                    <div class="portlet-input input-inline">
-                      <div class="input-icon right">
-                        <i class="icon-magnifier"></i>
-                        <input type="text" class="form-control input-circle" placeholder="search..."> </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="portlet-body" id="chats">
-                  <div>
-                    <ul class="chats">
-                      <% @comments.each do |comment| %>
-                        <% if comment.importand? %>
-                          <li class="out">
-                            <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar2.jpg">
-                            <div class="message">
-                              <span class="arrow"> </span>
-                              <a href="javascript:;" class="name">Lưu ý quan trọng</a>
-                              <span class="datetime"> at <%= comment.created_at.strftime("%d/%m/%Y %H:%M") %> </span>
-                              <span class="body"> <%= markdown comment.content&.html_safe %> </span>
-                            </div>
-                          </li>
-                        <% else %>
-                          <li class="in">
-                            <img class="avatar" alt="" src="../assets/layouts/layout/img/avatar1.jpg">
-                            <div class="message">
-                              <span class="arrow"> </span>
-                              <a href="javascript:;" class="name">Lưu ý</a>
-                              <span class="datetime"> at <%= comment.created_at.strftime("%d/%m/%Y %H:%M") %> </span>
-                              <span class="body"> <%= markdown comment.content&.html_safe %> </span>
-                            </div>
-                          </li>
-                        <% end %>
-                      <% end %>
-                    </ul>
-                  </div></div>
-                  <div class="chat-form">
-                    <%= form_for Comment.new, method: :post do |form| %>
-                      <div class="input-cont">
-                        <%= form.text_area :content, class: "form-control input-md",  placeholder: true, id: "markdown" %>
-                        <span>Theo dõi</span>
-                        <%= form.check_box :is_importand, checked: form.object.importand? ? "checked" : "" %>
-                        <%= form.hidden_field :commmentable, value: @currency_pair.class %>
-                        <%= form.hidden_field :commmentable_id, value: @currency_pair.id %>
-                      <div class="btn-cont">
-                        <span class="arrow"> </span>
-                        <button type="submit" class="btn btn-info">Lưu</button>
-                      </div>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <%= render partial: 'shared/comments_box', locals: {comments: @comments} %>
           </div>
           </div>
         </div>

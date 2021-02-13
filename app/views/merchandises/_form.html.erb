@@ -1,0 +1,72 @@
+<%= form_with(model: merchandise, local: true, html: {class: "form-horizontal"}) do |form| %>
+  <% if merchandise.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(merchandise.errors.count, "error") %> prohibited this merchandise from being saved:</h2>
+      <ul>
+        <% merchandise.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="name">Tên</span>
+    <div class="col-sm-11">
+      <%= form.text_field :name, autocomplete: "off", id: "name", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="slug">Viết tắt</span>
+    <div class="col-sm-11">
+      <%= form.text_field :slug, autocomplete: "off", id: "slug", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="country">Quốc gia</span>
+    <div class="col-sm-11">
+      <%= form.text_field :country, autocomplete: "off", id: "country", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="center_bank">Bank</span>
+    <div class="col-sm-11">
+      <%= form.text_field :center_bank, autocomplete: "off", id: "center_bank", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Tag
+    </span>
+    <div class="col-sm-4">
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, merchandise.id.present? ? merchandise.tag.id : params[:parent]) ,
+                      {}, { :class => 'form-control select2_category' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover">Tóm tắt</span>
+    <div class="col-sm-11">
+      <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
+    <div class="col-sm-11">
+      <%= form.cktext_area :desciption, rows: 10, id: "editor1" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-info">Lưu</button>
+      </div>
+    </div>
+  </div>
+<% end %>

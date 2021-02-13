@@ -1,7 +1,7 @@
 <div class="top-toolbar">
   <div class="row">
     <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
-      <a href="/" class="icon-btn <%= params[:controller] == 'dashboard' ? 'active' : '' %>">
+      <a href="/dashboard" class="icon-btn <%= params[:controller] == 'dashboard' ? 'active' : '' %>">
         <i class="fa fa-university"></i> - F1
         <div> Quản trị</div>
       </a>
@@ -42,6 +42,12 @@
       <a href="<%= canlendar_news_index_url %>" class="icon-btn <%= params[:controller] == 'news' ? 'active' : '' %>">
         <i class="fa fa-calendar"></i> - F7
         <div>LỊCH</div>
+      </a>
+    </div>
+    <div class="col-md-1 col-sm-2 col-xs-6 pading-5">
+      <a href="<%= blogs_url %>" class="icon-btn <%= params[:controller] == 'blogs' ? 'active' : '' %>">
+        <i class="fa fa-internet-explorer"></i> - F8
+        <div>BLOG</div>
       </a>
     </div>
   </div>

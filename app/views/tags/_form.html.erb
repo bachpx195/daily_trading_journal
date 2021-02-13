@@ -40,7 +40,23 @@
           <%= form.check_box :is_follow, checked: form.object.followed? ? "checked" : "" %>
         </div>
       </div>
-
+      <div class="form-group">
+        <span for="tag_image" class="col-sm-1 btn btn-primary nohover long-text">
+          Hình ảnh
+        </span>
+        <div class="col-sm-11">
+          <div class="image-preview">
+            <% if form.object.tag_image? %>
+              <%= image_tag form.object.tag_image.thumb.url %>
+              <%= form.label :remove_image %>
+              <%= form.check_box :remove_image %>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-sm-11 col-sm-offset-1">
+          <%= form.file_field :tag_image, class: "edit-img btn btn-default" %>
+        </div>
+      </div>
       <div class="form-group">
         <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
         <div class="col-sm-11">

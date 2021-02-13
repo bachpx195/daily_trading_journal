@@ -1,0 +1,92 @@
+<%= form_with(model: blog, local: true, html: {class: "form-horizontal"}) do |form| %>
+  <% if blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+      <ul>
+        <% blog.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="title">Tiêu đề</span>
+    <div class="col-sm-11">
+      <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <span for="intro_image" class="col-sm-1 btn btn-primary nohover long-text">
+      Hình ảnh
+    </span>
+    <div class="col-sm-11">
+      <div class="image-preview">
+        <% if form.object.intro_image? %>
+          <%= image_tag form.object.intro_image.thumb.url %>
+          <%= form.label :remove_image %>
+          <%= form.check_box :remove_image %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm-11 col-sm-offset-1">
+      <%= form.file_field :intro_image, class: "edit-img btn btn-default" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Ngày đăng
+    </span>
+    <div class="col-sm-4">
+      <% date = blog.public_time&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+      <%= form.text_field :public_time, as: :datepicker, class: 'form-control date-picker', id: "publicTime", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
+    </div>
+  </div>
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="content">Công khai</span>
+    <div class="col-sm-11">
+      <%= form.check_box :public_status, checked: form.object.published? ? "checked" : "" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <span class="col-sm-1 btn btn-primary nohover" id="content">Nội dung</span>
+    <div class="col-sm-11">
+      <%= form.cktext_area :content, rows: 10, id: "editor1" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <span for="title" class="col-sm-1 btn btn-primary nohover">
+      Tag
+    </span>
+    <div class="col-sm-8">
+      <% Tag.find_by(slug: "blog_tags").children.each_with_index do |tag, index| %>
+        <%= form.fields_for :blog_tags, Tag.new do |ff| %>
+          <div class="md-checkbox">
+            <%= check_box_tag 'blog[blog_tags][tag_id]', tag., class: 'md-check' %>
+            <span class="inc"></span>
+            <span class="check"></span>
+            <span class="box"></span>
+            <div class="label label-sm label-warning"><%= tag.slug %></div>
+          </div>
+        <% end %>
+        <% if false %>
+          <div class="md-checkbox">
+            <%= check_box_tag 'blog[blog_tags][tag_id]', class: 'md-check' %>
+            <%= b.label do %>
+              <span class="inc"></span>
+              <span class="check"></span>
+              <span class="box"></span>
+              <div class="label label-sm label-warning"><%= b.object.slug %></div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-sm-2">
+        <button type="submit" class="btn btn-info">Lưu</button>
+      </div>
+    </div>
+  </div>
+<% end %>

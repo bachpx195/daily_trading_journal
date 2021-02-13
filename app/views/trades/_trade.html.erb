@@ -16,7 +16,7 @@
         <span class="label label-sm label-danger">Sell</span>
       <% end %>
     </td>
-    <td class="text-center"><%= trade.trade_normal_method.trade_method.name || trade.trade_pyramid_method.trade_method.name %></td>
+    <td class="text-center"><%= trade.trade_normal_method&.trade_method&.name || trade.trade_pyramid_method&.trade_method&.name %></td>
     <td class="text-center"><%= format_trade_status(trade.status) %></td>
     <td class="text-center"><%= link_to(trade_log_result(trade.log), log_path(trade.log)) if trade.log.present? %></td>
     <td class="text-center">

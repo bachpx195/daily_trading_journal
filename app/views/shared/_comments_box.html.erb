@@ -1,0 +1,47 @@
+<div class="col-md-12 col-sm-12">
+    <!-- BEGIN PORTLET-->
+    <div>
+        <div class="portlet-title">
+            <div class="caption">
+            <i class="icon-bubble font-red-sunglo"></i>
+            <span class="caption-subject font-red-sunglo bold uppercase">Nhật kí</span>
+            </div>
+        </div>
+        <div class="portlet-body" id="chats">
+            <div>
+                <ul class="chats">
+                    <% comments.each do |comment| %>
+                    <% if comment.importand? %>
+                        <li class="out">
+                        <div class="message">
+                            <span class="body"> <%= markdown comment.content&.html_safe %> </span>
+                            <span class="datetime"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %> </span>
+                        </div>
+                        </li>
+                    <% else %>
+                        <li class="in">
+                        <div class="message">
+                            <span class="body"> <%= markdown comment.content&.html_safe %> </span>
+                            <span class="datetime"><%= comment.created_at.strftime("%d/%m/%Y %H:%M") %> </span>
+                        </div>
+                        </li>
+                    <% end %>
+                    <% end %>
+                </ul>
+            </div></div>
+            <div>
+                <%= form_for Comment.new, method: :post do |form| %>
+                    <div class="input-cont">
+                    <%= form.text_area :content, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+                    <span>Theo dõi</span>
+                    <%= form.check_box :is_importand, checked: form.object.importand? ? "checked" : "" %>
+                    <%= form.hidden_field :commmentable, value: @currency_pair.class %>
+                    <%= form.hidden_field :commmentable_id, value: @currency_pair.id %>
+                    <div class="btn-cont">
+                    <button type="submit" class="btn btn-info">Lưu</button>
+                    </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
