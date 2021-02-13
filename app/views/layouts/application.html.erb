@@ -22,53 +22,31 @@
   </head>
   <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo page-sidebar-closed">
     <%= render 'layouts/backend/header' %>
-    <!-- END HEADER -->
-
-    <!-- BEGIN CONTAINER -->
     <div class="page-container">
-
-        <!-- BEGIN SIDEBAR -->
         <%= render 'layouts/backend/sidebar' %>
-        <!-- BEGIN SIDEBAR -->
-
-        <!-- BEGIN CONTENT -->
         <div class="page-content-wrapper">
-            <!-- BEGIN CONTENT BODY -->
             <div class="page-content">
-
-                <!-- BEGIN TOOLBAR-->
                 <%= render 'layouts/backend/toolbar1' %>
-                <!-- END TOOLBAR-->
-
                 <% if notice != nil %>
                     <div class="alert alert-success alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Đóng"><span aria-hidden="true">&times;</span></button>
                       <strong>Thông báo: </strong> <%= notice %>
                     </div>
                 <% end %>
-
                 <% if alert != nil %>
                     <div class="alert alert-danger alert-dismissible" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Đóng"><span aria-hidden="true">&times;</span></button>
                       <strong>Cảnh báo: </strong> <%= alert %>
                     </div>
                 <% end %>
-
-                <!-- BEGIN PAGE BASE CONTENT -->
                 <%= yield %>
-                <!-- END PAGE BASE CONTENT -->
                 <div id="main-modal" class="modal fade" aria-hidden="true"></div>
                 <div id="second-modal" class="modal fade" aria-hidden="true"></div>
                 <div id="three-modal" class="modal fade" aria-hidden="true"></div>
             </div>
-            <!-- END CONTENT BODY -->
         </div>
-        <!-- END CONTENT -->
     </div>
-    <!-- END CONTAINER -->
-    <!-- BEGIN FOOTER -->
     <%= render 'layouts/backend/footer' %>
-
     <script src="/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
     <script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="/assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
