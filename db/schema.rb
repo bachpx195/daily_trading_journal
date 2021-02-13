@@ -26,13 +26,13 @@ ActiveRecord::Schema.define(version: 2021_05_07_021407) do
     t.integer "public_status", default: 0, null: false
     t.string "intro_image"
     t.text "content"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "description", limit: 45
   end
 
   create_table "candlesticks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "merchandise_rate_id"
+    t.bigint "currency_pair_id"
     t.integer "time_type"
     t.float "open"
     t.float "high"
@@ -84,6 +84,25 @@ ActiveRecord::Schema.define(version: 2021_05_07_021407) do
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["commentable_type"], name: "index_comments_on_commentable_type"
+  end
+
+  create_table "currency_pairs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "base_id"
+    t.integer "quote_id"
+    t.float "winrate"
+    t.text "desciption"
+    t.integer "is_follow", default: 0
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "liquid_rate", default: "0"
+    t.string "crosses_related"
+    t.text "brief"
+    t.integer "spread", default: 0
+    t.integer "range", default: 0
+    t.index ["tag_id"], name: "index_currency_pairs_on_tag_id"
   end
 
   create_table "daily_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -140,7 +159,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_021407) do
     t.index ["trade_id"], name: "index_logs_on_trade_id"
   end
 
-  create_table "merchandise", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "merchandises", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.text "desciption"
@@ -324,6 +343,7 @@ ActiveRecord::Schema.define(version: 2021_05_07_021407) do
   add_foreign_key "blog_tags", "tags"
   add_foreign_key "candlesticks", "merchandise_rates", column: "currency_pair_id"
   add_foreign_key "coins", "tags"
+  add_foreign_key "currency_pairs", "tags"
   add_foreign_key "daily_reports", "coins"
   add_foreign_key "daily_reports", "news", column: "new_id"
   add_foreign_key "fund_logs", "logs"
