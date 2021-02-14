@@ -15,15 +15,8 @@ class CandlestickImporter
       json_list = JSON.parse(File.read(@files.path))
 
       json_list.each do |record|
-          @currency_pair.candlesticks.create!(date: Time.at(record[0]/1000).to_datetime, open: record[1], high: record[2], low: record[3], close: record[4])
+          @currency_pair.candlesticks.create!(date: Time.at(record[0]/1000).to_datetime, open: record[1], high: record[2], low: record[3], close: record[4], volumn: record[5])
       end
-    else
-      uri = URI('http://example.com/index.html')
-      params = { :limit => 10, :page => 3 }
-      uri.query = URI.encode_www_form(params)
-
-      res = Net::HTTP.get_response(uri)
-      puts res.body if res.is_a?(Net::HTTPSuccess)
     end
   end
 end

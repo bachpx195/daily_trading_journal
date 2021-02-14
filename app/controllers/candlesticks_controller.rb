@@ -4,8 +4,7 @@ class CandlesticksController < ApplicationController
 
   def index
     @q = Candlestick.search(params[:q])
-    @candlesticks = @q.result(distinct: true).order('date ASC').paginate(:page => params[:page], :per_page => 10)
-    # @candlesticks = @currency_pair.candlesticks.paginate(:page => params[:page], :per_page => 10)
+    @candlesticks = @q.result(distinct: true).order('date DESC').paginate(:page => params[:page], :per_page => 50)
   end
 
   def create
