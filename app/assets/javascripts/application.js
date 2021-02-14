@@ -17,7 +17,6 @@
 //= require bootstrap
 //= require simplemde.min
 //= require ckeditor/init
-//= require ckeditor/plugins/preview/plugin
 //= require ckeditor/config
 //= require jstree.min
 //= require fullcalendar
