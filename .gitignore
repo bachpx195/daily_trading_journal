@@ -78,3 +78,5 @@ yarn-debug.log*
 /.idea *
 /public/system/*
 .rvmrc
+
+/config/database.yml
