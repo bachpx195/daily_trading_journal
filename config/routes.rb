@@ -38,8 +38,6 @@ Rails.application.routes.draw do
       get 'canlendar', to: 'news#canlendar'
     end
   end
-  resources :coin_links
-  resources :coin_sources
   resources :coins
   resources :tags
   resources :plans

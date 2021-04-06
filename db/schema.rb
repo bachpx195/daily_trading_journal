@@ -10,7 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_25_105324) do
+ActiveRecord::Schema.define(version: 2021_02_03_114454) do
+
+  create_table "blog_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "tag_id"
+    t.bigint "blog_id"
+    t.integer "blog_count"
+    t.index ["blog_id"], name: "index_blog_tags_on_blog_id"
+    t.index ["tag_id"], name: "index_blog_tags_on_tag_id"
+  end
+
+  create_table "blogs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "title"
+    t.datetime "public_time"
+    t.integer "public_status", default: 0, null: false
+    t.string "intro_image"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "description", limit: 45
+  end
 
   create_table "candlesticks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "currency_pair_id"
@@ -36,25 +55,6 @@ ActiveRecord::Schema.define(version: 2021_01_25_105324) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type"
-  end
-
-  create_table "coin_links", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "url"
-    t.string "kind"
-    t.bigint "coin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["coin_id"], name: "index_coin_links_on_coin_id"
-  end
-
-  create_table "coin_sources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "title"
-    t.string "domain_slug"
-    t.string "website"
-    t.bigint "coin_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["coin_id"], name: "index_coin_sources_on_coin_id"
   end
 
   create_table "coins", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -243,6 +243,7 @@ ActiveRecord::Schema.define(version: 2021_01_25_105324) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "is_follow", default: 0
+    t.string "tag_image"
     t.index ["lft"], name: "index_tags_on_lft"
     t.index ["parent_id"], name: "index_tags_on_parent_id"
     t.index ["rgt"], name: "index_tags_on_rgt"
@@ -318,9 +319,9 @@ ActiveRecord::Schema.define(version: 2021_01_25_105324) do
     t.index ["tag_id"], name: "index_wikis_on_tag_id"
   end
 
+  add_foreign_key "blog_tags", "blogs"
+  add_foreign_key "blog_tags", "tags"
   add_foreign_key "candlesticks", "currency_pairs"
-  add_foreign_key "coin_links", "coins"
-  add_foreign_key "coin_sources", "coins"
   add_foreign_key "coins", "tags"
   add_foreign_key "currency_pairs", "tags"
   add_foreign_key "daily_reports", "coins"
