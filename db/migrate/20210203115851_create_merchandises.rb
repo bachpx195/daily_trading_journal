@@ -1,6 +1,0 @@
-class CreateMerchandises < ActiveRecord::Migration[5.2]
-  def change
-    create_table :merchandises do |t|
-    end
-  end
-end

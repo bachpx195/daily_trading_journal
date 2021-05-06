@@ -7,13 +7,20 @@
       <th class="text-center">Giá cao nhất</th>
       <th class="text-center">Gía thấp nhất</th>
       <th class="text-center">Gía đóng cửa</th>
-      <th class="text-center">ATR14</th>
+      <th class="text-center">Khối lượng giao dịch</th>
     </tr>
     </thead>
 
     <tbody class="item-container">
       <%= render('candlestick') %>
     </tbody>
+    <div class="row">
+      <div class="col-md-6">
+        <%= will_paginate @candlesticks %>
+      </div>
+      <div class="col-md-6 margin-top-8 text-right">
+        <%= page_entries_info @candlesticks %>
+      </div>
+    </div>
   </table>
 </div>
-xs

@@ -1,183 +1,232 @@
-<div class="page-sidebar-wrapper">
-  <!-- BEGIN SIDEBAR -->
-  <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-  <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-  <div class="page-sidebar navbar-collapse collapse">
-    <!-- BEGIN SIDEBAR MENU -->
-    <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
-    <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
-    <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
-    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
-    <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
-    <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
-    <ul class="page-sidebar-menu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-      <li class="nav-item start active open">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="icon-home" aria-hidden="true"></i>
-          <span class="title">NGHIỆP VỤ</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
+<div id="layoutSidenav_nav">
+  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+    <div class="sb-sidenav-menu">
+      <div class="nav">
+        <a class="nav-link" href="/dashboard">
+          <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+          TỔNG QUAN
         </a>
-        <ul class="sub-menu">
-          <li class="nav-item start">
-            <a href="/" class="nav-link ">
-              <i class="fa fa-tachometer" aria-hidden="true"></i>
-              <span class="title">QUẢN LÝ CHUNG</span>
-              <span class="selected"></span>
-            </a>
-          </li>
-          <li class="nav-item start">
-            <a href="#" class="nav-link">
-              <i class="fa fa-credit-card" aria-hidden="true"></i>
-              <span class="title">QUỸ</span>
-            </a>
-          </li>
-          <li class="nav-item start">
-            <a href="<%= coins_url %>" class="nav-link ">
-              <i class="fa fa-plug" aria-hidden="true"></i>
-              <span class="title">COIN</span>
-            </a>
-          </li>
-          <li class="nav-item start">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-money" aria-hidden="true"></i>
-              <span class="title">PHIẾU CHI</span>
-            </a>
-          </li>
-          <li class="nav-item start">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-handshake-o" aria-hidden="true"></i>
-              <span class="title">HỢP ĐỒNG</span>
-            </a>
-          </li>
-          <li class="nav-item start">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-user-plus" aria-hidden="true"></i>
-              <span class="title">KHÁCH THUÊ</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item start">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-briefcase" aria-hidden="true"></i>
-          <span class="title">QUẢN LÝ TAG</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item start">
-            <a href="<%= tags_path %>" class="nav-link ">
-              <i class="fa fa-sitemap" aria-hidden="true"></i>
-              <span class="title">DANH SÁCH</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item start">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-building-o" aria-hidden="true"></i>
-          <span class="title">QUẢN LÝ LOG</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item start">
-            <a href="<%= logs_path %>" class="nav-link ">
-              <i class="fa fa-building-o" aria-hidden="true"></i>
-              <span class="title">DANH SÁCH</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item start">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-bar-chart" aria-hidden="true"></i>
-          <span class="title">QUẢN LÝ SYMBOL</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item start">
-            <a href="<%= symbolfxes_path %>" class="nav-link ">
-              <i class="fa fa-sitemap" aria-hidden="true"></i>
-              <span class="title">DANH SÁCH</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item start">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-trophy" aria-hidden="true"></i>
-          <span class="title">QUẢN LÝ THUẬT NGỮ</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item start">
-            <a href="<%= glossaries_path %>" class="nav-link ">
-              <i class="icon-bar-chart"></i>
-              <span class="title">DANH SÁCH</span>
-            </a>
-          </li>
-          <li class="nav-item start">
-            <a href="<%= new_glossary_path %>" class="nav-link ">
-              <i class="icon-bar-chart"></i>
-              <span class="title">THÊM MỚI</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item start">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-cogs" aria-hidden="true"></i>
-          <span class="title">HỆ THỐNG</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item start">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-cog" aria-hidden="true"></i>
-              <span class="title">CẤU HÌNH</span>
-            </a>
-          </li>
-          <li class="nav-item start ">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-cogs" aria-hidden="true"></i>
-              <span class="title">DANH MỤC CẤU HÌNH</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-
-      <li class="nav-item start ">
-        <a href="javascript:;" class="nav-link nav-toggle">
-          <i class="fa fa-life-ring" aria-hidden="true"></i>
-          <span class="title">TRỢ GIÚP</span>
-          <span class="selected"></span>
-          <span class="arrow open"></span>
-        </a>
-        <ul class="sub-menu">
-          <li class="nav-item start ">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-map-o" aria-hidden="true"></i>
-              <span class="title">HƯỚNG DẪN SỬ DỤNG</span>
-            </a>
-          </li>
-          <li class="nav-item start ">
-            <a href="#" class="nav-link ">
-              <i class="fa fa-phone-square" aria-hidden="true"></i>
-              <span class="title">LIÊN HỆ</span>
-            </a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
+          <div class="sb-sidenav-menu-heading">NGHIỆP VỤ</div>
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+              <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+              Lối Tắt
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav">
+              <a href="<%= fund_logs_url %>" class="nav-link <%= params[:controller] == 'fund_logs' ? 'active' : '' %>">
+                Quỹ
+              </a>
+              <a href="<%= trades_url %>" class="nav-link <%= params[:controller] == 'trades' ? 'active' : '' %>">
+                Giao Dịch
+              </a>
+              <a href="<%= currency_pairs_url %>" class="nav-link <%= params[:controller] == 'currency_pairs' ? 'active' : '' %>">
+                Cặp Tiền
+              </a>
+              <a href="<%= wikis_url %>" class="nav-link <%= params[:controller] == 'wikis' ? 'active' : '' %>">
+                Wiki
+              </a>
+              <a href="<%= news_sites_url %>" class="nav-link <%= params[:controller] == 'news_sites' ? 'active' : '' %>">
+                Trang Tin Tức
+              </a>
+              <a href="<%= canlendar_news_index_url %>" class="nav-link <%= params[:controller] == 'news' ? 'active' : '' %>">
+                Lịch
+              </a>
+              <a href="<%= blogs_url %>" class="nav-link <%= params[:controller] == 'blogs' ? 'active' : '' %>">
+                Blog
+              </a>
+            </nav>
+          </div>
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+              <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+              Quản lý
+              <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+          </a>
+          <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
+            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseTag" aria-expanded="false" aria-controls="pagesCollapseTag">
+                Tags
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="pagesCollapseTag" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a href="<%= tags_path %>" class="nav-link ">
+                    Danh Sách
+                  </a>
+                </nav>
+              </div>
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseLog" aria-expanded="false" aria-controls="pagesCollapseLog">
+                Logs
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="pagesCollapseLog" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a href="<%= logs_path %>" class="nav-link ">
+                    Danh Sách
+                  </a>
+                </nav>
+              </div>
+              <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                Logs
+                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+              </a>
+              <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-parent="#sidenavAccordionPages">
+                <nav class="sb-sidenav-menu-nested nav">
+                  <a href="<%= logs_path %>" class="nav-link ">
+                    Danh Sách
+                  </a>
+                </nav>
+              </div>
+            </nav>
+          </div>
+          <div class="sb-sidenav-menu-heading">Addons</div>
+          <a class="nav-link" href="charts.html">
+              <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+              Charts
+          </a>
+          <a class="nav-link" href="tables.html">
+              <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+              Tables
+          </a>
+      </div>
+    </div>
+  </nav>
 </div>
+
+<% if false %>
+  <%# <div class="page-sidebar-wrapper">
+    <!-- BEGIN SIDEBAR -->
+    <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+    <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+    <div class="page-sidebar navbar-collapse collapse">
+      <!-- BEGIN SIDEBAR MENU -->
+      <!-- DOC: Apply "page-sidebar-menu-light" class right after "page-sidebar-menu" to enable light sidebar menu style(without borders) -->
+      <!-- DOC: Apply "page-sidebar-menu-hover-submenu" class right after "page-sidebar-menu" to enable hoverable(hover vs accordion) sub menu mode -->
+      <!-- DOC: Apply "page-sidebar-menu-closed" class right after "page-sidebar-menu" to collapse("page-sidebar-closed" class must be applied to the body element) the sidebar sub menu mode -->
+      <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+      <!-- DOC: Set data-keep-expand="true" to keep the submenues expanded -->
+      <!-- DOC: Set data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+      <ul class="page-sidebar-menu page-sidebar-menu-closed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+        <li class="nav-item start">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-briefcase" aria-hidden="true"></i>
+            <span class="title">QUẢN LÝ TAG</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="nav-item start">
+              <a href="<%= tags_path %>" class="nav-link ">
+                <i class="fa fa-sitemap" aria-hidden="true"></i>
+                <span class="title">DANH SÁCH</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item start">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-building-o" aria-hidden="true"></i>
+            <span class="title">QUẢN LÝ LOG</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="nav-item start">
+              <a href="<%= logs_path %>" class="nav-link ">
+                <i class="fa fa-building-o" aria-hidden="true"></i>
+                <span class="title">DANH SÁCH</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item start">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            <span class="title">QUẢN LÝ SYMBOL</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="nav-item start">
+              <a href="<%= merchandises_path %>" class="nav-link ">
+                <i class="fa fa-sitemap" aria-hidden="true"></i>
+                <span class="title">DANH SÁCH</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item start">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-trophy" aria-hidden="true"></i>
+            <span class="title">QUẢN LÝ THUẬT NGỮ</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="nav-item start">
+              <a href="<%= glossaries_path %>" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title">DANH SÁCH</span>
+              </a>
+            </li>
+            <li class="nav-item start">
+              <a href="<%= new_glossary_path %>" class="nav-link ">
+                <i class="icon-bar-chart"></i>
+                <span class="title">THÊM MỚI</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item start">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-cogs" aria-hidden="true"></i>
+            <span class="title">HỆ THỐNG</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="nav-item start">
+              <a href="#" class="nav-link ">
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                <span class="title">CẤU HÌNH</span>
+              </a>
+            </li>
+            <li class="nav-item start ">
+              <a href="#" class="nav-link ">
+                <i class="fa fa-cogs" aria-hidden="true"></i>
+                <span class="title">DANH MỤC CẤU HÌNH</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item start ">
+          <a href="javascript:;" class="nav-link nav-toggle">
+            <i class="fa fa-life-ring" aria-hidden="true"></i>
+            <span class="title">TRỢ GIÚP</span>
+            <span class="selected"></span>
+            <span class="arrow open"></span>
+          </a>
+          <ul class="sub-menu">
+            <li class="nav-item start ">
+              <a href="#" class="nav-link ">
+                <i class="fa fa-map-o" aria-hidden="true"></i>
+                <span class="title">HƯỚNG DẪN SỬ DỤNG</span>
+              </a>
+            </li>
+            <li class="nav-item start ">
+              <a href="#" class="nav-link ">
+                <i class="fa fa-phone-square" aria-hidden="true"></i>
+                <span class="title">LIÊN HỆ</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div> %>
+<% end %>

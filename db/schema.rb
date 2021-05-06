@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_03_114454) do
+ActiveRecord::Schema.define(version: 2021_05_06_112551) do
 
   create_table "blog_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tag_id"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2021_02_03_114454) do
     t.datetime "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "volumn"
     t.index ["currency_pair_id"], name: "index_candlesticks_on_currency_pair_id"
   end
 
@@ -158,6 +159,19 @@ ActiveRecord::Schema.define(version: 2021_02_03_114454) do
     t.index ["trade_id"], name: "index_logs_on_trade_id"
   end
 
+  create_table "merchandise", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.text "desciption"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "country"
+    t.text "brief"
+    t.string "center_bank"
+    t.index ["tag_id"], name: "index_merchandise_on_tag_id"
+  end
+
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "url"
     t.text "short_description"
@@ -208,19 +222,6 @@ ActiveRecord::Schema.define(version: 2021_02_03_114454) do
     t.index ["lft"], name: "index_plans_on_lft"
     t.index ["parent_id"], name: "index_plans_on_parent_id"
     t.index ["rgt"], name: "index_plans_on_rgt"
-  end
-
-  create_table "symbolfxes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "slug"
-    t.text "desciption"
-    t.bigint "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "country"
-    t.text "brief"
-    t.string "center_bank"
-    t.index ["tag_id"], name: "index_symbolfxes_on_tag_id"
   end
 
   create_table "system_configs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -328,11 +329,11 @@ ActiveRecord::Schema.define(version: 2021_02_03_114454) do
   add_foreign_key "daily_reports", "news", column: "new_id"
   add_foreign_key "fund_logs", "logs"
   add_foreign_key "logs", "trades"
+  add_foreign_key "merchandise", "tags"
   add_foreign_key "news", "tags"
   add_foreign_key "news_sites", "tags"
   add_foreign_key "news_tags", "news", column: "new_id"
   add_foreign_key "news_tags", "tags"
-  add_foreign_key "symbolfxes", "tags"
   add_foreign_key "trade_normal_methods", "trade_methods"
   add_foreign_key "trade_normal_methods", "trades"
   add_foreign_key "trade_pyramid_methods", "trade_methods"

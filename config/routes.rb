@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :currency_pairs
+  resources :merchandises
   devise_for :users
 
   resources :blogs
@@ -9,7 +11,6 @@ Rails.application.routes.draw do
       post 'candlesticks', to: "candlesticks#create"
     end
   end
-  resources :symbolfxes
   mount Ckeditor::Engine => '/ckeditor'
 
   root "blog/blogs#index"

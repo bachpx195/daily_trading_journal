@@ -1,27 +1,25 @@
-<div class="page-header navbar navbar-fixed-top" style="z-index: 1;">
-  <div class="page-header-inner ">
-    <div class="atmarkcafe-logo page-logo">
-      <a href="/" target="_blank"></a>
-      <div class="menu-toggler sidebar-toggler">
-        <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+  <a class="navbar-brand" href="index.html">TRADE LOG APP</a>
+  <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
+  <!-- Navbar Search-->
+  <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+          <input class="form-control" type="text" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" />
+          <div class="input-group-append">
+              <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+          </div>
       </div>
-    </div>
-    <!-- END LOGO -->
-    <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-    <!-- END RESPONSIVE MENU TOGGLER -->
-    <!-- BEGIN PAGE ACTIONS -->
-    <!-- DOC: Remove "hide" class to enable the page header actions -->
-    <div class="page-actions">
-       <!--<span class="caption-subject font-green sbold uppercase" style="margin-left: 30px; font-size: 26px;"><i class="fa fa-building-o" aria-hidden="true"></i> NHÀ TRỌ VĂN MINH - THÂN THIỆN</span>-->
-      <h3 class="caption-subject font-green sbold uppercase" style="margin-top: 0px; margin-bottom: 5px;">TRADE LOG APP</h3>
-      <span class="" style="font-size: 12px;"><strong>Đ/C:</strong> - <strong>SĐT: 0983608350</strong></span><br/>
-    </div>
-    <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"> </a>
-    <div class="page-actions">
-      <h3 class="caption-subject font-green sbold uppercase" style="margin-top: 0px; margin-bottom: 5px;"></h3>
-    </div>
-    <div class="page-top">
-    </div>
-  </div>
-</div>
-<div class="clearfix"> </div>
+  </form>
+  <!-- Navbar-->
+  <%# <ul class="navbar-nav ml-auto ml-md-0">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+          <a class="dropdown-item" href="#">Settings</a>
+          <a class="dropdown-item" href="#">Activity Log</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="login.html">Logout</a>
+      </div>
+    </li>
+  </ul> %>
+</nav>

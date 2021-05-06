@@ -1,6 +1,5 @@
 class Tag < ApplicationRecord
   acts_as_nested_set
-
   UPDATABLE_ATTRIBUTES = [:title, :slug, :content, :new_position, :parent_id, :tag_image]
 
   has_many :news_tags
@@ -8,7 +7,7 @@ class Tag < ApplicationRecord
   has_many :blog_tags
   has_many :blogs, through: :blog_tags
   has_many :coins
-  has_many :symbolfxes
+  has_many :merchandises
   has_many :currency_pairs
   has_many :wikis
   has_many :news_sites

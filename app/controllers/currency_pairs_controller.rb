@@ -1,30 +1,22 @@
 class CurrencyPairsController < ApplicationController
   before_action :set_currency_pair, only: [:show, :edit, :update, :destroy]
 
-  # GET /currency_pairs
-  # GET /currency_pairs.json
   def index
     @currency_pairs = CurrencyPair.all
   end
 
-  # GET /currency_pairs/1
-  # GET /currency_pairs/1.json
   def show
     @commentable = @currency_pair
     @comments = @commentable.comments&.order('created_at DESC')
   end
 
-  # GET /currency_pairs/new
   def new
     @currency_pair = CurrencyPair.new
   end
 
-  # GET /currency_pairs/1/edit
   def edit
   end
 
-  # POST /currency_pairs
-  # POST /currency_pairs.json
   def create
     @currency_pair = CurrencyPair.new(currency_pair_params)
 
@@ -39,8 +31,6 @@ class CurrencyPairsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /currency_pairs/1
-  # PATCH/PUT /currency_pairs/1.json
   def update
     respond_to do |format|
       if @currency_pair.update(currency_pair_params)
@@ -53,8 +43,6 @@ class CurrencyPairsController < ApplicationController
     end
   end
 
-  # DELETE /currency_pairs/1
-  # DELETE /currency_pairs/1.json
   def destroy
     @currency_pair.destroy
     respond_to do |format|
@@ -64,12 +52,10 @@ class CurrencyPairsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_currency_pair
       @currency_pair = CurrencyPair.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def currency_pair_params
       params[:currency_pair][:is_follow] = params[:currency_pair][:is_follow].to_i
       params.require(:currency_pair).permit(:name, :slug, :base_id, :quote_id, :winrate, :country, :desciption, :tag_id, :crosses_related, :liquid_rate, :brief, :spread, :is_follow)

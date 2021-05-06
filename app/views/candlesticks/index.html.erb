@@ -1,6 +1,6 @@
 <%= render partial: 'list', layout: 'shared/index_tabs', locals: {new_url: new_coin_url, title: "Import Data"} %>
 
-<h3>Import Json</h3>
+<h3><%=  @currency_pair.slug %></h3>
 
 <%= form_with(model: Candlestick.new, url: candlesticks_currency_pair_path(@currency_pair), :html => {class: 'form-horizontal'}) do |f| %>
   <div class="form-group form-md-line-input">
