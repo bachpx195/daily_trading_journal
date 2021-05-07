@@ -2,26 +2,26 @@
   <div class="row invoice-head">
     <div class="col-md-7 col-xs-6">
       <div class="invoice-logo">
-        <h1 class="uppercase"><%= @currency_pair.slug %><a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(@currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a></h1>
+        <h1 class="uppercase"><%= @merchandise_rate.slug %><a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(@merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a></h1>
       </div>
     </div>
   </div>
   <div class="row invoice-cust-add">
     <div class="col-xs-3">
       <h2 class="invoice-title uppercase">Tên</h2>
-      <p class="invoice-desc"><%= @currency_pair.name %></p>
+      <p class="invoice-desc"><%= @merchandise_rate.name %></p>
     </div>
     <div class="col-xs-3">
       <h2 class="invoice-title uppercase">Tử số</h2>
-      <p class="invoice-desc"><%= link_to @currency_pair.base.name , merchandise_path(@currency_pair.base) %></p>
+      <p class="invoice-desc"><%= link_to @merchandise_rate.base.name , merchandise_path(@merchandise_rate.base) %></p>
     </div>
     <div class="col-xs-3">
       <h2 class="invoice-title uppercase">Mẫu số</h2>
-      <p class="invoice-desc inv-address"><%= link_to @currency_pair.quote.name , merchandise_path(@currency_pair.quote) %></p>
+      <p class="invoice-desc inv-address"><%= link_to @merchandise_rate.quote.name , merchandise_path(@merchandise_rate.quote) %></p>
     </div>
     <div class="col-xs-3 invoice-subtotal">
       <h2 class="invoice-title uppercase">Winrate</h2>
-      <p class="invoice-desc grand-total"><%= @currency_pair.winrate %>%</p>
+      <p class="invoice-desc grand-total"><%= @merchandise_rate.winrate %>%</p>
     </div>
   </div>
   <div class="row invoice-body">
@@ -39,12 +39,12 @@
         <tbody>
         <tr>
           <td class="post-article markdown">
-            <%= markdown @currency_pair.brief&.html_safe %>
+            <%= markdown @merchandise_rate.brief&.html_safe %>
           </td>
-          <td class="text-center sbold"><%= @currency_pair.winrate %></td>
-          <td class="text-center sbold"><%= @currency_pair.spread %>point</td>
-          <td class="text-center sbold"><%= @currency_pair.range %>point</td>
-          <td class="text-center sbold"><%= @currency_pair.crosses_related %></td>
+          <td class="text-center sbold"><%= @merchandise_rate.winrate %></td>
+          <td class="text-center sbold"><%= @merchandise_rate.spread %>point</td>
+          <td class="text-center sbold"><%= @merchandise_rate.range %>point</td>
+          <td class="text-center sbold"><%= @merchandise_rate.crosses_related %></td>
         </tr>
         </tbody>
       </table>
@@ -72,7 +72,7 @@
               <div class="tab-content">
                 <div class="tab-pane active" id="tab-1">
                   <div class="col-md-12" style="padding: 0px;">
-                    <%= @currency_pair.desciption.html_safe %>
+                    <%= @merchandise_rate.desciption.html_safe %>
                   </div>
                 </div>
                 <div class="tab-pane" id="tab-2">

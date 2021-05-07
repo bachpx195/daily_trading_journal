@@ -1,8 +1,8 @@
 <%= render partial: 'list', layout: 'shared/index_tabs', locals: {new_url: new_coin_url, title: "Import Data"} %>
 
-<h3><%=  @currency_pair.slug %></h3>
+<h3><%=  @merchandise_rate.slug %></h3>
 
-<%= form_with(model: Candlestick.new, url: candlesticks_currency_pair_path(@currency_pair), :html => {class: 'form-horizontal'}) do |f| %>
+<%= form_with(model: Candlestick.new, url: candlesticks_merchandise_rate_path(@merchandise_rate), :html => {class: 'form-horizontal'}) do |f| %>
   <div class="form-group form-md-line-input">
     <label class="col-md-2 control-label">File json</label>
     <div class="col-md-4">

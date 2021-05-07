@@ -43,7 +43,7 @@ class LogImporter
         trade = Trade.new(
           start_date: get_datetime_server(row[1]),
           order_type: get_order_type(row[2]),
-          currency_pair_id: get_currency_pair_id(row[4]),
+          merchandise_rate_id: get_merchandise_rate_id(row[4]),
           end_date: get_datetime_server(row[8]),
           status: 2,
           trade_normal_method_attributes: {point_entry: row[5].to_f,
@@ -70,7 +70,7 @@ class LogImporter
     # ).with_index do |row, i|
     #   unless Log.find_by(server_code: row[0]).present?
     #     trade = Trade.new(
-    #       currency_pair_id: get_currency_pair_id(row[1]),
+    #       merchandise_rate_id: get_merchandise_rate_id(row[1]),
     #       start_date: get_datetime_server(row[3]),
     #       end_date: get_datetime_server(row[5]),
     #       order_type: get_order_type(row[2]),
@@ -116,9 +116,9 @@ class LogImporter
     DateTime.strptime("#{str} +0", '%Y.%m.%d %H:%M:%S %z')
   end
 
-  def get_currency_pair_id str
+  def get_merchandise_rate_id str
     # if str.include? 'xau'
-    #   return CurrencyPair.find_by(slug: 'XAU/USD').id
+    #   return MerchandiseRate.find_by(slug: 'XAU/USD').id
     # end
     # symbol_arr = []
     # Merchandise.pluck(:slug).each do |symbol|
@@ -131,12 +131,12 @@ class LogImporter
     # currency = nil
     #
     # if symbol_pair.present?
-    #   currency = CurrencyPair.find_by(slug: symbol_pair) || CurrencyPair.find_by(slug: symbol_pair_reverse)
+    #   currency = MerchandiseRate.find_by(slug: symbol_pair) || MerchandiseRate.find_by(slug: symbol_pair_reverse)
     # end
     #
     # currency.id
     #
-    CurrencyPair.first.id
+    MerchandiseRate.first.id
   end
 
   def create_logs

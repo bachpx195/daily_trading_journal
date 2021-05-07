@@ -35,8 +35,8 @@
                     <%= form.text_area :content, class: "form-control input-md",  placeholder: true, id: "markdown" %>
                     <span>Theo dõi</span>
                     <%= form.check_box :is_importand, checked: form.object.importand? ? "checked" : "" %>
-                    <%= form.hidden_field :commmentable, value: @currency_pair.class %>
-                    <%= form.hidden_field :commmentable_id, value: @currency_pair.id %>
+                    <%= form.hidden_field :commmentable, value: @merchandise_rate.class %>
+                    <%= form.hidden_field :commmentable_id, value: @merchandise_rate.id %>
                     <div class="btn-cont">
                     <button type="submit" class="btn btn-info">Lưu</button>
                     </div>

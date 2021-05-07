@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_06_112551) do
+ActiveRecord::Schema.define(version: 2021_05_07_021407) do
 
   create_table "blog_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.bigint "tag_id"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_05_06_112551) do
   end
 
   create_table "candlesticks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "currency_pair_id"
+    t.bigint "merchandise_rate_id"
     t.integer "time_type"
     t.float "open"
     t.float "high"
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 2021_05_06_112551) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "volumn"
-    t.index ["currency_pair_id"], name: "index_candlesticks_on_currency_pair_id"
+    t.index ["merchandise_rate_id"], name: "index_candlesticks_on_merchandise_rate_id"
   end
 
   create_table "ckeditor_assets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -84,25 +84,6 @@ ActiveRecord::Schema.define(version: 2021_05_06_112551) do
     t.index ["commentable_id"], name: "index_comments_on_commentable_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
     t.index ["commentable_type"], name: "index_comments_on_commentable_type"
-  end
-
-  create_table "currency_pairs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
-    t.string "slug"
-    t.integer "base_id"
-    t.integer "quote_id"
-    t.float "winrate"
-    t.text "desciption"
-    t.integer "is_follow", default: 0
-    t.bigint "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "liquid_rate", default: "0"
-    t.string "crosses_related"
-    t.text "brief"
-    t.integer "spread", default: 0
-    t.integer "range", default: 0
-    t.index ["tag_id"], name: "index_currency_pairs_on_tag_id"
   end
 
   create_table "daily_reports", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -170,6 +151,25 @@ ActiveRecord::Schema.define(version: 2021_05_06_112551) do
     t.text "brief"
     t.string "center_bank"
     t.index ["tag_id"], name: "index_merchandise_on_tag_id"
+  end
+
+  create_table "merchandise_rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.integer "base_id"
+    t.integer "quote_id"
+    t.float "winrate"
+    t.text "desciption"
+    t.integer "is_follow", default: 0
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "liquid_rate", default: "0"
+    t.string "crosses_related"
+    t.text "brief"
+    t.integer "spread", default: 0
+    t.integer "range", default: 0
+    t.index ["tag_id"], name: "index_merchandise_rates_on_tag_id"
   end
 
   create_table "news", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -290,10 +290,10 @@ ActiveRecord::Schema.define(version: 2021_05_06_112551) do
     t.text "reason"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "currency_pair_id"
+    t.bigint "merchandise_rate_id"
     t.integer "order_type"
     t.index ["coin_id"], name: "index_trades_on_coin_id"
-    t.index ["currency_pair_id"], name: "index_trades_on_currency_pair_id"
+    t.index ["merchandise_rate_id"], name: "index_trades_on_merchandise_rate_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -322,14 +322,14 @@ ActiveRecord::Schema.define(version: 2021_05_06_112551) do
 
   add_foreign_key "blog_tags", "blogs"
   add_foreign_key "blog_tags", "tags"
-  add_foreign_key "candlesticks", "currency_pairs"
+  add_foreign_key "candlesticks", "merchandise_rates", column: "currency_pair_id"
   add_foreign_key "coins", "tags"
-  add_foreign_key "currency_pairs", "tags"
   add_foreign_key "daily_reports", "coins"
   add_foreign_key "daily_reports", "news", column: "new_id"
   add_foreign_key "fund_logs", "logs"
   add_foreign_key "logs", "trades"
   add_foreign_key "merchandise", "tags"
+  add_foreign_key "merchandise_rates", "tags"
   add_foreign_key "news", "tags"
   add_foreign_key "news_sites", "tags"
   add_foreign_key "news_tags", "news", column: "new_id"

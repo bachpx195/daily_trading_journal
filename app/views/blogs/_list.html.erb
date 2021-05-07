@@ -29,21 +29,21 @@
             </tr>
             </thead>
             <tbody class="item-container-<%= tag.id %>">
-              <% CurrencyPair.followed.each do |currency_pair| %>
-                <tr class="item-<%= currency_pair.id %> <%= currency_pair.unfollow? ? 'active' : 'success'%>">
+              <% MerchandiseRate.followed.each do |merchandise_rate| %>
+                <tr class="item-<%= merchandise_rate.id %> <%= merchandise_rate.unfollow? ? 'active' : 'success'%>">
                   <td class="text-center">
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_currency_pair_path(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_merchandise_rate_path(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
                   </td>
-                  <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
-                  <td class="text-center"><%= currency_pair.winrate %>%</td>
-                  <td class="text-center"><%= currency_pair.spread %>point</td>
-                  <td class="text-center"><%= currency_pair.range %>point</td>
-                  <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
-                  <td class="text-center"><%= currency_pair.crosses_related %></td>
-                  <td class="text-center"><%= currency_pair.liquid_rate %></td>
+                  <td class="text-center"><%= link_to merchandise_rate.slug, merchandise_rate_path(merchandise_rate) %></td>
+                  <td class="text-center"><%= merchandise_rate.winrate %>%</td>
+                  <td class="text-center"><%= merchandise_rate.spread %>point</td>
+                  <td class="text-center"><%= merchandise_rate.range %>point</td>
+                  <td class="text-center"><%= merchandise_rate.brief&.html_safe %></td>
+                  <td class="text-center"><%= merchandise_rate.crosses_related %></td>
+                  <td class="text-center"><%= merchandise_rate.liquid_rate %></td>
                   <td class="text-center">
-                    <%= link_to raw('<i class="fa fa-trash-o"></i>'), currency_pair, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                    <%= link_to raw('<i class="fa fa-trash-o"></i>'), merchandise_rate, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
                   </td>
                 </tr>
               <% end %>
@@ -87,20 +87,20 @@
               </tr>
               </thead>
               <tbody class="item-container-<%= tag.id %>">
-                <% tag.currency_pairs.each do |currency_pair| %>
-                  <tr class="item-<%= currency_pair.id %> <%= currency_pair.unfollow? ? 'active' : 'success'%>">
+                <% tag.merchandise_rates.each do |merchandise_rate| %>
+                  <tr class="item-<%= merchandise_rate.id %> <%= merchandise_rate.unfollow? ? 'active' : 'success'%>">
                     <td class="text-center">
-                      <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_currency_pair_url(currency_pair) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                      <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
                     </td>
-                    <td class="text-center"><%= link_to currency_pair.slug, currency_pair_path(currency_pair) %></td>
-                    <td class="text-center"><%= currency_pair.winrate %>%</td>
-                    <td class="text-center"><%= currency_pair.spread %>point</td>
-                    <td class="text-center"><%= currency_pair.range %>point</td>
-                    <td class="text-center"><%= currency_pair.brief&.html_safe %></td>
-                    <td class="text-center"><%= currency_pair.crosses_related %></td>
-                    <td class="text-center"><%= currency_pair.liquid_rate %></td>
+                    <td class="text-center"><%= link_to merchandise_rate.slug, merchandise_rate_path(merchandise_rate) %></td>
+                    <td class="text-center"><%= merchandise_rate.winrate %>%</td>
+                    <td class="text-center"><%= merchandise_rate.spread %>point</td>
+                    <td class="text-center"><%= merchandise_rate.range %>point</td>
+                    <td class="text-center"><%= merchandise_rate.brief&.html_safe %></td>
+                    <td class="text-center"><%= merchandise_rate.crosses_related %></td>
+                    <td class="text-center"><%= merchandise_rate.liquid_rate %></td>
                     <td class="text-center">
-                      <%= link_to raw('<i class="fa fa-trash-o"></i>'), currency_pair, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+                      <%= link_to raw('<i class="fa fa-trash-o"></i>'), merchandise_rate, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
                     </td>
                   </tr>
                 <% end %>

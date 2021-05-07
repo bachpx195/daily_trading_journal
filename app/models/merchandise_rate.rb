@@ -1,4 +1,4 @@
-class CurrencyPair < ApplicationRecord
+class MerchandiseRate < ApplicationRecord
   has_many :comments, as: :commentable
   has_many :trades
   has_many :candlesticks

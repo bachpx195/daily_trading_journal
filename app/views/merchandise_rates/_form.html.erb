@@ -1,9 +1,9 @@
-<%= form_with(model: currency_pair, local: true, html: {class: "form-horizontal"}) do |form| %>
-  <% if currency_pair.errors.any? %>
+<%= form_with(model: merchandise_rate, local: true, html: {class: "form-horizontal"}) do |form| %>
+  <% if merchandise_rate.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(currency_pair.errors.count, "error") %> prohibited this currency_pair from being saved:</h2>
+      <h2><%= pluralize(merchandise_rate.errors.count, "error") %> prohibited this merchandise_rate from being saved:</h2>
       <ul>
-        <% currency_pair.errors.full_messages.each do |message| %>
+        <% merchandise_rate.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -91,7 +91,7 @@
       Tag
     </span>
     <div class="col-sm-4">
-      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, currency_pair.id.present? ? currency_pair.tag.id : params[:parent]) ,
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, merchandise_rate.id.present? ? merchandise_rate.tag.id : params[:parent]) ,
                       {}, { :class => 'form-control select2_category' } %>
     </div>
   </div>

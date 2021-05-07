@@ -17,6 +17,9 @@ gem 'uglifier', '>= 1.3.0'
 # gem 'mini_racer', platforms: :ruby
 gem 'sprockets'
 
+gem 'libv8', '>= 3.16.14.19'
+
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -46,6 +49,7 @@ gem 'carrierwave'
 gem 'ckeditor', '~> 4.3'
 gem 'awesome_nested_set' # gem 'nested_set'
 gem 'cocoon', git: 'https://github.com/nathanvda/cocoon.git', ref: 'e8993db'
+gem 'webpacker'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'

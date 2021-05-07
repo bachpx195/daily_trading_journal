@@ -22,7 +22,7 @@
           </td>
           <td class="text-center"><%= index + 1  %></td>
           <td class="text-center"><%= format_date_ddMMyyyHHmm f.datetime, "%H:%M" %></td>
-          <td class="text-center"><%= f.trade.currency_pair.slug %></td>
+          <td class="text-center"><%= f.trade.merchandise_rate.slug %></td>
           <td class="text-center"><%= format_log_status f.status %></td>
           <td class="text-center"><%= format_money_with_fund f.money.to_i %></td>
           <td class="text-center"><%= f.note %></td>

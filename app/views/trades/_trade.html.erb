@@ -8,7 +8,7 @@
       <% end %>
     </td>
     <td class="text-center"><%= trade.start_date&.strftime("%d/%m %H:%M") %> - <%= trade.end_date&.strftime("%d/%m %H:%M") %></td>
-    <td class="text-center"><%= trade.trade_normal_method&.amount %> <%= link_to trade.currency_pair.slug, currency_pairs_path(trade.currency_pair)  %></td>
+    <td class="text-center"><%= trade.trade_normal_method&.amount %> <%= link_to trade.merchandise_rate.slug, merchandise_rates_path(trade.merchandise_rate)  %></td>
     <td class="text-center">
       <% if trade.buy? %>
         <span class="label label-sm label-info">Buy</span>

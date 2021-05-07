@@ -14,7 +14,7 @@
       <label class="col-md-2 control-label">Cặp tiền
         <span class="required" aria-required="true"> * </span> :</label>
       <div class="col-md-2">
-        <%= f.collection_select(:currency_pair_id, CurrencyPair.all, :id, :slug, {}, {class: "form-control"}) %>
+        <%= f.collection_select(:merchandise_rate_id, MerchandiseRate.all, :id, :slug, {}, {class: "form-control"}) %>
       </div>
       <label class="col-md-2 control-label">Ngày bắt đầu</label>
       <div class="col-md-2">

@@ -1,11 +1,10 @@
 Rails.application.routes.draw do
-  resources :currency_pairs
   resources :merchandises
   devise_for :users
 
   resources :blogs
   resources :system_configs
-  resources :currency_pairs do
+  resources :merchandise_rates do
     member do
       get 'candlesticks', to: "candlesticks#index"
       post 'candlesticks', to: "candlesticks#create"

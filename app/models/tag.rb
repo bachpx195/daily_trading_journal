@@ -8,7 +8,7 @@ class Tag < ApplicationRecord
   has_many :blogs, through: :blog_tags
   has_many :coins
   has_many :merchandises
-  has_many :currency_pairs
+  has_many :merchandise_rates
   has_many :wikis
   has_many :news_sites
 

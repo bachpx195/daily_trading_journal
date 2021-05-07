@@ -13,8 +13,8 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new comment_params
     if @comment.save
-      if params[:comment][:commmentable] == 'CurrencyPair'
-        redirect_to currency_pair_path(@commentable)
+      if params[:comment][:commmentable] == 'MerchandiseRate'
+        redirect_to merchandise_rate_path(@commentable)
       elsif params[:comment][:commmentable] == 'Merchandise'
         redirect_to merchandise_path(@commentable)
       end
