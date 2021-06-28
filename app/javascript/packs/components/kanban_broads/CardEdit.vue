@@ -4,10 +4,6 @@
       <!-- Item Display Markup Start -->
       <div v-show = "!isEditing">
         {{item.text}}
-        <i  class="fa fa-pencil edit-icon"
-            aria-hidden="true"
-            @click.prevent = "handleEdit">
-        </i>
       </div>
       <!-- Item Display Markup End -->
       <!-- Form Markup Start -->

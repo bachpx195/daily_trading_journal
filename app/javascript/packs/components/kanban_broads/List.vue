@@ -5,15 +5,16 @@
     </div>
     <div class="cards cards-list"
             :data-type="this.list_name">
-
-      <card-edit v-for="item in filteredListItems"
-            class="draggable-card"
-            :item="item"
-            :key="item.id"
-            :data-type="item.list"
-            @item-edited="itemEdited"
-            @item-cancelled="itemCancelled">
-      </card-edit>
+      <draggable :list="filteredListItems" group="all-users" :animation="200">
+        <card-edit v-for="item in filteredListItems"
+              class="draggable-card"
+              :item="item"
+              :key="item.id"
+              :data-type="item.list"
+              @item-edited="itemEdited"
+              @item-cancelled="itemCancelled">
+        </card-edit>
+      </draggable>
 
       <card-new
             class="fixed-card"
@@ -27,10 +28,11 @@
 </template>
 
 <script>
+import Draggable from 'vuedraggable'
 import CardNew from "./CardNew"
 import CardEdit from "./CardEdit"
 export default {
-  components: { CardNew, CardEdit },
+  components: { CardNew, CardEdit, Draggable },
   props:[ 'list_name','list_description',
             'lists','list_items',
             'item_text','header_color'],
