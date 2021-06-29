@@ -196,7 +196,8 @@ GEM
       binding_of_caller (~> 1.0)
       pry (~> 0.13)
     public_suffix (4.0.6)
-    puma (3.12.6)
+    puma (4.3.8)
+      nio4r (~> 2.0)
     pygments.rb (2.2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -346,7 +347,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-stack_explorer
-  puma (~> 3.11)
+  puma (~> 4.3)
   pygments.rb
   rails (~> 5.2.3)
   ransack
