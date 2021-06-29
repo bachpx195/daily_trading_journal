@@ -50,6 +50,7 @@ gem 'ckeditor', '~> 4.3'
 gem 'awesome_nested_set' # gem 'nested_set'
 gem 'cocoon', git: 'https://github.com/nathanvda/cocoon.git', ref: 'e8993db'
 gem 'webpacker'
+gem 'httparty'
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
