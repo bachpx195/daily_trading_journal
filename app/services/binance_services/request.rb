@@ -6,13 +6,11 @@ module BinanceServices
     class << self
       def send!(headers: {}, method: :get, path: "/", params: {})
         self.base_uri "https://api3.binance.com"
-
         all_headers = default_headers
         params.delete_if { |k, v| v.nil? }
-        signature = signed_request_signature(params: params)
-        params.merge!(signature: signature)
+        # signature = signed_request_signature(params: params)
+        # params.merge!(signature: signature)
         # send() is insecure so don't use it.
-        binding.pry
         case method
         when :get
           response = get(path, headers: all_headers, query: params)
@@ -29,7 +27,6 @@ module BinanceServices
       end
 
       private
-
       def default_headers
         headers = {}
         headers["Content-Type"] = "application/json; charset=utf-8"
@@ -38,13 +35,11 @@ module BinanceServices
       end
 
       def process!(response:)
-        binding.pry
         json = begin
-            JSON.parse(response.body, symbolize_names: true)
+            JSON.parse(response.body)
           rescue JSON::ParserError => error
             raise "loi"
           end
-        raise "loi"
         json
       end
 
