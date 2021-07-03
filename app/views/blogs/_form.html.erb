@@ -10,13 +10,13 @@
     </div>
   <% end %>
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="title">Tiêu đề</span>
+    <span class="col-sm-4 nohover" id="title">Tiêu đề</span>
     <div class="col-sm-11">
       <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
     </div>
   </div>
   <div class="form-group">
-    <span for="intro_image" class="col-sm-1 btn btn-primary nohover long-text">
+    <span for="intro_image" class="col-sm-4 nohover long-text">
       Hình ảnh
     </span>
     <div class="col-sm-11">
@@ -33,7 +33,7 @@
     </div>
   </div>
   <div class="form-group">
-    <span for="title" class="col-sm-1 btn btn-primary nohover">
+    <span for="title" class="col-sm-4 nohover">
       Ngày đăng
     </span>
     <div class="col-sm-4">
@@ -42,19 +42,19 @@
     </div>
   </div>
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="content">Công khai</span>
+    <span class="col-sm-4 nohover" id="content">Công khai</span>
     <div class="col-sm-11">
       <%= form.check_box :public_status, checked: form.object.published? ? "checked" : "" %>
     </div>
   </div>
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="content">Nội dung</span>
+    <span class="col-sm-4 nohover" id="content">Nội dung</span>
     <div class="col-sm-11">
       <%= form.cktext_area :content, rows: 10, id: "editor1" %>
     </div>
   </div>
   <div class="form-group">
-    <span for="title" class="col-sm-1 btn btn-primary nohover">
+    <span for="title" class="col-sm-4 nohover">
       Tag
     </span>
     <div class="col-sm-8">

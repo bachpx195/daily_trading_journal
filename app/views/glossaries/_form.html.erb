@@ -15,21 +15,21 @@
   <% end %>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="title">Tiêu đề</span>
+    <span class="col-sm-4 nohover" id="title">Tiêu đề</span>
     <div class="col-sm-11">
       <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover">Tóm tắt</span>
+    <span class="col-sm-4 nohover">Tóm tắt</span>
     <div class="col-sm-11">
       <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
+    <span class="col-sm-4 nohover" id=content">Nội dung</span>
     <div class="col-sm-11">
       <%= form.cktext_area :content, rows: 10, id: "editor1" %>
     </div>
@@ -44,5 +44,3 @@
   </div>
   </div>
 <% end %>
-
-

@@ -11,14 +11,14 @@
   <% end %>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="name">Tên</span>
+    <span class="col-sm-4 nohover" id="name">Tên</span>
     <div class="col-sm-11">
       <%= form.text_field :name, autocomplete: "off", id: "name", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span for="title" class="col-sm-1 btn btn-primary nohover">
+    <span for="title" class="col-sm-4 nohover">
       Tử só
     </span>
     <div class="col-sm-4">
@@ -28,7 +28,7 @@
   </div>
 
   <div class="form-group">
-    <span for="title" class="col-sm-1 btn btn-primary nohover">
+    <span for="title" class="col-sm-4 nohover">
       Mấu số
     </span>
     <div class="col-sm-4">
@@ -38,56 +38,56 @@
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="slug">Viết tắt</span>
+    <span class="col-sm-4 nohover" id="slug">Viết tắt</span>
     <div class="col-sm-11">
       <%= form.text_field :slug, autocomplete: "off", id: "slug", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id=content">Theo dõi</span>
+    <span class="col-sm-4 nohover" id=content">Theo dõi</span>
     <div class="col-sm-11">
       <%= form.check_box :is_follow, checked: form.object.followed? ? "checked" : "" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="winrate">Tỉ lệ thắng %</span>
+    <span class="col-sm-4 nohover" id="winrate">Tỉ lệ thắng %</span>
     <div class="col-sm-11">
       <%= form.number_field :winrate, autocomplete: "off", id: "winrate", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="spread">Spread TB</span>
+    <span class="col-sm-4 nohover" id="spread">Spread TB</span>
     <div class="col-sm-11">
       <%= form.number_field :spread, autocomplete: "off", id: "spread", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="range">Range (ngày/tháng)</span>
+    <span class="col-sm-4 nohover" id="range">Range (ngày/tháng)</span>
     <div class="col-sm-11">
       <%= form.number_field :range, autocomplete: "off", id: "range", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="quote">Tính thanh khoản</span>
+    <span class="col-sm-4 nohover" id="quote">Tính thanh khoản</span>
     <div class="col-sm-11">
       <%= form.text_field :liquid_rate, autocomplete: "off", id: "liquid_rate", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id="name">Cặp tiền liên quan</span>
+    <span class="col-sm-4 nohover" id="name">Cặp tiền liên quan</span>
     <div class="col-sm-11">
       <%= form.text_field :crosses_related, autocomplete: "off", id: "crosses_related", class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span for="title" class="col-sm-1 btn btn-primary nohover">
+    <span for="title" class="col-sm-4 nohover">
       Tag
     </span>
     <div class="col-sm-4">
@@ -97,14 +97,14 @@
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover">Tóm tắt</span>
+    <span class="col-sm-4 nohover">Tóm tắt</span>
     <div class="col-sm-11">
       <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
     </div>
   </div>
 
   <div class="form-group">
-    <span class="col-sm-1 btn btn-primary nohover" id=content">Nội dung</span>
+    <span class="col-sm-4 nohover" id=content">Nội dung</span>
     <div class="col-sm-11">
       <%= form.cktext_area :desciption, rows: 10, id: "editor1" %>
     </div>
