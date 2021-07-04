@@ -19,7 +19,7 @@
 
   <div class="form-group">
     <span for="title" class="col-sm-4 nohover">
-      Tử só
+      Tử số
     </span>
     <div class="col-sm-4">
       <%= form.select :base_id, options_from_collection_for_select(Merchandise.all, :id, :slug, form.object.base_id) ,
@@ -112,7 +112,7 @@
 
   <div class="form-actions">
     <div class="row">
-      <div class="col-sm-2">
+      <div class="col-sm-2 text-center">
         <button type="submit" class="btn btn-info">Lưu</button>
       </div>
     </div>
