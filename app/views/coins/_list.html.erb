@@ -24,7 +24,7 @@
             <% tag.coins.each do |coin| %>
               <tr class="item-<%= coin.id %>">
                 <td class="text-center">
-                  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_coin_url(coin) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                  <a class="btn btn-circle btn-icon-only btn-default popovers" data-remote="true" href="<%= edit_coin_url(coin) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="fa fa-pencil"></i></a>
                 </td>
                 <td class="text-center"><%= coin.slug %></td>
                 <td class="text-center"><%= coin.code %></td>

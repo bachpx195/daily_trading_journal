@@ -32,8 +32,8 @@
               <% MerchandiseRate.followed.each do |merchandise_rate| %>
                 <tr class="item-<%= merchandise_rate.id %> <%= merchandise_rate.unfollow? ? 'active' : 'success'%>">
                   <td class="text-center">
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
-                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_merchandise_rate_path(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="icon-doc"></i></a>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="fa fa-pencil"></i></a>
+                    <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= candlesticks_merchandise_rate_path(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Import"><i class="fa fa-database"></i></a>
                   </td>
                   <td class="text-center"><%= link_to merchandise_rate.slug, merchandise_rate_path(merchandise_rate) %></td>
                   <td class="text-center"><%= merchandise_rate.winrate %>%</td>
@@ -90,7 +90,7 @@
                 <% tag.merchandise_rates.each do |merchandise_rate| %>
                   <tr class="item-<%= merchandise_rate.id %> <%= merchandise_rate.unfollow? ? 'active' : 'success'%>">
                     <td class="text-center">
-                      <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="icon-pencil"></i></a>
+                      <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="fa fa-pencil"></i></a>
                     </td>
                     <td class="text-center"><%= link_to merchandise_rate.slug, merchandise_rate_path(merchandise_rate) %></td>
                     <td class="text-center"><%= merchandise_rate.winrate %>%</td>
