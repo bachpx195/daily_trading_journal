@@ -1,9 +1,12 @@
 namespace :db do
   desc "remake candlestick data"
+  desc "bundle exec rake db:import_candlestick_data bach=test"
 
   task import_candlestick_data: :environment do
     FIRST_DATE_IN_BINANCE = 1502902800
     desc "remake candlestick data"
+    base = ENV['base']
+    quote = ENV['q']
 
     ActiveRecord::Base.transaction do
       merchandise_rate = MerchandiseRate.last
