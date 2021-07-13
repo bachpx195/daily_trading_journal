@@ -2,7 +2,7 @@ class Log < ApplicationRecord
   belongs_to :trade
 	has_many :fund_logs
 
-	before_create :genarate_code
+	before_create :generate_code
 	after_save :update_fund_log
 
 	scope :order_desc, -> {order(datetime: :desc)}
@@ -13,7 +13,7 @@ class Log < ApplicationRecord
 
 	private
 
-	def genarate_code
+	def generate_code
 		self.code =  self.trade.merchandise_rate.slug.upcase + self.created_at.to_i.to_s
 	end
 

@@ -58,6 +58,6 @@ class MerchandiseRatesController < ApplicationController
 
     def merchandise_rate_params
       params[:merchandise_rate][:is_follow] = params[:merchandise_rate][:is_follow].to_i
-      params.require(:merchandise_rate).permit(:name, :slug, :base_id, :quote_id, :winrate, :country, :desciption, :tag_id, :crosses_related, :liquid_rate, :brief, :spread, :is_follow)
+      params.require(:merchandise_rate).permit(:name, :base_id, :quote_id, :winrate, :country, :desciption, :tag_id, :crosses_related, :liquid_rate, :brief, :spread, :is_follow)
     end
 end
