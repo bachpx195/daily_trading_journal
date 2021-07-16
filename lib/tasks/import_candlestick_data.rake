@@ -8,11 +8,11 @@ namespace :db do
     base = ENV['base']
     quote = ENV['quote']
 
-    abort("Errors: vui long nhap base=xxx quote=xxx") if !base.present? or !quote.present? 
+    abort("Errors: vui long nhap base=xxx quote=xxx") if !base.present? or !quote.present?
 
     base_merchandise = Merchandise.find_by(slug: base)
     quote_merchandise = Merchandise.find_by(slug: quote)
-    
+
     abort("Errors: khong tim thay #{base}") unless base_merchandise.present?
     abort("Errors: khong tim thay #{quote}") unless quote_merchandise.present?
 
@@ -30,6 +30,7 @@ namespace :db do
         puts "=========================================================================="
         puts Time.at(start_time).to_date
         records = BinanceServices::Request.send!(path: "/api/v3/klines", params: {symbol: "#{merchandise_rate.slug.upcase}", interval: "1d", startTime: "#{start_time}000", limit: "1000"})
+        puts records[0]
         records.each_with_index do |record, idx|
           puts Time.at(record[0]/1000).to_date
           next if Candlestick.where("Date(date) = ?", Time.at(record[0]/1000).to_date).count > 1
