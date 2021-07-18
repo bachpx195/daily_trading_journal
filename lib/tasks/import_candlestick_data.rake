@@ -2,8 +2,8 @@ namespace :db do
   desc "remake candlestick data"
   desc "bundle exec rake db:import_candlestick_data bach=test interval=1w"
 
+
   task import_candlestick_data: :environment do
-    FIRST_DATE_IN_BINANCE = 1502902800
     desc "remake candlestick data"
     base = ENV['base']
     quote = ENV['quote']
@@ -12,6 +12,10 @@ namespace :db do
     interval_hash = {
       day: "1d",
       week: "1w"
+    }
+    FIRST_DATE_IN_BINANCE = {
+      BTC: 1502902800,
+      LTC: 1513123200
     }
 
     abort("Errors: vui long nhap base=xxx quote=xxx interval=x --- ex (x = day, week)") if !base.present? || !quote.present? || !interval.present?
@@ -28,11 +32,11 @@ namespace :db do
     abort("Errors: khong tim thay MerchandiseRate") unless merchandise_rate.present?
 
     ActiveRecord::Base.transaction do
-      period = (Time.zone.now.to_date - Time.at(FIRST_DATE_IN_BINANCE).to_date).to_i
+      period = (Time.zone.now.to_date - Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]).to_date).to_i
       merchandise_rate.candlesticks.send(interval.to_sym).destroy_all
-      loop_number = (period/1000)
+      loop_number = interval == 'week' ? period/7000 : period/1000
       (0..loop_number).each_with_index do |num, index|
-        start_time = (Time.at(1502902800).to_date + 1000*num).to_time.to_i
+        start_time = (Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]).to_date + 1000*num).to_time.to_i
         puts start_time
         puts "=========================================================================="
         puts Time.at(start_time).to_date
@@ -40,7 +44,7 @@ namespace :db do
         abort("Errors: #{records}") if records.kind_of?(Hash)
         records.each_with_index do |record, idx|
           puts Time.at(record[0]/1000).to_date
-          next if Candlestick.where("Date(date) = ?", Time.at(record[0]/1000).to_date).count > 1
+          next if merchandise_rate.candlesticks.where("Date(date) = ? AND time_type = ?", Time.at(record[0]/1000).to_date, interval.to_sym).count > 1
           merchandise_rate.candlesticks.create!(date: Time.at(record[0]/1000).to_datetime, open: record[1], high: record[2], low: record[3], close: record[4], volumn: record[5], time_type: interval.to_sym)
         end
       end
