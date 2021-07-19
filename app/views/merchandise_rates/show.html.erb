@@ -57,7 +57,7 @@
           <div class="col-md-12" style="padding: 0px;">
             <%= @merchandise_rate.desciption.html_safe %>
           </div>
-          <%= render partial: 'shared/comments_box', locals: {comments: @comments} %>
+          <%= render partial: 'shared/comments_box', locals: {comments: @comments, comment_object: @merchandise_rate} %>
         </div>
       </div>
     </div>
