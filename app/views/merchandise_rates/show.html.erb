@@ -6,21 +6,21 @@
       </div>
     </div>
   </div>
-  <div class="row invoice-cust-add">
-    <div class="col-xs-3">
-      <h2 class="invoice-title uppercase">Tên</h2>
+  <div class="row">
+    <div class="col">
+      <h3 class="invoice-title uppercase">Tên</h3>
       <p class="invoice-desc"><%= @merchandise_rate.name %></p>
     </div>
-    <div class="col-xs-3">
-      <h2 class="invoice-title uppercase">Tử số</h2>
+    <div class="col">
+      <h3 class="invoice-title uppercase">Tử số</h3>
       <p class="invoice-desc"><%= link_to @merchandise_rate.base.name , merchandise_path(@merchandise_rate.base) %></p>
     </div>
-    <div class="col-xs-3">
-      <h2 class="invoice-title uppercase">Mẫu số</h2>
+    <div class="col">
+      <h3 class="invoice-title uppercase">Mẫu số</h3>
       <p class="invoice-desc inv-address"><%= link_to @merchandise_rate.quote.name , merchandise_path(@merchandise_rate.quote) %></p>
     </div>
-    <div class="col-xs-3 invoice-subtotal">
-      <h2 class="invoice-title uppercase">Winrate</h2>
+    <div class="col invoice-subtotal">
+      <h3 class="invoice-title uppercase">Winrate</h3>
       <p class="invoice-desc grand-total"><%= @merchandise_rate.winrate %>%</p>
     </div>
   </div>
@@ -54,41 +54,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="portlet light bordered">
-          <div class="portlet-title tabbable-line">
-            <div class="caption caption-md">
-              <ul class="nav nav-tabs">
-                <li class='active'>
-                  <a href="<%= "#tab-1" %>" data-toggle="tab" aria-expanded="false"><strong>Miêu tả</strong></a>
-                </li>
-                <li>
-                  <a href="<%= "#tab-2" %>" data-toggle="tab" aria-expanded="false"><strong>TimeFame</strong></a>
-                </li>
-                <li>
-                  <a href="<%= "#tab-3" %>" data-toggle="tab" aria-expanded="false"><strong>Cách chơi</strong></a>
-                </li>
-              </ul>
-            </div>
-            <div class="portlet-body">
-              <div class="tab-content">
-                <div class="tab-pane active" id="tab-1">
-                  <div class="col-md-12" style="padding: 0px;">
-                    <%= @merchandise_rate.desciption.html_safe %>
-                  </div>
-                </div>
-                <div class="tab-pane" id="tab-2">
-                  <div class="col-md-12" style="padding: 0px;">
-
-                  </div>
-                </div>
-                <div class="tab-pane" id="tab-3">
-                  <div class="col-md-12" style="padding: 0px;">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <%= render partial: 'shared/comments_box', locals: {comments: @comments} %>
+          <div class="col-md-12" style="padding: 0px;">
+            <%= @merchandise_rate.desciption.html_safe %>
           </div>
-          </div>
+          <%= render partial: 'shared/comments_box', locals: {comments: @comments} %>
         </div>
       </div>
     </div>
