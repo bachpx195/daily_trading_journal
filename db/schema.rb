@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_25_141345) do
+ActiveRecord::Schema.define(version: 2021_07_25_171642) do
 
   create_table "blog_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.bigint "tag_id"
@@ -141,6 +141,35 @@ ActiveRecord::Schema.define(version: 2021_07_25_141345) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "idea_merchandises", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "idea_id"
+    t.bigint "merchandise_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["idea_id"], name: "index_idea_merchandises_on_idea_id"
+    t.index ["merchandise_id"], name: "index_idea_merchandises_on_merchandise_id"
+  end
+
+  create_table "idea_plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "idea_id"
+    t.bigint "plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["idea_id"], name: "index_idea_plans_on_idea_id"
+    t.index ["plan_id"], name: "index_idea_plans_on_plan_id"
+  end
+
+  create_table "ideas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "brief"
+    t.string "image"
+    t.bigint "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id"], name: "index_ideas_on_tag_id"
+  end
+
   create_table "logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "code"
     t.integer "status"
@@ -223,6 +252,15 @@ ActiveRecord::Schema.define(version: 2021_07_25_141345) do
     t.datetime "updated_at", null: false
     t.index ["new_id"], name: "index_news_tags_on_new_id"
     t.index ["tag_id"], name: "index_news_tags_on_tag_id"
+  end
+
+  create_table "plan_merchandise_rates", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
+    t.bigint "merchandise_rate_id"
+    t.bigint "plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["merchandise_rate_id"], name: "index_plan_merchandise_rates_on_merchandise_rate_id"
+    t.index ["plan_id"], name: "index_plan_merchandise_rates_on_plan_id"
   end
 
   create_table "plans", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
@@ -349,6 +387,11 @@ ActiveRecord::Schema.define(version: 2021_07_25_141345) do
   add_foreign_key "daily_reports", "coins"
   add_foreign_key "daily_reports", "news", column: "new_id"
   add_foreign_key "fund_logs", "logs"
+  add_foreign_key "idea_merchandises", "ideas"
+  add_foreign_key "idea_merchandises", "merchandises"
+  add_foreign_key "idea_plans", "ideas"
+  add_foreign_key "idea_plans", "plans"
+  add_foreign_key "ideas", "tags"
   add_foreign_key "logs", "trades"
   add_foreign_key "merchandise_rates", "tags"
   add_foreign_key "merchandises", "tags"
@@ -356,6 +399,8 @@ ActiveRecord::Schema.define(version: 2021_07_25_141345) do
   add_foreign_key "news_sites", "tags"
   add_foreign_key "news_tags", "news", column: "new_id"
   add_foreign_key "news_tags", "tags"
+  add_foreign_key "plan_merchandise_rates", "merchandise_rates"
+  add_foreign_key "plan_merchandise_rates", "plans"
   add_foreign_key "trade_normal_methods", "trade_methods"
   add_foreign_key "trade_normal_methods", "trades"
   add_foreign_key "trade_pyramid_methods", "trade_methods"

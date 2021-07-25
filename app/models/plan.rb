@@ -1,4 +1,12 @@
 class Plan < ApplicationRecord
+  has_many :idea_plans
+  has_many :ideas, through: :idea_plans
+
+  has_many :plan_merchandise_rates
+  has_many :merchandise_rates, through: :plan_merchandise_rates
+
+  accepts_nested_attributes_for :plan_merchandise_rates, allow_destroy: true
+  accepts_nested_attributes_for :idea_plans, allow_destroy: true
   acts_as_nested_set
 
   enum status: {draft: 0, open: 1, close: 2}
