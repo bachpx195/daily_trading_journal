@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-pills">
   <% tags.each_with_index do |tag, index| %>
     <li class="<%= index == 0 ? 'active' : ''%>">
       <a href="<%= "#tab-#{ tag.id }" %>" data-toggle="tab" aria-expanded="false"><strong><%= tag.slug %></strong></a>
