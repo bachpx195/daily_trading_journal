@@ -83,6 +83,7 @@ group :development do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-stack_explorer'
+  gem 'rails-erd'
 end
 
 group :test do
