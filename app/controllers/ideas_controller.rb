@@ -25,11 +25,10 @@ class IdeasController < ApplicationController
 
     respond_to do |format|
       if @idea.save
-        format.html { redirect_to @idea, notice: "Idea was successfully created." }
-        format.json { render :show, status: :created, location: @idea }
+        anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
+        format.html { redirect_to ideas_url(anchor: anchor), notice: 'Idea was successfully created.' }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @idea.errors, status: :unprocessable_entity }
+        format.html { render :new }
       end
     end
   end
@@ -38,11 +37,10 @@ class IdeasController < ApplicationController
   def update
     respond_to do |format|
       if @idea.update(idea_params)
-        format.html { redirect_to @idea, notice: "Idea was successfully updated." }
-        format.json { render :show, status: :ok, location: @idea }
+        anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
+        format.html { redirect_to ideas_url(anchor: anchor), notice: 'Idea was successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @idea.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,7 +50,6 @@ class IdeasController < ApplicationController
     @idea.destroy
     respond_to do |format|
       format.html { redirect_to ideas_url, notice: "Idea was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
@@ -64,6 +61,6 @@ class IdeasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def idea_params
-      params.fetch(:idea, {})
+      params.require(:ideas).permit(:title, :content, :brief, :tag_id, :image)
     end
 end

@@ -1,8 +1,8 @@
-<%= form_with(model: idea, local: true) do |form| %>
+
+<%= form_with(model: idea, local: true, html: {class: "form-horizontal"}) do |form| %>
   <% if idea.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(idea.errors.count, "error") %> prohibited this idea from being saved:</h2>
-
       <ul>
       <% idea.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -11,7 +11,73 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= form.submit %>
+  <% if params[:root_tag].present? %>
+    <%= hidden_field_tag 'root_tag', params[:root_tag] %>
+  <% end %>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="title">Tiêu đề</span>
+    <div class="col-sm-11">
+      <%= form.text_field :title, autocomplete: "off", id: "title", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span for="intro_image" class="col-sm-4 nohover long-text">
+      Hình ảnh
+    </span>
+    <div class="col-sm-11">
+      <div class="image-preview">
+        <% if form.object.image? %>
+          <%= image_tag form.object.image.thumb.url %>
+          <%= form.label :remove_image %>
+          <%= form.check_box :remove_image %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-sm-11">
+      <%= form.file_field :image, class: "edit-img btn btn-default" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span for="title" class="col-sm-4 nohover">
+      Tag
+    </span>
+    <div class="col-sm-11">
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, idea.id.present? ? idea.tag.id : params[:parent]) ,
+        {}, { :class => 'form-control select2_category' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover">Tóm tắt</span>
+    <div class="col-sm-11">
+      <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id=content">Nội dung</span>
+    <div class="col-sm-11">
+      <%= form.cktext_area :content, rows: 10, id: "editor1" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="idea_merchandise">Liên quan</span>
+    <div class="col-sm-11">
+      <div id="select_custom"></div>
+      <%= javascript_pack_tag "select" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+      <div class="row">
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-info">Lưu</button>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
