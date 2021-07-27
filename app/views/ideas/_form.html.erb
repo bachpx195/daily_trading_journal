@@ -67,8 +67,12 @@
   <div class="form-group">
     <span class="col-sm-4 nohover" id="idea_merchandise">Liên quan</span>
     <div class="col-sm-11">
-      <div id="select_custom"></div>
-      <%= javascript_pack_tag "select" %>
+    <%= content_tag :div,
+      nil,
+      id: "select_custom",
+      data: { merchandises:  Merchandise.all.map{|x| {id: x.id, slug: x.slug }} }
+    %>
+    <%= javascript_pack_tag "select" %>
     </div>
   </div>
 
