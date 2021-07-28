@@ -1,7 +1,15 @@
 <template>
     <div>
-      {{this.handleEdit}}
-      <v-select multiple :options="Object.values(options).map(option => option['slug'])" />
+      <div v-for="option in selected_options" :key="option" style="display: none">
+        <input name='idea[idea_merchandises][]' :value="findBySlug(option)">
+      </div>
+      <v-select
+        multiple
+        :value="selected_options"
+        name='idea[idea_merchandise]'
+        :options="select_options"
+        @input="option => updateOption(option)"
+      />
     </div>
 </template>
 
@@ -9,14 +17,19 @@
 import 'vue-select/dist/vue-select.css';
 
 export default {
-  props:['options'],
+  props:['options', 'selected'],
   data: function() {
     return {
-      message: "Hello Vue!"
+      select_options: Object.values(this.options).map(option => option['slug']),
+      selected_options: Object.values(this.options.filter(option => Object.values(this.selected).includes(option['id'].toString()))).map(option => option['slug'])
     };
   },
-  computed  : {
-    handleEdit(){
+  methods: {
+    updateOption (option) {
+      this.selected_options = option
+    },
+    findBySlug (slug) {
+      return this.options.find(option => option['slug'] === slug).id
     }
   }
 };

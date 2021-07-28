@@ -70,7 +70,7 @@
     <%= content_tag :div,
       nil,
       id: "select_custom",
-      data: { merchandises:  Merchandise.all.map{|x| {id: x.id, slug: x.slug }} }
+      data: { merchandises:  Merchandise.all.map{|x| {id: x.id, slug: x.slug }}, seleted: form.object.idea_merchandises.map(&:merchandise_id) }
     %>
     <%= javascript_pack_tag "select" %>
     </div>

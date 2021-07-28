@@ -12,15 +12,15 @@ Vue.component('v-select', vSelect)
 document.addEventListener('DOMContentLoaded', () => {
   let element = document.getElementById("select_custom")
   let options = JSON.parse(decodeURIComponent(element.getAttribute('data-merchandises')))
-  console.log("????")
-  console.log(options)
+  let selected = element.getAttribute('data-seleted').slice(1,-1).split(',')
 
   const app = new Vue({
     vuetify: new Vuetify(),
     render(h) {
       return h(Select, {
         props: {
-          options: options
+          options: options,
+          selected: selected
         }
       })
     }

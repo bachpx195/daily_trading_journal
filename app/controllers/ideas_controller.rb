@@ -25,6 +25,11 @@ class IdeasController < ApplicationController
 
     respond_to do |format|
       if @idea.save
+        if params['idea']["idea_merchandises"].present?
+          params['idea']["idea_merchandises"].uniq.each do |merchandise_id|
+            @idea.idea_merchandises.create(merchandise_id: merchandise_id)
+          end
+        end
         anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
         format.html { redirect_to ideas_url(anchor: anchor), notice: 'Idea was successfully created.' }
       else
@@ -37,6 +42,13 @@ class IdeasController < ApplicationController
   def update
     respond_to do |format|
       if @idea.update(idea_params)
+        if params['idea']["idea_merchandises"].present?
+          unneed_idea_merchandises = @idea.idea_merchandises.where.not(merchandise_id: params['idea']["idea_merchandises"])
+          unneed_idea_merchandises.destroy_all() if unneed_idea_merchandises.present?
+          params['idea']["idea_merchandises"].uniq.each do |merchandise_id|
+            @idea.idea_merchandises.find_or_create_by(merchandise_id: merchandise_id)
+          end
+        end
         anchor = params[:root_tag].present? ? "tab-#{params[:root_tag]}" : ""
         format.html { redirect_to ideas_url(anchor: anchor), notice: 'Idea was successfully updated.' }
       else
@@ -61,6 +73,6 @@ class IdeasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def idea_params
-      params.require(:ideas).permit(:title, :content, :brief, :tag_id, :image)
+      params.require(:idea).permit(:title, :content, :brief, :tag_id, :image, :idea_merchandises)
     end
 end
