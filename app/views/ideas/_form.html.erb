@@ -23,6 +23,14 @@
   </div>
 
   <div class="form-group">
+    <span class="col-sm-4 nohover" id="start_at">Ngày bắt đầu</span>
+    <div class="col-sm-11">
+      <% date = form.object.start_at&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+      <%= form.text_field :start_at, as: :datepicker, class: 'form-control date-picker', id: "startDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: date %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <span for="intro_image" class="col-sm-4 nohover long-text">
       Hình ảnh
     </span>
@@ -73,6 +81,13 @@
       data: { merchandises:  Merchandise.all.map{|x| {id: x.id, slug: x.slug }}, seleted: form.object.idea_merchandises.map(&:merchandise_id) }
     %>
     <%= javascript_pack_tag "select" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="content">Công khai</span>
+    <div class="col-sm-11">
+      <%= form.check_box :status, checked: form.object.open? ? "checked" : "" %>
     </div>
   </div>
 

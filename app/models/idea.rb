@@ -11,4 +11,5 @@ class Idea < ApplicationRecord
   belongs_to :tag
 
   mount_uploader :image, ImageUploader
+  enum status: {draft: 0, open: 1, close: 2}
 end

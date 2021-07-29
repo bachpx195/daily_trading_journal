@@ -23,3 +23,34 @@
 <br>
 
 <%= link_to 'New Idea', new_idea_path %>
+
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet light portlet-fit portlet-datatable bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-settings font-green"></i>
+          <span class="caption-subject font-green sbold uppercase">Ý tưởng</span>
+        </div>
+
+        <div class="actions">
+          <div class="btn-group btn-group-devided" data-toggle="buttons">
+            <%= link_to new_idea_path, class: "btn green btn-outline btn-circle", remote: :true do %>
+              <i class="fa fa-plus"></i>
+              Thêm
+            <% end %>
+            <%= link_to calculates_path, class: "btn green btn-outline btn-circle", remote: :true do %>
+              <i class="fa fa-search"></i>
+              Tìm kiếm
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="portlet-body ajax-node">
+        <%= render "shared/logs_table", logs: @logs %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modal-window" class="modal fade" role="dialog"></div>
