@@ -17,6 +17,8 @@ class CommentsController < ApplicationController
         redirect_to merchandise_rate_path(@commentable)
       elsif params[:comment][:commmentable] == 'Merchandise'
         redirect_to merchandise_path(@commentable)
+      elsif params[:comment][:commmentable] == 'Idea'
+        redirect_to idea_path(@commentable)
       end
     end
   end

@@ -1,4 +1,65 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_idea_path(@idea) %> |
-<%= link_to 'Back', ideas_path %>
+<div class="invoice-content-2 bordered">
+  <div class="row invoice-head">
+    <div class="col-md-10 col-xs-10">
+      <div class="invoice-logo">
+        <h1 class="uppercase"><a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_idea_url(@idea) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="fa fa-pencil"></i></a><%= @idea.title %></h1>
+        <% @idea.merchandises.each do |merchandise| %>
+          <a href="#"><span class="badge"><%= merchandise.slug %></span></a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col">
+        <h3 class="invoice-title uppercase">Ngày viết</h3>
+        <p class="invoice-desc"><%= format_date_ddMMyyyHHmm @idea.start_at %></p>
+      </div>
+      <div class="col">
+        <h3 class="invoice-title uppercase">Tag</h3>
+        <p class="invoice-desc"><%= link_to @idea.tag.slug , tag_path(@idea.tag) %></p>
+      </div>
+      <div class="col">
+        <h3 class="invoice-title uppercase">Trạng thái</h3>
+        <p class="invoice-desc inv-address"><%= @idea.open? ? "Hoạt động" : "Nháp" %></p>
+      </div>
+    <div class="col invoice-subtotal">
+      <h3 class="invoice-title uppercase">Rating</h3>
+      <p class="invoice-desc grand-total"><%= rating_star @idea.rating %></p>
+    </div>
+  </div>
+  <div class="row invoice-body">
+    <div class="col-xs-12 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th class="invoice-title uppercase">Tóm tắt</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="post-article markdown">
+            <%= markdown @idea.brief&.html_safe %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <% if @idea.image.present? %>
+        <%= image_tag @idea.image.url, class: "img" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="profile-content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="portlet light bordered">
+          <div class="col-md-12" style="padding: 0px;">
+            <%= @idea.content.html_safe %>
+          </div>
+          <%= render partial: 'shared/comments_box', locals: {comments: @comments, comment_object: @idea} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

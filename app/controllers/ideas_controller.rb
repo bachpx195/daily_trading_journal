@@ -8,6 +8,8 @@ class IdeasController < ApplicationController
 
   # GET /ideas/1 or /ideas/1.json
   def show
+    @commentable = @idea
+    @comments = @commentable.comments&.order('created_at DESC')
   end
 
   # GET /ideas/new
