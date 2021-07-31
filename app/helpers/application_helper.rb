@@ -24,7 +24,7 @@ module ApplicationHelper
       Redcarpet::Markdown.new(renderer, options).render(content).html_safe
     end
   end
-  
+
 	def total_money logs
 		sum = 0
 		logs.each do |log|
@@ -108,7 +108,7 @@ module ApplicationHelper
       "None"
     end
   end
-  
+
   def format_trade_status(str)
     case str
       when "draft"
@@ -132,7 +132,7 @@ module ApplicationHelper
       "-"
     end
   end
-  
+
   def trade_log_result log
     if log.present?
       if log.money + log.fee < 0
@@ -143,7 +143,7 @@ module ApplicationHelper
       end
     end
   end
-  
+
   def random_color index=nil
     color_arr = %w[ green blue purple red yellow dark blue-madison blue-chambray blue-ebonyclay blue-hoki blue-steel blue-soft blue-dark blue-sharp  green-meadow green-seagreen green-turquoise green-haze green-jungle
                     green-soft green-dark green-sharp red-pink red-sunglo red-intense red-thunderbird red-flamingo red-soft red-haze red-mint yellow-gold yellow-casablanca yellow-crusta yellow-lemon yellow-saffron
@@ -154,7 +154,7 @@ module ApplicationHelper
       color_arr.sample
     end
   end
-  
+
   # def label_tag tag_name
   #   case tag_name
   #     when
@@ -165,7 +165,7 @@ module ApplicationHelper
   #   end
   #   data.html_safe
   # end
-  
+
   # def tag_icon id
   #   # data = ''
   #   # case id
@@ -173,9 +173,13 @@ module ApplicationHelper
   #   # end
   #   # data.html_safe
   # end
+
+  def rating_star rate
+    rate_number = rate.to_i
+    html = ''
+    (1..5).each do |number|
+      html << "<span class=\"fa fa-star #{ number > rate_number ? '' : 'rating-checked'}\"></span>"
+    end
+    html.html_safe
+  end
 end
-
-
-
-
-

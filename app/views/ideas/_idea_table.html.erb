@@ -1,0 +1,40 @@
+<div class="table-scrollable">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th class="text-center">Ngày khởi tạo</th>
+      <th class="text-center">Tiêu đề</th>
+      <th class="text-center">Tóm tắt</th>
+      <th class="text-center">Hình ảnh</th>
+      <th class="text-center">Đánh giá</th>
+      <th class="text-center">Trạng thái</th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody class="item-container">
+      <% ideas.each_with_index do |f,index| %>
+        <tr>
+          <td class="text-center">
+          <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_idea_path(f) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Edit"><i class="fa fa-pencil"></i></a>
+          </td>
+          <td class="text-center"><%= format_date_ddMMyyyHHmm f.start_at %></td>
+          <td class="text-center"><%= link_to f.title, f %></td>
+          <td class="text-center"><%= f.brief %></td>
+          <td class="text-center">
+            <% if f.image.present? %>
+              <%= image_tag f.image.thumb.url %></td>
+            <% end %>
+          <td class="text-center">
+            <%= rating_star f.rating %>
+          </td>
+          <td class="text-center"><%= f.open? ? "Hoạt động" : "Nháp" %></td>
+          <td class="text-center">
+            <%= link_to raw('<i class="fa fa-trash-o"></i>'), f, method: :delete, data: {toggle: 'confirmation', placement: 'left'}, class: "btn red btn-circle btn-icon-only btn-default" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

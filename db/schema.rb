@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_29_142947) do
+ActiveRecord::Schema.define(version: 2021_07_31_110540) do
 
   create_table "blog_tags", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.bigint "tag_id"
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 2021_07_29_142947) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 0
     t.datetime "start_at"
-    t.float "rating"
+    t.float "rating", default: 3.0
     t.index ["tag_id"], name: "index_ideas_on_tag_id"
   end
 

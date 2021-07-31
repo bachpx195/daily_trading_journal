@@ -1,30 +1,3 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Ideas</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @ideas.each do |idea| %>
-      <tr>
-        <td><%= link_to 'Show', idea %></td>
-        <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
-        <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Idea', new_idea_path %>
-
-
 <div class="row">
   <div class="col-md-12">
     <div class="portlet light portlet-fit portlet-datatable bordered">
@@ -36,11 +9,11 @@
 
         <div class="actions">
           <div class="btn-group btn-group-devided" data-toggle="buttons">
-            <%= link_to new_idea_path, class: "btn green btn-outline btn-circle", remote: :true do %>
+            <%= link_to new_idea_path, class: "btn green btn-outline btn-circle" do %>
               <i class="fa fa-plus"></i>
               Thêm
             <% end %>
-            <%= link_to calculates_path, class: "btn green btn-outline btn-circle", remote: :true do %>
+            <%= link_to calculates_path, class: "btn green btn-outline btn-circle" do %>
               <i class="fa fa-search"></i>
               Tìm kiếm
             <% end %>
@@ -48,7 +21,7 @@
         </div>
       </div>
       <div class="portlet-body ajax-node">
-        <%= render "shared/logs_table", logs: @logs %>
+        <%= render "idea_table", ideas: @ideas %>
       </div>
     </div>
   </div>
