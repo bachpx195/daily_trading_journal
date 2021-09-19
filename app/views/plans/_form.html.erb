@@ -13,10 +13,22 @@
       <% end %>
       <div class="form-group">
         <span for="title" class="col-sm-4 nohover">
-          plan
+          Thuộc kế hoạch cha
         </span>
         <div class="col-sm-4">
-          <%= select_tag 'parent', options_for_select(nested_set_options(plan) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, @plan.id.present? ? @plan.parent_id : params[:parent]) , { :class => 'form-control select2_category' }%>
+          <%= select_tag 'parent', options_for_select(nested_set_options(Plan) {|i| "#{'__'* (i.level.to_i).abs} #{i.title.present? ? i.title : 'root'}" }, @plan.id.present? ? @plan.parent_id : params[:parent]) , { :class => 'form-control select2_category' }%>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <span for="title" class="col-sm-4 nohover">
+          Tag
+        </span>
+        <div class="col-sm-4">
+          <%= form.select :tag_id,
+                options_for_select(nested_set_options(Tag.find_by(title: "plan_tag")) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, @plan.id.present? ? @plan.tag.id : params[:parent]) ,
+                {}, { :class => 'form-control select2_category' }
+          %>
         </div>
       </div>
 
@@ -28,18 +40,18 @@
       </div>
 
       <div class="form-group">
-        <span for="title" class="col-sm-2 btn btn-primary nohover">
+        <div for="title" class="col-sm-2">
           Ngày bắt đầu
-        </span>
+        </div>
         <div class="col-sm-4">
           <% start_date = plan.start_date&.strftime("%d/%m/%Y %I:%M") || Time.now.strftime("%d/%m/%Y") %>
           <%= form.text_field :start_date, as: :datetimepicker, class: 'form-control date-picker', id: "startDate", placeholder: "dd/mm/yyyy hh", 'data-date-format': 'dd/mm/yyyy', value: start_date %>
         </div>
-        <span for="title" class="col-sm-2 btn btn-primary nohover">
+        <div for="title" class="col-sm-2">
           Ngày kết thúc
-        </span>
+        </div>
         <div class="col-sm-4">
-          <% end_date = plan.end_date&.strftime("%d/%m/%Y") || Time.now.strftime("%d/%m/%Y") %>
+          <% end_date = plan.end_date&.strftime("%d/%m/%Y %I:%M") || Time.now.strftime("%d/%m/%Y") %>
           <%= form.text_field :start_date, as: :datetimepicker, class: 'form-control date-picker', id: "endDate", placeholder: "dd/mm/yyyy", 'data-date-format': 'dd/mm/yyyy', value: end_date %>
         </div>
       </div>

@@ -1,12 +1,12 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
-  
+  skip_before_action :verify_authenticity_token, raise: false
+
   # GET /plans
   # GET /plans.json
   def index
   end
-  
+
   # GET /plans/1
   # GET /plans/1.json
   def show
@@ -25,7 +25,7 @@ class PlansController < ApplicationController
   # POST /plans.json
   def create
     @plan = Plan.new(plan_params)
-    
+
     if @plan.save
       if params[:parent].present?
         parent = Plan.find_by id: params[:parent]
@@ -35,7 +35,7 @@ class PlansController < ApplicationController
           Plan.find(1).reload
         end
       end
-      
+
       flash[:notice] = "Updated"
       render :index
     end

@@ -1,16 +1,20 @@
 class Plan < ApplicationRecord
+  acts_as_nested_set
+
   has_many :idea_plans
   has_many :ideas, through: :idea_plans
-
   has_many :plan_merchandise_rates
   has_many :merchandise_rates, through: :plan_merchandise_rates
+
+  belongs_to :tag
 
   accepts_nested_attributes_for :plan_merchandise_rates, allow_destroy: true
   accepts_nested_attributes_for :idea_plans, allow_destroy: true
   acts_as_nested_set
 
   enum status: {draft: 0, open: 1, close: 2}
-  enum category: {other: 0, daily: 1, weekly: 2, monthly: 3, termly: 4}
+
+  mount_uploader :plan_image, ImageUploader
 
   def parent_id= parent_id
     if parent_id == "#"

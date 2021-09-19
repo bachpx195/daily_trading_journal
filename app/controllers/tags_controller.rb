@@ -1,12 +1,12 @@
 class TagsController < ApplicationController
   before_action :set_tag, only: [:show, :edit, :update, :destroy]
-  skip_before_action :verify_authenticity_token
-  
+  skip_before_action :verify_authenticity_token, raise: false
+
   # GET /tags
   # GET /tags.json
   def index
   end
-  
+
   # GET /tags/1
   # GET /tags/1.json
   def show
@@ -25,7 +25,7 @@ class TagsController < ApplicationController
   # POST /tags.json
   def create
     @tag = Tag.new(tag_params)
-    
+
     if @tag.save
       if params[:parent].present?
         parent = Tag.find_by id: params[:parent]
@@ -35,7 +35,7 @@ class TagsController < ApplicationController
           Tag.find(1).reload
         end
       end
-      
+
       flash[:notice] = "Updated"
       render :index
     end
