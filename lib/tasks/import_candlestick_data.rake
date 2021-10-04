@@ -11,7 +11,9 @@ namespace :db do
 
     interval_hash = {
       day: "1d",
-      week: "1w"
+      week: "1w",
+      month: "1M",
+      hour: "1h"
     }
     FIRST_DATE_IN_BINANCE = {
       BTC: 1502902800,
@@ -20,7 +22,7 @@ namespace :db do
 
     abort("Errors: vui long nhap base=xxx quote=xxx interval=x --- ex (x = day, week)") if !base.present? || !quote.present? || !interval.present?
 
-    abort("Errors: interval khong hop le --- (day, week)") unless ['day', 'week'].include? interval
+    abort("Errors: interval khong hop le --- (day, week)") unless ['day', 'week', 'month', 'hour'].include? interval
 
     base_merchandise = Merchandise.find_by(slug: base)
     quote_merchandise = Merchandise.find_by(slug: quote)
@@ -34,9 +36,20 @@ namespace :db do
     ActiveRecord::Base.transaction do
       period = (Time.zone.now.to_date - Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]).to_date).to_i
       merchandise_rate.candlesticks.send(interval.to_sym).destroy_all
-      loop_number = interval == 'week' ? period/7000 : period/1000
+
+      period_loop = if interval == 'week'
+        7000
+      elsif interval == 'day'
+        1000
+      elsif interval == 'month'
+        30000
+      elsif interval == 'hour'
+        1000/24
+      end
+
+      loop_number = period/period_loop
       (0..loop_number).each_with_index do |num, index|
-        start_time = (Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]).to_date + 1000*num).to_time.to_i
+        start_time = (Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]).to_date + period_loop*num).to_time.to_i
         puts start_time
         puts "=========================================================================="
         puts Time.at(start_time).to_date
