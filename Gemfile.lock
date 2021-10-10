@@ -88,6 +88,7 @@ GEM
       mini_mime (>= 0.1.3)
       ssrf_filter (~> 1.0)
     childprocess (3.0.0)
+    choice (0.2.0)
     chromedriver-helper (2.1.1)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
@@ -173,7 +174,7 @@ GEM
     mime-types-data (3.2021.0212)
     mini_magick (4.9.4)
     mini_mime (1.0.1)
-    mini_portile2 (2.5.3)
+    mini_portile2 (2.6.1)
     minitest (5.14.3)
     momentjs-rails (2.20.1)
       railties (>= 3.1)
@@ -184,8 +185,8 @@ GEM
     net-http-persistent (4.0.1)
       connection_pool (~> 2.2)
     nio4r (2.3.1)
-    nokogiri (1.11.4)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     pry (0.13.1)
@@ -225,6 +226,11 @@ GEM
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
+    rails-erd (1.6.1)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
+      choice (~> 0.2.0)
+      ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.3.0)
       loofah (~> 2.3)
     railties (5.2.6)
@@ -247,6 +253,9 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rexml (3.2.5)
+    ruby-graphviz (1.2.5)
+      rexml
     ruby-vips (2.1.2)
       ffi (~> 1.12)
     ruby_dep (1.5.0)
@@ -355,6 +364,7 @@ DEPENDENCIES
   puma (~> 4.3)
   pygments.rb
   rails (~> 5.2.3)
+  rails-erd
   ransack
   redcarpet
   sass-rails (~> 5.0)
