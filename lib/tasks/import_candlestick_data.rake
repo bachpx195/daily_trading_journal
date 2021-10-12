@@ -34,8 +34,16 @@ namespace :db do
     abort("Errors: khong tim thay MerchandiseRate") unless merchandise_rate.present?
 
     ActiveRecord::Base.transaction do
-      period = (Time.zone.now.to_date - Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]).to_date).to_i
-      merchandise_rate.candlesticks.send(interval.to_sym).destroy_all
+      if interval != "hour"
+        merchandise_rate.candlesticks.send(interval.to_sym).destroy_all
+        last_time = Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
+      else
+        merchandise_rate.candlesticks.last
+        last_time = merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i
+      end
+
+      period = (Time.zone.now.to_date - Time.at(last_time).to_date).to_i
+
 
       period_loop = if interval == 'week'
         7000
@@ -49,7 +57,7 @@ namespace :db do
 
       loop_number = period/period_loop
       (0..loop_number).each_with_index do |num, index|
-        start_time = (Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]).to_date + period_loop*num).to_time.to_i
+        start_time = (Time.at(last_time).to_date + period_loop*num).to_time.to_i
         puts start_time
         puts "=========================================================================="
         puts Time.at(start_time).to_date
