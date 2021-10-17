@@ -4,8 +4,7 @@ class Candlestick < ApplicationRecord
 
   class << self
     def delete_duplicate
-      Candlestick.where.not(id: Candlestick.group(:date, :time_type, :merchandise_rate_id).select("min(id)")).destroy_al
+      Candlestick.where.not(id: Candlestick.group(:date, :time_type, :merchandise_rate_id).select("min(id)")).destroy_all
     end
   end
-
 end
