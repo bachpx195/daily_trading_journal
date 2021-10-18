@@ -69,6 +69,7 @@ namespace :db do
           merchandise_rate.candlesticks.create!(date: Time.at(record[0]/1000).to_datetime, open: record[1], high: record[2], low: record[3], close: record[4], volumn: record[5], time_type: interval.to_sym)
         end
       end
+      Candlestick.delete_duplicate
     end
   end
 end
