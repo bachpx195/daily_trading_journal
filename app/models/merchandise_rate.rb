@@ -10,7 +10,8 @@ class MerchandiseRate < ApplicationRecord
   validates :quote_id, presence: true
 
   before_create :genarate_slug
-  
+  before_update :genarate_slug
+
   enum is_follow: {unfollow: 0, followed: 1}
 
   private

@@ -18,7 +18,8 @@ namespace :db do
     FIRST_DATE_IN_BINANCE = {
       BTC: 1502902800,
       LTC: 1513123200,
-      BAT: 1551661260
+      BAT: 1551661260,
+      DOT: 1597712400
     }
 
     abort("Errors: vui long nhap base=xxx quote=xxx interval=x --- ex (x = day, week)") if !base.present? || !quote.present? || !interval.present?
