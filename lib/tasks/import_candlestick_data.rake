@@ -17,7 +17,8 @@ namespace :db do
     }
     FIRST_DATE_IN_BINANCE = {
       BTC: 1502902800,
-      LTC: 1513123200
+      LTC: 1513123200,
+      BAT: 1551661260
     }
 
     abort("Errors: vui long nhap base=xxx quote=xxx interval=x --- ex (x = day, week)") if !base.present? || !quote.present? || !interval.present?
@@ -39,7 +40,13 @@ namespace :db do
         last_time = Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
       else
         merchandise_rate.candlesticks.last
-        last_time = merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i
+        last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
+
+        last_time = if last_date.present?
+          merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i
+        else
+          Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
+        end
       end
 
       period = (Time.zone.now.to_date - Time.at(last_time).to_date).to_i
