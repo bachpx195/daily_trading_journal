@@ -19,7 +19,8 @@ namespace :db do
       BTC: 1502902800,
       LTC: 1513123200,
       BAT: 1551661260,
-      DOT: 1597712400
+      DOT: 1597712400,
+      NEO: 1511139600
     }
 
     abort("Errors: vui long nhap base=xxx quote=xxx interval=x --- ex (x = day, week)") if !base.present? || !quote.present? || !interval.present?
@@ -40,6 +41,7 @@ namespace :db do
         merchandise_rate.candlesticks.send(interval.to_sym).destroy_all
         last_time = Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
       else
+        merchandise_rate.candlesticks.send(interval.to_sym).last.delete if merchandise_rate.candlesticks.send(interval.to_sym).last.present?
         merchandise_rate.candlesticks.last
         last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
 
