@@ -3,19 +3,19 @@
     <label class="col-md-2 control-label">Điểm vào
       <span class="required" aria-required="true"> * </span> :</label>
     <div class="col-md-2">
-      <%= ff.number_field :point_entry, as: :string, class: 'form-control' %>
+      <%= ff.number_field :point_entry, as: :string, class: 'form-control', step: :any %>
       <div class="form-control-focus"></div>
     </div>
     <label class="col-md-2 control-label">Số coin
       <span class="required" aria-required="true"> * </span> :</label>
     <div class="col-md-2">
-      <%= ff.number_field :amount, as: :string, class: 'form-control' %>
+      <%= ff.number_field :amount, as: :string, class: 'form-control', step: :any %>
       <div class="form-control-focus"></div>
     </div>
     <label class="col-md-2 control-label">Mục tiêu (%)
       <span class="required" aria-required="true"> * </span> :</label>
     <div class="col-md-2">
-      <%= ff.number_field :target, as: :string, class: 'form-control' %>
+      <%= ff.number_field :target, as: :string, class: 'form-control', step: :any %>
       <div class="form-control-focus"></div>
     </div>
   </div>
@@ -24,13 +24,13 @@
     <label class="col-md-2 control-label">Dừng lãi
       <span class="required" aria-required="true"> * </span> :</label>
     <div class="col-md-4">
-      <%= ff.number_field :take_profit, as: :string, class: 'form-control' %>
+      <%= ff.number_field :take_profit, as: :string, class: 'form-control', step: :any %>
       <div class="form-control-focus"></div>
     </div>
     <label class="col-md-2 control-label">Dừng lỗ
       <span class="required" aria-required="true"> * </span> :</label>
     <div class="col-md-4">
-      <%= ff.number_field :stop_loss, as: :string, class: 'form-control' %>
+      <%= ff.number_field :stop_loss, as: :string, class: 'form-control', step: :any %>
       <div class="form-control-focus"></div>
     </div>
   </div>

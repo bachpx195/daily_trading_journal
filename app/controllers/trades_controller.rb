@@ -8,13 +8,13 @@ class TradesController < ApplicationController
   end
 
   def show
+    @commentable = @trade
+    @comments = @commentable.comments&.order('created_at DESC')
   end
 
   def new
     @trade = Trade.new
     @trade.trade_normal_method = @trade.build_trade_normal_method
-
-    render :layout => false
   end
 
   def edit
@@ -26,9 +26,9 @@ class TradesController < ApplicationController
     respond_to do |format|
       if @trade.save
         @trades = Trade.includes(:trade_normal_method, :merchandise_rate).order('start_date DESC').paginate(:page => params[:page], :per_page => 10)
-        format.js { render :layout => false }
+        format.html { redirect_to @trade, notice: 'Trade was successfully created.' }
       else
-        format.js { render :layout => false }
+        format.html { render :new }
       end
     end
   end

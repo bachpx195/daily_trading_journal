@@ -74,9 +74,7 @@
           <div class="form-group col-md-6">
             <%= f.collection_select(:status, Trade.statuses, :first, :first, {prompt: "Chọn"}, {class: "form-control"}) %>
           </div>
-          <button type="button" class="btn green" data-dismiss="modal" id="submmit_form">
-            <i class="fa fa-floppy-o" aria-hidden="true"></i> Tạo
-          </button>
+          <%= f.submit "Tạo", class: "btn btn-default" %>
         </div>
       </div>
     </div>
@@ -84,18 +82,14 @@
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script>
     $(document).ready(function () {
-        $("#show-main-modal").click(function () {
-          $("#main-modal").modal("show");
-        });
+      # $("#show-main-modal").click(function () {
+      #   $("#main-modal").modal("show");
+      # });
 
-        $('#trade_status').on('change', function() {
-          if($(this).val() != '' && $(this).val() != 'close') {
-            $("#tradeForm").ajaxSubmit();
-          }
-        });
-
-        $('#submmit_form').click(function () {
-          $("#tradeForm").ajaxSubmit();
-        })
+      # $('#trade_status').on('change', function() {
+      #   if($(this).val() != '' && $(this).val() != 'close') {
+      #     $("#tradeForm").ajaxSubmit();
+      #   }
+      # });
     });
 </script>

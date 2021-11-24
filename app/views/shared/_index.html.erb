@@ -12,7 +12,7 @@
             <% if defined?(new_url) && (new_url.include?("merchandise") || new_url.include?("currency")) %>
               <a class="btn btn-success" href="<%= new_url %>"><i class="fa fa-plus"></i>Thêm</a>
             <% elsif defined? new_url %>
-              <a class="btn green btn-outline btn-circle" data-remote="true" href="<%= new_url %>"><i class="fa fa-plus"></i>Thêm</a>
+              <a class="btn green btn-outline btn-circle" href="<%= new_url %>"><i class="fa fa-plus"></i>Thêm</a>
             <% end %>
           </div>
           <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
