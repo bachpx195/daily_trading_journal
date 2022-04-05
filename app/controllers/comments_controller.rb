@@ -13,20 +13,22 @@ class CommentsController < ApplicationController
   def create
     @comment = @commentable.comments.new comment_params
     if @comment.save
-      if params[:comment][:commmentable] == 'MerchandiseRate'
+      if params[:comment][:commentable] == 'MerchandiseRate'
         redirect_to merchandise_rate_path(@commentable)
-      elsif params[:comment][:commmentable] == 'Merchandise'
+      elsif params[:comment][:commentable] == 'Merchandise'
         redirect_to merchandise_path(@commentable)
-      elsif params[:comment][:commmentable] == 'Idea'
+      elsif params[:comment][:commentable] == 'Idea'
         redirect_to idea_path(@commentable)
+      elsif params[:comment][:commentable] == 'Trade'
+        redirect_to trade_path(@commentable)
       end
     end
   end
 
   private
   def load_commentable
-    id = params[:comment][:commmentable_id]
-    resource = params[:comment][:commmentable]
+    id = params[:comment][:commentable_id]
+    resource = params[:comment][:commentable]
 
     @commentable = resource.singularize.classify.constantize.find(id)
   end

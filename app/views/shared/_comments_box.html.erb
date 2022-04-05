@@ -32,8 +32,8 @@
       <%= form.text_area :content, class: "form-control input-md",  placeholder: true, id: "markdown" %>
       <span>Theo dõi</span>
       <%= form.check_box :is_importand, checked: form.object.importand? ? "checked" : "" %>
-      <%= form.hidden_field :commmentable, value: comment_object.class %>
-      <%= form.hidden_field :commmentable_id, value: comment_object.id %>
+      <%= form.hidden_field :commentable, value: comment_object.class %>
+      <%= form.hidden_field :commentable_id, value: comment_object.id %>
       <div class="btn-cont">
       <button type="submit" class="btn btn-info">Bình luận</button>
       </div>
