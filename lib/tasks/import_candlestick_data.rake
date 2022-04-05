@@ -37,22 +37,32 @@ namespace :db do
     abort("Errors: khong tim thay MerchandiseRate") unless merchandise_rate.present?
 
     ActiveRecord::Base.transaction do
-      if interval != "hour"
-        merchandise_rate.candlesticks.send(interval.to_sym).destroy_all
-        last_time = Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
-      else
+      if interval == "hour"
         merchandise_rate.candlesticks.send(interval.to_sym).last.delete if merchandise_rate.candlesticks.send(interval.to_sym).last.present?
         merchandise_rate.candlesticks.last
         last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
 
         last_time = if last_date.present?
-          merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i
+          merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i + 1.hour
         else
           Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
         end
+      elsif interval == "month"
+        merchandise_rate.candlesticks.send(interval.to_sym).last.delete if merchandise_rate.candlesticks.send(interval.to_sym).last.present?
+        merchandise_rate.candlesticks.last
+        last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
+
+        last_time = if last_date.present?
+          merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i + 1.month
+        else
+          Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
+        end
+      else
+        merchandise_rate.candlesticks.send(interval.to_sym).destroy_all
+        last_time = Time.at(FIRST_DATE_IN_BINANCE[base.to_sym]) 
       end
 
-      period = (Time.zone.now.to_date - Time.at(last_time).to_date).to_i
+      period = (Time.zone.now.to_datetime - Time.at(last_time).to_datetime).to_i
 
 
       period_loop = if interval == 'week'
@@ -67,15 +77,14 @@ namespace :db do
 
       loop_number = period/period_loop
       (0..loop_number).each_with_index do |num, index|
-        start_time = (Time.at(last_time).to_date + period_loop*num).to_time.to_i
-        puts start_time
+        start_time = (Time.at(last_time).to_datetime + period_loop*num).to_datetime.to_i
+        puts DateTime.strptime(start_time.to_s,'%s')
         puts "=========================================================================="
-        puts Time.at(start_time).to_date
         records = BinanceServices::Request.send!(path: "/api/v3/klines", params: {symbol: "#{merchandise_rate.slug.upcase}", interval: interval_hash[interval.to_sym], startTime: "#{start_time}000", limit: "1000"})
         abort("Errors: #{records}") if records.kind_of?(Hash)
         records.each_with_index do |record, idx|
-          puts Time.at(record[0]/1000).to_date
           next if merchandise_rate.candlesticks.where("Date(date) = ? AND time_type = ?", Time.at(record[0]/1000).to_date, interval.to_sym).count > 1
+          puts Time.at(record[0]/1000).to_date
           merchandise_rate.candlesticks.create!(date: Time.at(record[0]/1000).to_datetime, open: record[1], high: record[2], low: record[3], close: record[4], volumn: record[5], time_type: interval.to_sym)
         end
       end
