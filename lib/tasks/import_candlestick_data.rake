@@ -20,7 +20,8 @@ namespace :db do
       LTC: 1513123200,
       BAT: 1551661260,
       DOT: 1597712400,
-      NEO: 1511139600
+      NEO: 1511139600,
+      ADA: 1523898000
     }
 
     abort("Errors: vui long nhap base=xxx quote=xxx interval=x --- ex (x = day, week)") if !base.present? || !quote.present? || !interval.present?
