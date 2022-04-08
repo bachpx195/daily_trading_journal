@@ -13,7 +13,8 @@ namespace :db do
       day: "1d",
       week: "1w",
       month: "1M",
-      hour: "1h"
+      hour: "1h",
+      m15: '15m'
     }
     FIRST_DATE_IN_BINANCE = {
       BTC: 1502902800,
@@ -26,7 +27,7 @@ namespace :db do
 
     abort("Errors: vui long nhap base=xxx quote=xxx interval=x --- ex (x = day, week)") if !base.present? || !quote.present? || !interval.present?
 
-    abort("Errors: interval khong hop le --- (day, week)") unless ['day', 'week', 'month', 'hour'].include? interval
+    abort("Errors: interval khong hop le --- (day, week)") unless ['day', 'week', 'month', 'hour', 'm15'].include? interval
 
     base_merchandise = Merchandise.find_by(slug: base)
     quote_merchandise = Merchandise.find_by(slug: quote)
@@ -59,6 +60,8 @@ namespace :db do
         30000
       elsif interval == 'hour'
         1000/24
+      elsif interval == 'm15'
+        1000/(24*4)
       end
 
       loop_number = period/period_loop
