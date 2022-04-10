@@ -44,7 +44,8 @@ namespace :db do
       last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
 
       last_time = if last_date.present?
-        merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i + 1.send(interval.to_sym)
+        bonus_time = interval == 'm15' ? 15.minutes : 1.send(interval.to_sym)
+        merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i + bonus_time
       else
         Time.at(FIRST_DATE_IN_BINANCE[base.to_sym])
       end
