@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :rules
   resources :ideas
   resources :merchandises
   devise_for :users
