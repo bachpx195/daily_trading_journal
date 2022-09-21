@@ -9,7 +9,7 @@
     "vue-select": "^3.12.1",
     "vue-template-compiler": "^2.6.14",
     "vuedraggable": "^2.24.3",
-    "vuetify": "^2.4.11",
+    "vuetify": "^2.6.10",
     "vuex": "^3.6.2",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12"
