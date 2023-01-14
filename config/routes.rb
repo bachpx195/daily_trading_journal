@@ -52,6 +52,8 @@ Rails.application.routes.draw do
       resources :tags
       resources :plans
       resources :news
+      resources :merchandise_rates, defaults: { format: 'json' }
+      resources :candlesticks, defaults: { format: 'json' }
     end
   end
 end
