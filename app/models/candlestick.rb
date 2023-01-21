@@ -8,7 +8,7 @@ class Candlestick < ApplicationRecord
   scope :find_by_merchandise_rate, -> merchandise_rate_id, time_type do
     where(merchandise_rate_id: merchandise_rate_id)
     .where(time_type: time_type)
-    .order(date: :desc)
+    .order(date: :asc)
   end
 
   class << self
