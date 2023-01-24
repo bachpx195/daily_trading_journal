@@ -12,6 +12,8 @@ class MerchandiseRate < ApplicationRecord
   before_create :genarate_slug
   before_update :genarate_slug
 
+  scope :crypto_currencies, -> {where(tag_id: 8)}
+
   enum is_follow: {unfollow: 0, followed: 1}
 
   private
