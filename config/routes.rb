@@ -53,7 +53,11 @@ Rails.application.routes.draw do
       resources :plans
       resources :news
       resources :merchandise_rates, defaults: { format: 'json' }
-      resources :candlesticks, defaults: { format: 'json' }
+      resources :candlesticks, defaults: { format: 'json' } do
+        collection do
+          post 'async_update_data', to: 'candlesticks#async_update_data'
+        end
+      end
     end
   end
 end
