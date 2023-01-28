@@ -4,7 +4,7 @@
       <div class="caption font-green">
         <span class="caption-subject bold uppercase">
           <% if type == "new" %>
-            <i class="fa fa-plus"></i> Thêm mới 
+            <i class="fa fa-plus"></i> Thêm mới
           <% elsif type == "edit" %>
             <i class="fa fa-pencil"></i> Chỉnh sửa
           <% end %>
@@ -23,33 +23,6 @@
 
   <script>
     $(document).ready(function(){
-      $("#building").change(function(){
-        $.ajax({
-          type: "GET",
-          url: '/admin/rooms.json?building_id='+ $( "#building" ).val(),
-          data: JSON.stringify({building_id: $( "#building" ).val()}),
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          success: success,
-          error: error
-        });
-
-        function success(data, status) {
-          $("#room").html("");
-          $("#room").append("<option value='0'>-- Chọn phòng trọ --</option>");
-          data.forEach(appendOption)
-        }
-
-        function appendOption(item, index, arr) {
-          var htmlOption = "<option value="+ item.id +">"+ item.name +"</option>"
-          $("#room").append(htmlOption);
-        }
-
-        function error() {
-          console.log('Lỗi lấy dữ liệu phòng theo tòa nhà');
-        }
-      });
-
       var placeholder = "-- Chọn --";
       $(".select2, .select2-multiple").select2({
         placeholder: placeholder,
