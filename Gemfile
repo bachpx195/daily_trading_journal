@@ -76,6 +76,10 @@ gem 'momentjs-rails'
 # cors config
 gem 'rack-cors'
 
+# https://github.com/zdennis/activerecord-import
+# https://blog.saeloun.com/2022/07/26/rails-6-insert-all.html
+gem 'activerecord-import'
+
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'

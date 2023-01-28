@@ -9,4 +9,10 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
       1000
     ).sort_by{|o| o.date.to_i}
   end
+
+  def async_update_data
+    result = CreateCandlestickService.new(params["merchandise_rate_ids"], Candlestick.time_types.key(params["time_type"])).execute
+
+    render json: result
+  end
 end
