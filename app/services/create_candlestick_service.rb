@@ -27,11 +27,20 @@ class CreateCandlestickService
 
   def execute
     time = 0
+    status = false
     while time < 10 do
+      if is_lastest_date?
+        status = true
+        break
+      end
       create_data
-      break if is_lastest_date?
       time = time + 1
     end
+
+    {
+      lastest_time: lastest_time,
+      status: status
+    }
   end
 
   def create_data
@@ -95,15 +104,21 @@ class CreateCandlestickService
     end
   end
 
+  private
   def is_lastest_date?
     lastest_date_list = []
 
     merchandise_rate_ids.each do |merchandise_rate_id|
       merchandise_rate = MerchandiseRate.find_by(id: merchandise_rate_id)
-      lastest_date_list.push(merchandise_rate.date)
+      lastest_date_list.push(merchandise_rate.lastest_candlestick_date(interval))
     end
 
     # check if all array elements are equal
     lastest_date_list.uniq.size <= 1
+  end
+
+  def lastest_time
+    merchandise_rate = MerchandiseRate.find_by(id: merchandise_rate_ids.first)
+    merchandise_rate.lastest_candlestick_date(interval)
   end
 end
