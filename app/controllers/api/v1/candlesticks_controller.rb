@@ -3,11 +3,12 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
     merchandise_rate_id = params[:merchandise_rate_id]
     time_type = params[:time_type]
 
-    @candlesticks = Candlestick.find_by_merchandise_rate(
-      merchandise_rate_id.to_i,
-      time_type.to_i,
-      1000
-    ).sort_by{|o| o.date.to_i}
+    @candlesticks = if params[:date].present?
+      Candlestick.find_by_merchandise_rate(merchandise_rate_id.to_i, time_type.to_i, 1000)
+        .date_between(params[:date], params[:date])
+    else
+      Candlestick.find_by_merchandise_rate(merchandise_rate_id.to_i, time_type.to_i, 1000)
+    end.sort_by{|c| c.date.to_i}
   end
 
   def async_update_data
