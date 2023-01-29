@@ -6,7 +6,9 @@ class Candlestick < ApplicationRecord
   enum time_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}
 
   # date_between( "2022-05-10","2022-05-12")
-  scope :date_between, lambda {|start_date, end_date| where("date >= ? AND date <= ?", start_date, end_date )}
+  scope :date_between, -> start_date, end_date do
+    where("date >= ? AND date <= ?", start_date.to_date.beginning_of_day, end_date.to_date.end_of_day )
+  end
 
   scope :find_by_merchandise_rate, -> merchandise_rate_id, time_type, limit do
     where(merchandise_rate_id: merchandise_rate_id)
