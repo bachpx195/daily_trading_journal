@@ -1,0 +1,97 @@
+<%= form_with(model: b_order, local: true) do |form| %>
+  <% if b_order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(b_order.errors.count, "error") %> prohibited this b_order from being saved:</h2>
+
+      <ul>
+      <% b_order.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :b_order_id %>
+    <%= form.number_field :b_order_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :merchandise_rate_id %>
+    <%= form.text_field :merchandise_rate_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_order %>
+    <%= form.text_field :client_order %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :orig_qty %>
+    <%= form.text_field :orig_qty %>
+  </div>
+
+  <div class="field">
+    <%= form.label :executed_qty %>
+    <%= form.text_field :executed_qty %>
+  </div>
+
+  <div class="field">
+    <%= form.label :executed_quote_qty %>
+    <%= form.text_field :executed_quote_qty %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.number_field :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :type %>
+    <%= form.number_field :type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :side %>
+    <%= form.number_field :side %>
+  </div>
+
+  <div class="field">
+    <%= form.label :insert_time %>
+    <%= form.date_select :insert_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :update_time %>
+    <%= form.date_select :update_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :delegate_money %>
+    <%= form.text_field :delegate_money %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avg_price %>
+    <%= form.text_field :avg_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :orig_type %>
+    <%= form.number_field :orig_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position_side %>
+    <%= form.number_field :position_side %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,84 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>B order:</strong>
+  <%= @b_order.b_order_id %>
+</p>
+
+<p>
+  <strong>Merchandise rate:</strong>
+  <%= @b_order.merchandise_rate %>
+</p>
+
+<p>
+  <strong>Client order:</strong>
+  <%= @b_order.client_order %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @b_order.price %>
+</p>
+
+<p>
+  <strong>Orig qty:</strong>
+  <%= @b_order.orig_qty %>
+</p>
+
+<p>
+  <strong>Executed qty:</strong>
+  <%= @b_order.executed_qty %>
+</p>
+
+<p>
+  <strong>Executed quote qty:</strong>
+  <%= @b_order.executed_quote_qty %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @b_order.status %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @b_order.type %>
+</p>
+
+<p>
+  <strong>Side:</strong>
+  <%= @b_order.side %>
+</p>
+
+<p>
+  <strong>Insert time:</strong>
+  <%= @b_order.insert_time %>
+</p>
+
+<p>
+  <strong>Update time:</strong>
+  <%= @b_order.update_time %>
+</p>
+
+<p>
+  <strong>Delegate money:</strong>
+  <%= @b_order.delegate_money %>
+</p>
+
+<p>
+  <strong>Avg price:</strong>
+  <%= @b_order.avg_price %>
+</p>
+
+<p>
+  <strong>Orig type:</strong>
+  <%= @b_order.orig_type %>
+</p>
+
+<p>
+  <strong>Position side:</strong>
+  <%= @b_order.position_side %>
+</p>
+
+<%= link_to 'Edit', edit_b_order_path(@b_order) %> |
+<%= link_to 'Back', b_orders_path %>

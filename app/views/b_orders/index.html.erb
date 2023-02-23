@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<h1>B Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>B order</th>
+      <th>Merchandise rate</th>
+      <th>Client order</th>
+      <th>Price</th>
+      <th>Orig qty</th>
+      <th>Executed qty</th>
+      <th>Executed quote qty</th>
+      <th>Status</th>
+      <th>Type</th>
+      <th>Side</th>
+      <th>Insert time</th>
+      <th>Update time</th>
+      <th>Delegate money</th>
+      <th>Avg price</th>
+      <th>Orig type</th>
+      <th>Position side</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @b_orders.each do |b_order| %>
+      <tr>
+        <td><%= b_order.b_order_id %></td>
+        <td><%= b_order.merchandise_rate %></td>
+        <td><%= b_order.client_order %></td>
+        <td><%= b_order.price %></td>
+        <td><%= b_order.orig_qty %></td>
+        <td><%= b_order.executed_qty %></td>
+        <td><%= b_order.executed_quote_qty %></td>
+        <td><%= b_order.status %></td>
+        <td><%= b_order.type %></td>
+        <td><%= b_order.side %></td>
+        <td><%= b_order.insert_time %></td>
+        <td><%= b_order.update_time %></td>
+        <td><%= b_order.delegate_money %></td>
+        <td><%= b_order.avg_price %></td>
+        <td><%= b_order.orig_type %></td>
+        <td><%= b_order.position_side %></td>
+        <td><%= link_to 'Show', b_order %></td>
+        <td><%= link_to 'Edit', edit_b_order_path(b_order) %></td>
+        <td><%= link_to 'Destroy', b_order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New B Order', new_b_order_path %>

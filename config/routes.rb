@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :b_orders
   resources :rules
   resources :ideas
   resources :merchandises
