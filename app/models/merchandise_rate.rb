@@ -17,7 +17,7 @@ class MerchandiseRate < ApplicationRecord
   enum is_follow: {unfollow: 0, followed: 1}
 
   def lastest_candlestick_date interval
-    candlesticks.send(interval.to_sym).sort_by_type(:desc).first.date
+    candlesticks.send(interval.to_sym).sort_by_type(:desc).first&.date
   end
 
   private

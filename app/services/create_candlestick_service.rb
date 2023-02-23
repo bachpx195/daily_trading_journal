@@ -15,7 +15,8 @@ class CreateCandlestickService
     BAT: 1551661260,
     DOT: 1597712400,
     NEO: 1511139600,
-    ADA: 1523898000
+    ADA: 1523898000,
+    XRP: 1525438500
   }
 
   attr_accessor :merchandise_rate_ids, :interval
