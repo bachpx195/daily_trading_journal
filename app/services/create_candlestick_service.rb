@@ -30,7 +30,7 @@ class CreateCandlestickService
     time = 0
     status = false
     while time < 10 do
-      if is_lastest_date?
+      if is_synchronous? && is_lastest_date?
         status = true
         break
       end
@@ -106,7 +106,8 @@ class CreateCandlestickService
   end
 
   private
-  def is_lastest_date?
+  # Thời gian của các merchandise là giống nhau
+  def is_synchronous?
     lastest_date_list = []
 
     merchandise_rate_ids.each do |merchandise_rate_id|
@@ -116,6 +117,10 @@ class CreateCandlestickService
 
     # check if all array elements are equal
     lastest_date_list.uniq.size <= 1
+  end
+
+  def is_lastest_date?
+    lastest_time > Time.now() - 15.minutes
   end
 
   def lastest_time
