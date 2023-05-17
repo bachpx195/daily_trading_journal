@@ -26,5 +26,21 @@ class Candlestick < ApplicationRecord
     def delete_duplicate
       Candlestick.where.not(id: Candlestick.group(:date, :time_type, :merchandise_rate_id).select("min(id)")).destroy_all
     end
+
+    # Mục đích là tìm 100 giá trị trước và sau date được chọn
+    def range_between_date date, type
+      case type
+      when time_types["day"]
+        [date - 100.days, date + 100.days, date + 1.days]
+      when time_types["week"]
+        [date - 100.weeks, date + 100.weeks, date + 1.weeks]
+      when time_types["month"]
+        [date - 100.months, date + 100.months, date + 1.months]
+      when time_types["hour"]
+        [date - 100.hours, date + 100.hours, date + 1.hours]
+      when time_types["m15"]
+        [date - (100*15).minutes, date + (100*15).minutes, date + 15.minutes]
+      end
+    end
   end
 end
