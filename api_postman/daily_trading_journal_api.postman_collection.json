@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "ac1e20dc-f129-483f-8f0c-d380f7555af0",
+		"name": "daily_trading_journal_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1904453"
+	},
+	"item": [
+		{
+			"name": "Merchandise rate",
+			"item": [
+				{
+					"name": "Get list merchandise rate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "Lấy list của merchandise\n\n```\n[\n    {\n        \"id\": 34,\n        \"slug\": \"BTCUSDT\"\n    },\n    {\n        \"id\": 35,\n        \"slug\": \"LTCUSDT\"\n    },\n    {\n        \"id\": 36,\n        \"slug\": \"BATUSDT\"\n    },\n    {\n        \"id\": 37,\n        \"slug\": \"DOTUSDT\"\n    },\n    {\n        \"id\": 38,\n        \"slug\": \"XRPUSDT\"\n    },\n    {\n        \"id\": 39,\n        \"slug\": \"DOTBTC\"\n    }\n]\n\n```"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Candlestick",
+			"item": [
+				{
+					"name": "Get list candlestick",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Async update data",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "Dùng để update data candlestick từ binance\n\n- Lưu ý\n    \n\ntime_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
