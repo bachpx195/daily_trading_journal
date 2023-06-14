@@ -23,7 +23,16 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
   end
 
   def async_update_data
-    result = CreateCandlestickService.new(params["merchandise_rate_ids"], Candlestick.time_types.key(params["time_type"])).execute
+    time_type = params["time_type"]
+    result = true
+
+    if time_type.present?
+      result = CreateCandlestickService.new(params["merchandise_rate_ids"], Candlestick.time_types.key(params["time_type"])).execute
+    else
+      Candlestick.time_types.keys.each do |interval|
+        result = result && CreateCandlestickService.new(params["merchandise_rate_ids"], interval).execute
+      end
+    end
 
     render json: result
   end
