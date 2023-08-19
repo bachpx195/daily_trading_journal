@@ -40,6 +40,8 @@ GEM
       activemodel (= 5.2.8.1)
       activesupport (= 5.2.8.1)
       arel (>= 9.0)
+    activerecord-import (1.4.1)
+      activerecord (>= 4.2)
     activestorage (5.2.8.1)
       actionpack (= 5.2.8.1)
       activerecord (= 5.2.8.1)
@@ -200,12 +202,12 @@ GEM
       timeout
     net-smtp (0.3.3)
       net-protocol
-    nio4r (2.5.8)
+    nio4r (2.5.9)
     nokogiri (1.13.10)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
     orm_adapter (0.5.0)
-    pry (0.14.2)
+    pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
     pry-byebug (3.9.0)
@@ -217,7 +219,7 @@ GEM
       binding_of_caller (~> 1.0)
       pry (~> 0.13)
     public_suffix (5.0.1)
-    puma (4.3.12)
+    puma (6.3.1)
       nio4r (~> 2.0)
     pygments.rb (2.3.1)
     racc (1.6.2)
@@ -353,6 +355,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-import
   awesome_nested_set
   bootsnap (>= 1.1.0)
   bootstrap-sass
@@ -381,7 +384,7 @@ DEPENDENCIES
   pry-byebug
   pry-rails
   pry-stack_explorer
-  puma (~> 4.3)
+  puma (~> 6.3)
   pygments.rb
   rack-cors
   rails (~> 5.2.3)
