@@ -29,8 +29,8 @@ class CreateCandlestickService
   def execute
     time = 0
     status = false
-    while time < 10 do
-      if is_synchronous? && is_lastest_date?
+    while true
+      if (is_synchronous && is_lastest_date) || time > 5
         status = true
         break
       end
@@ -52,11 +52,9 @@ class CreateCandlestickService
         return unless merchandise_rate.present?
 
         merchandise_rate.candlesticks.send(interval.to_sym).last.delete if merchandise_rate.candlesticks.send(interval.to_sym).last.present?
-        merchandise_rate.candlesticks.last
         last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
 
         last_time = if last_date.present?
-          bonus_time = interval == 'm15' ? 15.minutes : 1.send(interval.to_sym)
           merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i + bonus_time
         else
           Time.at(FIRST_DATE_IN_BINANCE[merchandise_rate.base.slug.to_sym])
@@ -107,7 +105,8 @@ class CreateCandlestickService
 
   private
   # Thời gian của các merchandise là giống nhau
-  def is_synchronous?
+  def is_synchronous
+    return true if merchandise_rate_ids.count == 1
     lastest_date_list = []
 
     merchandise_rate_ids.each do |merchandise_rate_id|
@@ -119,12 +118,17 @@ class CreateCandlestickService
     lastest_date_list.uniq.size <= 1
   end
 
-  def is_lastest_date?
-    lastest_time > Time.now() - 15.minutes
+  def is_lastest_date
+    lastest_time >= (Time.now() - bonus_time)
   end
 
   def lastest_time
     merchandise_rate = MerchandiseRate.find_by(id: merchandise_rate_ids.first)
     merchandise_rate.lastest_candlestick_date(interval)
+  end
+
+  # thời gian thêm dựa vào interval
+  def bonus_time
+    interval == 'm15' ? 15.minutes : 1.send(interval.to_sym)
   end
 end
