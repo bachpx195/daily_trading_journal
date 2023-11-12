@@ -1,0 +1,2 @@
+class TelegramChat < ApplicationRecord
+end

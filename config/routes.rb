@@ -59,6 +59,7 @@ Rails.application.routes.draw do
           post 'async_update_data', to: 'candlesticks#async_update_data'
         end
       end
+      resources :telegram_chat_messages, only: [:create]
     end
   end
 end

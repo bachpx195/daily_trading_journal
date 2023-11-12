@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  telegram_chat: 
+  msg_id: MyString
+  content: MyText
+  chat_date: 2023-11-08 00:34:22
+
+two:
+  telegram_chat: 
+  msg_id: MyString
+  content: MyText
+  chat_date: 2023-11-08 00:34:22
