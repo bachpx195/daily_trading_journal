@@ -47,4 +47,9 @@ class Candlestick < ApplicationRecord
       end
     end
   end
+
+  def previous_day
+    yesterday = self.date.yesterday
+    Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: yesterday).day.first
+  end
 end
