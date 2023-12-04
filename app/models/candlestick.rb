@@ -3,6 +3,8 @@ require 'activerecord-import'
 
 class Candlestick < ApplicationRecord
   belongs_to :merchandise_rate
+  has_one :day_analytics, dependent: :destroy
+  has_one :hour_analytics, dependent: :destroy
   enum time_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}
 
   # date_between( "2022-05-10","2022-05-12")
@@ -51,5 +53,10 @@ class Candlestick < ApplicationRecord
   def previous_day
     yesterday = self.date.yesterday
     Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: yesterday).day.first
+  end
+
+  def previous_hour
+    previous_hour = self.date - 1.hours
+    Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: previous_hour).hour.first
   end
 end
