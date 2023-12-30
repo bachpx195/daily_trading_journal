@@ -19,6 +19,9 @@ class CreateCandlestickService
     XRP: 1525438500
   }
 
+  ANALYTIC_MERCHANDISE_RATE_IDS = [35]
+  ANALYTIC_INTERVAL = %('hour', 'day')
+
   attr_accessor :merchandise_rate_ids, :interval
 
   def initialize merchandise_rate_ids, interval
@@ -51,7 +54,9 @@ class CreateCandlestickService
         merchandise_rate = MerchandiseRate.find_by(id: merchandise_rate_id)
         return unless merchandise_rate.present?
 
-        merchandise_rate.candlesticks.send(interval.to_sym).last.delete if merchandise_rate.candlesticks.send(interval.to_sym).last.present?
+        # Tìm ngày cuối cùng ở database
+        # Xoá dữ liệu cuối đi vì nó chưa đủ
+        merchandise_rate.candlesticks.send(interval.to_sym).last.destroy if merchandise_rate.candlesticks.send(interval.to_sym).last.present?
         last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
 
         last_time = if last_date.present?
@@ -99,6 +104,12 @@ class CreateCandlestickService
         end
         Candlestick.import(candlestick_records, validate: false)
         Candlestick.delete_duplicate
+
+        if ANALYTIC_MERCHANDISE_RATE_IDS.include?(merchandise_rate_id) &&
+          ANALYTIC_INTERVAL.include?(interval)
+          HourAnalytic.create_hour_data Time.at(last_time).to_date
+          DayAnalytic.create_day_data Time.at(last_time).to_date
+        end
       end
     end
   end

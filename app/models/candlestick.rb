@@ -3,8 +3,8 @@ require 'activerecord-import'
 
 class Candlestick < ApplicationRecord
   belongs_to :merchandise_rate
-  has_one :day_analytics, dependent: :destroy
-  has_one :hour_analytics, dependent: :destroy
+  has_one :day_analytic, dependent: :destroy
+  has_one :hour_analytic, dependent: :destroy
   enum time_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}
 
   # date_between( "2022-05-10","2022-05-12")

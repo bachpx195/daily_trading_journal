@@ -50,6 +50,100 @@ class HourAnalytic < ApplicationRecord
     reverse_decrease_hour
   end
 
+  def self.create_hour_data start_date
+    count = 1
+    candlestick_id_arr = []
+
+    Candlestick.where(merchandise_rate_id: 35).where("date >= ?", start_date).hour.order(:date).each do |c|
+      # return_oc
+      return_oc = ((c.close - c.open)/c.open).round(4)*100
+
+      # candlestick_type
+      candlestick_type = c.close < c.open ? 1 : 0
+
+      # range_type
+      range_type = if return_oc > 1
+        0
+      elsif return_oc <= 1 && return_oc > 0.3
+        1
+      elsif return_oc <= 0.3 && return_oc >= -0.3
+        2
+      elsif return_oc < -0.3 && return_oc >= -1
+        3
+      else
+        4
+      end
+
+      # hour 
+      hour = c.date.strftime("%H").to_i
+
+      # update_is_same_btc
+      btc_hour = Candlestick.where(merchandise_rate_id: 34, date: c.date).hour.first
+      is_same_btc = if btc_hour.present?
+        (btc_hour.open - btc_hour.close)*(c.open - c.close) > 0
+      else
+        false
+      end
+
+      # update_continue_by_hour
+      previous_hour = c.previous_hour
+
+      count = if !previous_hour.present?
+        1
+      elsif (previous_hour.open - previous_hour.close)*(c.open - c.close) > 0
+        count + 1
+      else
+        1
+      end
+
+      ha = HourAnalytic.find_or_create_by(
+        candlestick_id: c.id,
+        hour: hour,
+        date: c.date.to_date
+      )
+      
+      Rails.logger.info "#{c.date.to_date} - #{hour}"
+
+      ha.update({
+        date_with_binane: hour < 7 ? c.date.to_date - 1.days : c.date.to_date,
+        return_oc: return_oc,
+        return_hl: ((c.high - c.low)/c.low).round(4)*100,
+        range_type: range_type,
+        candlestick_type: candlestick_type,
+        is_same_btc: is_same_btc,
+        continue_by_hour: count
+      })
+    end
+
+    count = 1
+    HourAnalytic.where("date >= ?", start_date).order(:date, :hour).each do |ha|
+      previous_hour_type = ha.get_previous_day_type
+
+      count = if ha.candlestick_type == previous_hour_type
+        count + 1
+      else
+        1
+      end
+
+      Rails.logger.info "is_highest_hour_return continue_by_day"
+      Rails.logger.info "#{ha.date.to_date} - #{ha.hour}"
+
+      ha.update({
+        is_highest_hour_return: ha.is_highest_hour_return_inday?,
+        continue_by_day: count
+      })
+    end
+
+    HourAnalytic.where("date >= ?", start_date).group(:date_with_binane).pluck("date_with_binane, count(date_with_binane)").select {|x| x[1] == 24}.each do |ha|
+
+      Rails.logger.info "is_reverse_hour"
+      Rails.logger.info ha[0]
+
+      HourAnalytic.where(date_with_binane: ha[0], hour: HourAnalytic.get_reverse_increase_hour(ha[0])).update(is_reverse_increase_hour: true)
+      HourAnalytic.where(date_with_binane: ha[0], hour: HourAnalytic.get_reverse_decrease_hour(ha[0])).update(is_reverse_decrease_hour: true)
+    end
+  end
+
   def get_previous_day_type
     yesterday = self.date.yesterday
     hour_yesterday = HourAnalytic.where(date: yesterday, hour: self.hour)
