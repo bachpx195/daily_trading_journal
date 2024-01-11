@@ -50,11 +50,11 @@ class HourAnalytic < ApplicationRecord
     reverse_decrease_hour
   end
 
-  def self.create_hour_data start_date
+  def self.create_hour_data start_date, merchandise_rate_id = 35
     count = 1
     candlestick_id_arr = []
 
-    Candlestick.where(merchandise_rate_id: 35).where("date >= ?", start_date).hour.order(:date).each do |c|
+    Candlestick.where(merchandise_rate_id: merchandise_rate_id).where("date >= ?", start_date).hour.order(:date).each do |c|
       # return_oc
       return_oc = ((c.close - c.open)/c.open).round(4)*100
 
