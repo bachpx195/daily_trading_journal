@@ -19,7 +19,7 @@ class CreateCandlestickService
     XRP: 1525438500
   }
 
-  ANALYTIC_MERCHANDISE_RATE_IDS = [35]
+  ANALYTIC_MERCHANDISE_RATE_IDS = [34, 35, 41]
   ANALYTIC_INTERVAL = %('hour', 'day')
 
   attr_accessor :merchandise_rate_ids, :interval
@@ -107,8 +107,8 @@ class CreateCandlestickService
 
         if ANALYTIC_MERCHANDISE_RATE_IDS.include?(merchandise_rate_id) &&
           ANALYTIC_INTERVAL.include?(interval)
-          HourAnalytic.create_hour_data Time.at(last_time).to_date
-          DayAnalytic.create_day_data Time.at(last_time).to_date
+          HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
+          DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
         end
       end
     end
