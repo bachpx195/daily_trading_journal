@@ -24,6 +24,7 @@ namespace :db do
       
       HourAnalytic.create!({
         candlestick_id: c.id,
+        merchandise_rate_id: c.merchandise_rate_id,
         date: c.date.to_date,
         date_with_binane: hour < 7 ? c.date.to_date - 1.days : c.date.to_date,
         hour: hour,

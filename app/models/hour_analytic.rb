@@ -2,6 +2,7 @@ class HourAnalytic < ApplicationRecord
   # 7h-14h: buổi sáng, 15-19h: buổi chiều, 20h-23h: buổi tối, 0h-6h 
   # https://github.com/bachpx195/bach-s_trading_room/wiki/C%C3%A1c-phi%C3%AAn-giao-d%E1%BB%8Bch-trong-ng%C3%A0y
   belongs_to :candlestick
+  belongs_to :merchandise_rate
 
   enum candlestick_type: {increase: 0, decrease: 1}
 
@@ -48,6 +49,21 @@ class HourAnalytic < ApplicationRecord
       end
 
     reverse_decrease_hour
+  end
+
+  def self.get_reverse_increase_hour_from_day_analytics day_with_binace, merchandise_rate_id
+    HourAnalytic.where(merchandise_rate_id: merchandise_rate_id, date_with_binane: day_with_binace, is_reverse_increase_hour: true)
+      .first&.hour
+  end
+
+  def self.get_reverse_decrease_hour_from_day_analytics day_with_binace, merchandise_rate_id
+    HourAnalytic.where(merchandise_rate_id: merchandise_rate_id, date_with_binane: day_with_binace, is_reverse_decrease_hour: true)
+      .first&.hour
+  end
+
+  def self.get_highest_return_hour_from_day_analytics day_with_binace, merchandise_rate_id
+    HourAnalytic.where(merchandise_rate_id: merchandise_rate_id, date_with_binane: day_with_binace, is_highest_hour_return: true)
+      .first&.hour
   end
 
   def self.create_hour_data start_date, merchandise_rate_id = 35
@@ -98,6 +114,7 @@ class HourAnalytic < ApplicationRecord
 
       ha = HourAnalytic.find_or_create_by(
         candlestick_id: c.id,
+        merchandise_rate_id: c.merchandise_rate_id,
         hour: hour,
         date: c.date.to_date
       )

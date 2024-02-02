@@ -19,6 +19,7 @@ namespace :db do
       
       DayAnalytic.create!({
         candlestick_id: c.id,
+        merchandise_rate_id: c.merchandise_rate_id,
         date: c.date.to_date,
         date_name: c.date.strftime("%A"),
         return_oc: return_oc,

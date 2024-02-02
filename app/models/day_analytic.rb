@@ -1,5 +1,6 @@
 class DayAnalytic < ApplicationRecord
   belongs_to :candlestick
+  belongs_to :merchandise_rate
 
   enum candlestick_type: {increase: 0, decrease: 1}
   
@@ -76,6 +77,7 @@ class DayAnalytic < ApplicationRecord
 
       da = DayAnalytic.find_or_create_by(
         candlestick_id: c.id,
+        merchandise_rate_id: c.merchandise_rate_id,
         date: c.date.to_date,
         date_name: c.date.strftime("%A")
       )
@@ -92,6 +94,17 @@ class DayAnalytic < ApplicationRecord
         is_fake_breakout_decrease: is_fake_breakout_decrease,
         is_same_btc: is_same_btc,
         continue_type: count
+      })
+    end
+  end
+
+  def self.update_from_hour_analytic start_date, merchandise_rate_id
+    DayAnalytic.where(merchandise_rate_id: merchandise_rate_id).where("date >= ?", start_date).each do |da|
+      date = da.date
+      da.update({
+        highest_hour_return: HourAnalytic.get_highest_return_hour_from_day_analytics(date, merchandise_rate_id),
+        reverse_decrease_hour: HourAnalytic.get_reverse_decrease_hour_from_day_analytics(date, merchandise_rate_id),
+        reverse_increase_hour: HourAnalytic.get_reverse_increase_hour_from_day_analytics(date, merchandise_rate_id),
       })
     end
   end
