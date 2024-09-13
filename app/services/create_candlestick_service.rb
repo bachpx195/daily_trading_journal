@@ -16,7 +16,9 @@ class CreateCandlestickService
     DOT: 1597712400,
     NEO: 1511139600,
     ADA: 1523898000,
-    XRP: 1525438500
+    XRP: 1525438500,
+    # lay ket qua tu nam 2022
+    LINK: 1642381200
   }
 
   ANALYTIC_MERCHANDISE_RATE_IDS = [34, 35, 41]
