@@ -111,7 +111,6 @@ class CreateCandlestickService
           ANALYTIC_INTERVAL.include?(interval)
           HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
           DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
-          DayAnalytic.update_from_hour_analytic Time.at(last_time).to_date, merchandise_rate_id
         end
       end
     end

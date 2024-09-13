@@ -146,18 +146,8 @@ class HourAnalytic < ApplicationRecord
       Rails.logger.info "#{ha.date.to_date} - #{ha.hour}"
 
       ha.update({
-        is_highest_hour_return: ha.is_highest_hour_return_inday?,
         continue_by_day: count
       })
-    end
-
-    HourAnalytic.where("date >= ?", start_date).group(:date_with_binane).pluck("date_with_binane, count(date_with_binane)").select {|x| x[1] == 24}.each do |ha|
-
-      Rails.logger.info "is_reverse_hour"
-      Rails.logger.info ha[0]
-
-      HourAnalytic.where(date_with_binane: ha[0], hour: HourAnalytic.get_reverse_increase_hour(ha[0])).update(is_reverse_increase_hour: true)
-      HourAnalytic.where(date_with_binane: ha[0], hour: HourAnalytic.get_reverse_decrease_hour(ha[0])).update(is_reverse_decrease_hour: true)
     end
   end
 

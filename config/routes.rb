@@ -59,6 +59,11 @@ Rails.application.routes.draw do
           post 'async_update_data', to: 'candlesticks#async_update_data'
         end
       end
+      resources :day_analytics, only: [:update], defaults: { format: 'json' } do
+        collection do
+          post 'update_hour_analytic', to: 'day_analytics#update_hour_analytic'
+        end
+      end
       resources :telegram_chat_messages, only: [:create]
     end
   end

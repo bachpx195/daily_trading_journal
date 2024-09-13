@@ -34,9 +34,59 @@
 				{
 					"name": "Async update data",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
-						"description": "Dùng để update data candlestick từ binance\n\n- Lưu ý\n    \n\ntime_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}"
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"merchandise_rate_ids\": [\n        // btc\n        34,\n        // // ltc\n        35,\n        // // ltc/btc\n        41\n        // // dot\n        // 37,\n        // // dot/btc\n        // 39\n    ]\n    // \"time_type\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/candlesticks/async_update_data",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"candlesticks",
+								"async_update_data"
+							]
+						},
+						"description": "Dùng để update data candlestick từ binance\n\n- Lưu ý  \n    \n- Không truyền time_type sẽ update toàn bộ các time\n    \n\ntime_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Day analytic",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"merchandise_rate_ids\": [\n        // btc\n        // 34,\n        // ltc\n        35\n        // ltc/btc\n        // 41,\n        // dot\n        // 37,\n        // dot/btc\n        // 39,\n        // link\n        // 42,\n        // link/btc\n        // 43\n    ],\n    \"start_date\": \"2020-09-07\"\n    // \"time_type\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/day_analytics",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"day_analytics"
+							]
+						}
 					},
 					"response": []
 				}

@@ -11,6 +11,10 @@ class DayAnalytic < ApplicationRecord
   # decrease_strong < -4
   enum range_type: {increase_strong: 0, increase_type: 1, sideway: 2, decrease_type: 3, decrease_strong: 4}
 
+  scope :from_date, -> merchandise_rate_id, start_date do
+    where("date >= ? AND merchandise_rate_id = ?", start_date, merchandise_rate_id)
+  end
+
   def previous_day
     yesterday = self.date.yesterday
     DayAnalytic.where(date: yesterday).first
@@ -19,6 +23,11 @@ class DayAnalytic < ApplicationRecord
   def tomorrow_day
     tomorrow = self.date.tomorrow
     DayAnalytic.where(date: tomorrow).first
+  end
+
+  # Mot ngay day du co 24h
+  def is_completion_date?
+    HourAnalytic.where(date_with_binane: self.date, merchandise_rate_id: self.merchandise_rate_id).count == 24
   end
 
   # Giả thuyết câu nến liên tiếp thứ 4 của nến xanh là nến xanh
@@ -38,6 +47,8 @@ class DayAnalytic < ApplicationRecord
     count = 1
 
     Candlestick.where(merchandise_rate_id: merchandise_rate_id).where("date >= ?", start_date).day.order(:date).each do |c|
+      date = c.date
+
       # return_oc
       return_oc = ((c.close - c.open)/c.open).round(4)*100
 
@@ -59,7 +70,7 @@ class DayAnalytic < ApplicationRecord
       is_inside_day = day_yesterday.high > c.high && c.low > day_yesterday.low
       
       # is_same_btc
-      btc_day = Candlestick.where(merchandise_rate_id: 34, date: c.date).day.first
+      btc_day = Candlestick.where(merchandise_rate_id: 34, date: date).day.first
       is_same_btc = (btc_day.open - btc_day.close)*(c.open - c.close) > 0
 
       # continue_type
@@ -78,11 +89,11 @@ class DayAnalytic < ApplicationRecord
       da = DayAnalytic.find_or_create_by(
         candlestick_id: c.id,
         merchandise_rate_id: c.merchandise_rate_id,
-        date: c.date.to_date,
-        date_name: c.date.strftime("%A")
+        date: date.to_date,
+        date_name: date.strftime("%A")
       )
       
-      Rails.logger.info c.date.to_date
+      Rails.logger.info date.to_date
 
       da.update({
         return_oc: return_oc,
@@ -107,6 +118,58 @@ class DayAnalytic < ApplicationRecord
         reverse_increase_hour: HourAnalytic.get_reverse_increase_hour_from_day_analytics(date, merchandise_rate_id),
       })
     end
+  end
+
+  def calculate_hour_analytic_for_day
+    tmp_highest_hour_return = nil
+    highest_return = 0
+
+    tmp_highest_hour_volumn = nil
+    highest_volumn = 0
+
+    tmp_reverse_increase_hour = nil
+    highest = 0
+
+    tmp_reverse_decrease_hour = nil
+    lowest = 10000000
+
+    HourAnalytic.joins(:candlestick)
+      .select('hour_analytics.hour, hour_analytics.return_hl, candlesticks.high, candlesticks.low, candlesticks.volumn')
+      .where(date_with_binane: self.date, merchandise_rate_id: self.merchandise_rate_id)
+      .each do |ha|
+        hour = ha.hour
+
+        # reverse_decrease_hour
+        if ha.low < lowest
+          tmp_reverse_decrease_hour = hour
+          lowest = ha.low
+        end
+
+        # reverse_increase_hour
+        if ha.high > highest
+          tmp_reverse_increase_hour = hour
+          highest = ha.high
+        end
+
+        # highest_hour_return
+        if ha.return_hl > highest_return
+          tmp_highest_hour_return = hour
+          highest_return = ha.return_hl
+        end
+
+        # highest_hour_volumn
+        if ha.volumn > highest_volumn
+          tmp_highest_hour_volumn = hour
+          highest_volumn = ha.volumn
+        end
+      end
+
+    self.update(
+      highest_hour_return: tmp_highest_hour_return,
+      highest_hour_volumn: tmp_highest_hour_volumn,
+      reverse_decrease_hour: tmp_reverse_decrease_hour,
+      reverse_increase_hour: tmp_reverse_increase_hour
+    )
   end
 end
 
