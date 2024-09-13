@@ -1,5 +1,3 @@
-require 'date'
-
 class UpdateDayAnalyticService
   attr_accessor :merchandise_rate_ids, :start_date
 
