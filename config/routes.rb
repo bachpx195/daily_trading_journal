@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       resources :day_analytics, only: [:create], defaults: { format: 'json' } do
         collection do
           post 'update_hour_analytic', to: 'day_analytics#update_hour_analytic'
+          get 'last_updated_date', to: 'day_analytics#last_updated_date'
         end
       end
       resources :telegram_chat_messages, only: [:create]

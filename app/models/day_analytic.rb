@@ -15,6 +15,11 @@ class DayAnalytic < ApplicationRecord
     where("date >= ? AND merchandise_rate_id = ?", start_date, merchandise_rate_id)
   end
 
+  scope :not_update_hour_analytic, -> merchandise_rate_id do
+    where("highest_hour_return is null AND highest_hour_volumn is null AND reverse_decrease_hour is null AND reverse_increase_hour is null AND merchandise_rate_id = ?", merchandise_rate_id)
+    .order(date: :desc)
+  end
+
   def previous_day
     yesterday = self.date.yesterday
     DayAnalytic.where(date: yesterday).first
