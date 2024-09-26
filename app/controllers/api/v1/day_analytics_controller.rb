@@ -16,4 +16,14 @@ class Api::V1::DayAnalyticsController < Api::V1::BaseApiController
 
     render json: {date: day_analytics&.pluck(:date)}
   end
+
+  def merchandise_rates
+    list_merchandise_rate_ids = DayAnalytic.list_merchandise_rate_id
+    id_json = {}
+    list_merchandise_rate_ids.each do |id|
+      id_json[id.first] = MerchandiseRate.find(id.first).slug
+    end
+
+    render json: id_json
+  end
 end

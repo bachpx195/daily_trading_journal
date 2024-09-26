@@ -125,6 +125,11 @@ class DayAnalytic < ApplicationRecord
     end
   end
 
+  def self.list_merchandise_rate_id
+    sql = "SELECT DISTINCT merchandise_rate_id FROM DailyTradingJournal_development.day_analytics;"
+    ActiveRecord::Base.connection.execute(sql)
+  end
+
   def calculate_hour_analytic_for_day
     tmp_highest_hour_return = nil
     highest_return = 0
