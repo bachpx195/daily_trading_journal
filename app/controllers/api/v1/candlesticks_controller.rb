@@ -46,4 +46,14 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
 
     render json: id_json
   end
+
+  # https://github.com/bachpx195/the_big_trade/issues/42
+  def monthly_return
+    merchandise_rate_id = params[:merchandise_rate_id]
+    using_markdown_text = params[:using_markdown_text]
+
+    monthly_return_json = Candlestick.calculate_month_return merchandise_rate_id, using_markdown_text
+
+    render json: monthly_return_json
+  end
 end
