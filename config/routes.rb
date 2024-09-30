@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       resources :candlesticks, only: [:index], defaults: { format: 'json' } do
         collection do
           post 'async_update_data', to: 'candlesticks#async_update_data'
+          get 'merchandise_rates', to: 'candlesticks#merchandise_rates'
         end
       end
       resources :day_analytics, only: [:create], defaults: { format: 'json' } do
