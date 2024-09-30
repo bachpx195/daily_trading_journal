@@ -36,4 +36,14 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
 
     render json: result
   end
+
+  def merchandise_rates
+    list_merchandise_rate_ids = Candlestick.list_merchandise_rate_id
+    id_json = {}
+    list_merchandise_rate_ids.each do |id|
+      id_json[id.first] = MerchandiseRate.find(id.first).slug
+    end
+
+    render json: id_json
+  end
 end

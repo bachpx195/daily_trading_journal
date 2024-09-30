@@ -48,6 +48,11 @@ class Candlestick < ApplicationRecord
         [date - (100*15).minutes, date + (limit*15).minutes, date + 15.minutes]
       end
     end
+
+    def list_merchandise_rate_id
+      sql = "SELECT DISTINCT merchandise_rate_id FROM DailyTradingJournal_development.candlesticks;"
+      ActiveRecord::Base.connection.execute(sql)
+    end
   end
 
   def previous_day
