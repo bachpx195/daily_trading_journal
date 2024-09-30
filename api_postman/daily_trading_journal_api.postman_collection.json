@@ -58,6 +58,54 @@
 						"description": "Dùng để update data candlestick từ binance\n\n- Lưu ý  \n    \n- Không truyền time_type sẽ update toàn bộ các time\n    \n\ntime_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}"
 					},
 					"response": []
+				},
+				{
+					"name": "get list merchandise rate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/candlesticks/merchandise_rates",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"candlesticks",
+								"merchandise_rates"
+							]
+						},
+						"description": "Dùng để update data candlestick từ binance\n\n- Lưu ý  \n    \n- Không truyền time_type sẽ update toàn bộ các time\n    \n\ntime_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}"
+					},
+					"response": []
+				},
+				{
+					"name": "get monthly return",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{v1}}/candlesticks/monthly_return?merchandise_rate_id=35&using_markdown_text=true",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"candlesticks",
+								"monthly_return"
+							],
+							"query": [
+								{
+									"key": "merchandise_rate_id",
+									"value": "35"
+								},
+								{
+									"key": "using_markdown_text",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Dùng để update data candlestick từ binance\n\n- Lưu ý  \n    \n- Không truyền time_type sẽ update toàn bộ các time\n    \n\ntime_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}"
+					},
+					"response": []
 				}
 			]
 		},
@@ -65,13 +113,40 @@
 			"name": "Day analytic",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Update day analytic",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"merchandise_rate_ids\": [\n        // btc\n        // 34,\n        // ltc\n        35\n        // ltc/btc\n        // 41,\n        // dot\n        // 37,\n        // dot/btc\n        // 39,\n        // link\n        // 42,\n        // link/btc\n        // 43\n    ],\n    \"start_date\": \"2020-09-07\"\n    // \"time_type\": 3\n}",
+							"raw": "{\n    \"merchandise_rate_ids\": [\n        // btc\n        // 34,\n        // ltc\n        // 35\n        // ltc/btc\n        41\n        // dot\n        // 37,\n        // dot/btc\n        // 39,\n        // link\n        // 42,\n        // link/btc\n        // 43\n    ],\n    \"start_date\": \"2017-12-13\"\n    // \"time_type\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{v1}}/day_analytics/update_hour_analytic",
+							"host": [
+								"{{v1}}"
+							],
+							"path": [
+								"day_analytics",
+								"update_hour_analytic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create day analytic",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"merchandise_rate_ids\": [\n        // btc\n        // 34,\n        // ltc\n        // 35.\n        // ltc/btc\n        // 41,\n        // dot\n        37\n        // dot/btc\n        // 39,\n        // link\n        // 42,\n        // link/btc\n        // 43\n    ],\n    \"start_date\": \"2020-09-07\"\n    // \"time_type\": 3\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -87,6 +162,22 @@
 								"day_analytics"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "last_updated_date",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "list_merchanse_rate",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
