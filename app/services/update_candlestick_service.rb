@@ -12,9 +12,10 @@ class UpdateCandlestickService
 
   attr_accessor :merchandise_rate_ids, :interval
 
-  def initialize merchandise_rate_ids
+  def initialize merchandise_rate_ids, update_last_month = false
     @merchandise_rate_ids = merchandise_rate_ids
     @interval = '1M'
+    @update_last_month = update_last_month
   end
 
   def execute
@@ -36,9 +37,11 @@ class UpdateCandlestickService
           }
         )
 
-        puts records
+        records = records.sort_by {|r| r[0]}.reverse.first(5) if @update_last_month
 
         records.each do |record|
+          puts Time.at(record[0]/1000).to_datetime
+
           # next if merchandise_rate.candlesticks.where("Date(date) = ? AND time_type = ?", Time.at(record[0]/1000).to_date, interval.to_sym).count > 1
           candlestick = Candlestick.find_or_initialize_by(date: Time.at(record[0]/1000).to_datetime, merchandise_rate_id: merchandise_rate.id, time_type: 3)
           candlestick.attributes = {
