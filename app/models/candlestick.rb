@@ -84,7 +84,7 @@ class Candlestick < ApplicationRecord
 
       if using_markdown_text
         monthly_return_json.keys.each do |key|
-          monthly_return_json[key] = monthly_return_json[key].values.join("|")
+          monthly_return_json[key] = monthly_return_json[key].values.reverse.join("|")
         end
       end
 
