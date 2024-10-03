@@ -21,7 +21,10 @@ class Api::V1::DayAnalyticsController < Api::V1::BaseApiController
     list_merchandise_rate_ids = DayAnalytic.list_merchandise_rate_id
     id_json = {}
     list_merchandise_rate_ids.each do |id|
-      id_json[id.first] = MerchandiseRate.find(id.first).slug
+      merchandise_rate_id = id.first
+      merchandise_rate = MerchandiseRate.find(merchandise_rate_id)
+
+      id_json[merchandise_rate_id] = [merchandise_rate.slug, DayAnalytic.where(merchandise_rate_id: merchandise_rate_id).count]
     end
 
     render json: id_json
