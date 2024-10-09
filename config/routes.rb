@@ -68,6 +68,11 @@ Rails.application.routes.draw do
           get 'merchandise_rates', to: 'day_analytics#merchandise_rates'
         end
       end
+      resources :hour_analytics, only: [:index], defaults: { format: 'json' } do
+        collection do
+          post 'update_continuous', to: 'hour_analytics#update_continuous'
+        end
+      end
       resources :telegram_chat_messages, only: [:create]
     end
   end

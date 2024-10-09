@@ -13,6 +13,14 @@ class HourAnalytic < ApplicationRecord
   # decrease_strong < -1
   enum range_type: {increase_strong: 0, increase_type: 1, sideway: 2, decrease_type: 3, decrease_strong: 4}
 
+  scope :from_date, -> merchandise_rate_id do
+    where("merchandise_rate_id = ?", merchandise_rate_id)
+  end
+
+  scope :order_by_date_and_hour, -> date_order_str = 'asc', hour_order_str = 'asc' do
+    order("hour_analytics.date #{date_order_str}, hour_analytics.hour #{hour_order_str}")
+  end
+
   def is_highest_hour_return_inday?
     hour_return_inday_max = HourAnalytic.where(date_with_binane: self.date_with_binane).pluck(:return_hl).max
 
@@ -64,6 +72,11 @@ class HourAnalytic < ApplicationRecord
   def self.get_highest_return_hour_from_day_analytics day_with_binace, merchandise_rate_id
     HourAnalytic.where(merchandise_rate_id: merchandise_rate_id, date_with_binane: day_with_binace, is_highest_hour_return: true)
       .first&.hour
+  end
+
+  def self.list_merchandise_rate_id
+    sql = "SELECT DISTINCT merchandise_rate_id FROM DailyTradingJournal_development.hour_analytics;"
+    ActiveRecord::Base.connection.execute(sql)
   end
 
   def self.create_hour_data start_date, merchandise_rate_id = 35
