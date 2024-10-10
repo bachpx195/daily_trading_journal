@@ -21,6 +21,11 @@ class HourAnalytic < ApplicationRecord
     order("hour_analytics.date #{date_order_str}, hour_analytics.hour #{hour_order_str}")
   end
 
+  scope :dup_data, -> merchandise_rate_id do
+    sql = "SELECT COUNT(id) as count, merchandise_rate_id, date, hour FROM DailyTradingJournal_development.hour_analytics WHERE merchandise_rate_id = #{merchandise_rate_id} GROUP BY merchandise_rate_id, date, hour HAVING count > 1;"
+    ActiveRecord::Base.connection.execute(sql)
+  end
+
   def is_highest_hour_return_inday?
     hour_return_inday_max = HourAnalytic.where(date_with_binane: self.date_with_binane).pluck(:return_hl).max
 
