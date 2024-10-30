@@ -119,17 +119,6 @@ class HourAnalytic < ApplicationRecord
         false
       end
 
-      # update_continue_by_hour
-      previous_hour = c.previous_hour
-
-      count = if !previous_hour.present?
-        1
-      elsif (previous_hour.open - previous_hour.close)*(c.open - c.close) > 0
-        count + 1
-      else
-        1
-      end
-
       ha = HourAnalytic.find_or_create_by(
         candlestick_id: c.id,
         merchandise_rate_id: c.merchandise_rate_id,
@@ -145,26 +134,7 @@ class HourAnalytic < ApplicationRecord
         return_hl: ((c.high - c.low)/c.low).round(4)*100,
         range_type: range_type,
         candlestick_type: candlestick_type,
-        is_same_btc: is_same_btc,
-        continue_by_hour: count
-      })
-    end
-
-    count = 1
-    HourAnalytic.where("date >= ?", start_date).order(:date, :hour).each do |ha|
-      previous_hour_type = ha.get_previous_day_type
-
-      count = if ha.candlestick_type == previous_hour_type
-        count + 1
-      else
-        1
-      end
-
-      Rails.logger.info "is_highest_hour_return continue_by_day"
-      Rails.logger.info "#{ha.date.to_date} - #{ha.hour}"
-
-      ha.update({
-        continue_by_day: count
+        is_same_btc: is_same_btc
       })
     end
   end

@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  candlestick: one
+  merchandise_rate: one
+  analytic_month: one
+  analytic_week: one
+  date: 2024-10-30
+  date_name: MyString
+  candlestick_type: MyString
+  range_type: MyString
+  return_oc: 1.5
+  return_hl: 1.5
+  is_inside_day: false
+  is_same_btc: false
+  is_continue_increase: false
+  is_continue_decrease: false
+  is_fake_breakout_increase: false
+  is_fake_breakout_decrease: false
+  continue: 1
+
+two:
+  candlestick: two
+  merchandise_rate: two
+  analytic_month: two
+  analytic_week: two
+  date: 2024-10-30
+  date_name: MyString
+  candlestick_type: MyString
+  range_type: MyString
+  return_oc: 1.5
+  return_hl: 1.5
+  is_inside_day: false
+  is_same_btc: false
+  is_continue_increase: false
+  is_continue_decrease: false
+  is_fake_breakout_increase: false
+  is_fake_breakout_decrease: false
+  continue: 1

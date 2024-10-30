@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  merchandise_rate: one
+  analytic_day: one
+  highest_hour_return_oc: 1
+  highest_hour_return_hl: 1
+  highest_hour_volumn: 1
+  33_per_hour_range: 1.5
+  67_per_hour_range: 1.5
+  reverse_increase_hour: 1
+  reverse_decrease_hour: 1
+  continue_increase_hour: 1
+  continue_decrease_hour: 1
+
+two:
+  merchandise_rate: two
+  analytic_day: two
+  highest_hour_return_oc: 1
+  highest_hour_return_hl: 1
+  highest_hour_volumn: 1
+  33_per_hour_range: 1.5
+  67_per_hour_range: 1.5
+  reverse_increase_hour: 1
+  reverse_decrease_hour: 1
+  continue_increase_hour: 1
+  continue_decrease_hour: 1

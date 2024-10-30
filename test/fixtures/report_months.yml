@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  merchandise_rate: one
+  analytic_month: one
+  highest_day_return_oc: 2024-10-30
+  highest_day_return_hl: 2024-10-30
+  highest_day_volumn: 2024-10-30
+  33_per_day_range: 1.5
+  67_per_day_range: 1.5
+  reverse_increase_day: 2024-10-30
+  reverse_decrease_day: 2024-10-30
+  continue_increase_day: 2024-10-30
+  continue_decrease_day: 2024-10-30
+
+two:
+  merchandise_rate: two
+  analytic_month: two
+  highest_day_return_oc: 2024-10-30
+  highest_day_return_hl: 2024-10-30
+  highest_day_volumn: 2024-10-30
+  33_per_day_range: 1.5
+  67_per_day_range: 1.5
+  reverse_increase_day: 2024-10-30
+  reverse_decrease_day: 2024-10-30
+  continue_increase_day: 2024-10-30
+  continue_decrease_day: 2024-10-30
