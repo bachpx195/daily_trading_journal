@@ -3,6 +3,12 @@ require 'activerecord-import'
 
 class Candlestick < ApplicationRecord
   belongs_to :merchandise_rate
+  has_one :analytic_day, dependent: :destroy
+  has_one :analytic_hour, dependent: :destroy
+  has_one :analytic_week, dependent: :destroy
+  has_one :analytic_month, dependent: :destroy
+
+
   has_one :day_analytic, dependent: :destroy
   has_one :hour_analytic, dependent: :destroy
   enum time_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}

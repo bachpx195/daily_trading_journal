@@ -6,8 +6,8 @@ class CreateCandlestickService
     day: "1d",
     week: "1w",
     month: "1M",
-    hour: "1h",
-    m15: '15m'
+    hour: "1h"
+    # m15: '15m'
   }
   FIRST_DATE_IN_BINANCE = {
     BTC: 1502902800,
@@ -21,7 +21,6 @@ class CreateCandlestickService
     LINK: 1642381200
   }
 
-  ANALYTIC_MERCHANDISE_RATE_IDS = [34, 35, 41]
   ANALYTIC_INTERVAL = %('hour', 'day')
 
   attr_accessor :merchandise_rate_ids, :interval
@@ -107,11 +106,11 @@ class CreateCandlestickService
         Candlestick.import(candlestick_records, validate: false)
         Candlestick.delete_duplicate
 
-        if ANALYTIC_MERCHANDISE_RATE_IDS.include?(merchandise_rate_id) &&
-          ANALYTIC_INTERVAL.include?(interval)
-          HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
-          DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
-        end
+        # if HourAnalytic.list_merchandise_rate_id.map{|x| x}.flatten.include?(merchandise_rate_id) &&
+        #   ANALYTIC_INTERVAL.include?(interval)
+        #   HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
+        #   DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
+        # end
       end
     end
   end

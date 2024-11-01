@@ -1,4 +1,4 @@
-class AnalyticWeek < ApplicationRecord
+class AnalyticWeek < ApplicationRecord  
   has_one :report_week, dependent: :destroy
 
   belongs_to :candlestick
