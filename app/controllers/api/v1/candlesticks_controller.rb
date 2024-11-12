@@ -30,6 +30,7 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
       result = CreateCandlestickService.new(params["merchandise_rate_ids"], Candlestick.time_types.key(params["time_type"])).execute
     else
       Candlestick.time_types.keys.each do |interval|
+        next if interval == 'm15'
         result = result && CreateCandlestickService.new(params["merchandise_rate_ids"], interval).execute
       end
     end

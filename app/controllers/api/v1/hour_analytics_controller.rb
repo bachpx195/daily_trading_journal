@@ -13,7 +13,7 @@ class Api::V1::HourAnalyticsController < Api::V1::BaseApiController
   end
   
   def update_continuous
-    UpdateHourAnalyticService.new(params["merchandise_rate_ids"]).execute
+    UpdateHourAnalyticService.new(params["merchandise_rate_ids"], params['start_date']).execute
 
     render json: true
   end

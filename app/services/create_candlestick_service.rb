@@ -106,11 +106,12 @@ class CreateCandlestickService
         Candlestick.import(candlestick_records, validate: false)
         Candlestick.delete_duplicate
 
-        # if HourAnalytic.list_merchandise_rate_id.map{|x| x}.flatten.include?(merchandise_rate_id) &&
-        #   ANALYTIC_INTERVAL.include?(interval)
-        #   HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
-        #   DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
-        # end
+        if HourAnalytic.list_merchandise_rate_id.map{|x| x}.flatten.include?(merchandise_rate_id) &&
+          ANALYTIC_INTERVAL.include?(interval)
+          HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
+          DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
+          UpdateDayAnalyticService.new([merchandise_rate_id], Time.at(last_time).to_date.strftime("%Y-%m-%d")).execute
+        end
       end
     end
   end

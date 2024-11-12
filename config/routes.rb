@@ -73,6 +73,8 @@ Rails.application.routes.draw do
           post 'update_continuous', to: 'hour_analytics#update_continuous'
         end
       end
+      resources :data_validations, only: [:show], defaults: { format: 'json' } do
+      end
       resources :telegram_chat_messages, only: [:create]
     end
   end

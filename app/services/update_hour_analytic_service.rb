@@ -1,8 +1,9 @@
 class UpdateHourAnalyticService
   attr_accessor :merchandise_rate_ids, :start_date
 
-  def initialize merchandise_rate_ids
+  def initialize merchandise_rate_ids, start_date
     @merchandise_rate_ids = merchandise_rate_ids
+    @start_date = start_date
   end
 
   def execute
@@ -18,7 +19,7 @@ class UpdateHourAnalyticService
     end
 
     hour_analytic_hash = {}
-    HourAnalytic.from_date(merchandise_rate_id).order_by_date_and_hour.each do |da|
+    HourAnalytic.from_date(merchandise_rate_id, start_date).order_by_date_and_hour.each do |da|
       date_str = da.date.to_s
       hour_analytic_hash[date_str] = {} if !hour_analytic_hash[date_str].present?
       hour_analytic_hash[date_str][da.hour] = da.candlestick_type

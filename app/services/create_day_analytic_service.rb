@@ -18,6 +18,6 @@ class CreateDayAnalyticService
     HourAnalytic.create_hour_data Date.parse(start_date), merchandise_rate_id
     DayAnalytic.create_day_data Date.parse(start_date), merchandise_rate_id
 
-    UpdateDayAnalyticService.new([merchandise_rate_id], start_date)
+    UpdateDayAnalyticService.new([merchandise_rate_id], start_date).execute
   end
 end

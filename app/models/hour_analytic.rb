@@ -13,9 +13,11 @@ class HourAnalytic < ApplicationRecord
   # decrease_strong < -1
   enum range_type: {increase_strong: 0, increase_type: 1, sideway: 2, decrease_type: 3, decrease_strong: 4}
 
-  scope :from_date, -> merchandise_rate_id do
-    where("merchandise_rate_id = ?", merchandise_rate_id)
+  scope :from_date, -> merchandise_rate_id, start_date do
+    where("merchandise_rate_id = ? AND date >=?", merchandise_rate_id, start_date)
   end
+
+HourAnalytic
 
   scope :order_by_date_and_hour, -> date_order_str = 'asc', hour_order_str = 'asc' do
     order("hour_analytics.date #{date_order_str}, hour_analytics.hour #{hour_order_str}")
