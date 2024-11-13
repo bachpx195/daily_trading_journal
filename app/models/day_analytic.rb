@@ -103,7 +103,7 @@ class DayAnalytic < ApplicationRecord
       da.update({
         return_oc: return_oc,
         return_hl: ((c.high - c.low)/c.low).round(4)*100,
-        candlestick_type: c.open > c.close ? 0 : 1,
+        candlestick_type: c.open > c.close ? 1 : 0,
         range_type: range_type,
         is_inside_day: is_inside_day,
         is_fake_breakout_increase: is_fake_breakout_increase,

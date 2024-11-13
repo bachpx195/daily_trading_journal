@@ -17,8 +17,6 @@ class HourAnalytic < ApplicationRecord
     where("merchandise_rate_id = ? AND date >=?", merchandise_rate_id, start_date)
   end
 
-HourAnalytic
-
   scope :order_by_date_and_hour, -> date_order_str = 'asc', hour_order_str = 'asc' do
     order("hour_analytics.date #{date_order_str}, hour_analytics.hour #{hour_order_str}")
   end
