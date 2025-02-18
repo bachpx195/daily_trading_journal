@@ -48,10 +48,16 @@ class DayAnalytic < ApplicationRecord
     [total_3_continue_type, total_4_continue_type]
   end
 
-  def self.create_day_data start_date, merchandise_rate_id = 35
+  def self.create_day_data start_date, merchandise_rate_id = 35, end_date = nil
     count = 1
 
-    Candlestick.where(merchandise_rate_id: merchandise_rate_id).where("date >= ?", start_date).day.order(:date).each do |c|
+    candlesticks = if start_date.present? && end_date.present?
+      Candlestick.where(merchandise_rate_id: merchandise_rate_id).where("date between ? and ?", start_date, end_date).day.order(:date)
+    else
+      Candlestick.where(merchandise_rate_id: merchandise_rate_id).where("date >= ?", start_date).day.order(:date)
+    end
+
+    candlesticks.each do |c|
       date = c.date
 
       # return_oc

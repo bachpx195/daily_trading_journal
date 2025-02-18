@@ -1,7 +1,7 @@
 require 'active_record'
 require 'activerecord-import'
 
-class CreateCandlestickService
+class CreateCandlestickTmpService
   INTERVAL_HASH = {
     day: "1d",
     week: "1w",
@@ -10,23 +10,15 @@ class CreateCandlestickService
     # m15: '15m'
   }
   FIRST_DATE_IN_BINANCE = {
-    BTC: 1502902800,
-    LTC: 1513123200,
-    BAT: 1551661260,
-    DOT: 1597712400,
-    NEO: 1511139600,
-    ADA: 1523898000,
-    XRP: 1525438500,
-    # lay ket qua tu nam 2022
-    LINK: 1642381200
+    LINK: 1548982800
   }
 
   ANALYTIC_INTERVAL = %('hour', 'day')
 
   attr_accessor :merchandise_rate_ids, :interval
 
-  def initialize merchandise_rate_ids, interval
-    @merchandise_rate_ids = merchandise_rate_ids
+  def initialize interval
+    @merchandise_rate_ids = [42, 43]
     @interval = interval
   end
 
@@ -34,7 +26,7 @@ class CreateCandlestickService
     time = 0
     status = false
     while true
-      if (is_synchronous && is_lastest_date) || time > 5
+      if time > 5
         status = true
         break
       end
@@ -53,17 +45,9 @@ class CreateCandlestickService
       candlestick_records = []
       merchandise_rate = MerchandiseRate.find_by(id: merchandise_rate_id)
       return unless merchandise_rate.present?
+      return if merchandise_rate.candlesticks.send(interval.to_sym).order(date: :asc).first.date.year == 2019
 
-      # Tìm ngày cuối cùng ở database
-      # Xoá dữ liệu cuối đi vì nó chưa đủ
-      merchandise_rate.candlesticks.send(interval.to_sym).last.destroy if merchandise_rate.candlesticks.send(interval.to_sym).last.present?
-      last_date = merchandise_rate.candlesticks.send(interval.to_sym).last
-
-      last_time = if last_date.present?
-        merchandise_rate.candlesticks.send(interval.to_sym).last.date.to_i + bonus_time
-      else
-        Time.at(FIRST_DATE_IN_BINANCE[merchandise_rate.base.slug.to_sym])
-      end
+      last_time = Time.at(FIRST_DATE_IN_BINANCE[merchandise_rate.base.slug.to_sym])
 
       period = (Time.zone.now.to_datetime - Time.at(last_time).to_datetime).to_i
 
@@ -90,6 +74,9 @@ class CreateCandlestickService
           )
           records.each do |record|
             # next if merchandise_rate.candlesticks.where("Date(date) = ? AND time_type = ?", Time.at(record[0]/1000).to_date, interval.to_sym).count > 1
+            puts Time.at(record[0]/1000).to_date
+            break if Time.at(record[0]/1000).to_date > '2022-01-19'.to_date
+            
             candlestick_records.push({
               date: Time.at(record[0]/1000).to_datetime,
               open: record[1],
@@ -106,15 +93,15 @@ class CreateCandlestickService
         Candlestick.delete_duplicate
       end
 
-      if HourAnalytic.list_merchandise_rate_id.map{|x| x}.flatten.include?(merchandise_rate_id) &&
-        ANALYTIC_INTERVAL.include?(interval)
-        puts "______________LAST TIME______________"
-        puts "#{merchandise_rate_id} #{Time.at(last_time).to_date}"
-        HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
-        # UpdateHourAnalyticService.new(merchandise_rate_id, Time.at(last_time).to_date.strftime("%Y-%m-%d")).execute
-        DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
-        # UpdateDayAnalyticService.new([merchandise_rate_id], Time.at(last_time).to_date.strftime("%Y-%m-%d")).execute
-      end
+      # if HourAnalytic.list_merchandise_rate_id.map{|x| x}.flatten.include?(merchandise_rate_id) &&
+      #   ANALYTIC_INTERVAL.include?(interval)
+      #   puts "______________LAST TIME______________"
+      #   puts "#{merchandise_rate_id} #{Time.at(last_time).to_date}"
+      #   HourAnalytic.create_hour_data Time.at(last_time).to_date, merchandise_rate_id
+      #   UpdateHourAnalyticService.new(merchandise_rate_id, Time.at(last_time).to_date.strftime("%Y-%m-%d"))
+      #   DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
+      #   UpdateDayAnalyticService.new([merchandise_rate_id], Time.at(last_time).to_date.strftime("%Y-%m-%d")).execute
+      # end
     end
   end
 

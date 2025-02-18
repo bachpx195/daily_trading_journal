@@ -55,6 +55,9 @@ Rails.application.routes.draw do
       resources :news
       resources :merchandise_rates, only: [:index], defaults: { format: 'json' }
       resources :candlesticks, only: [:index], defaults: { format: 'json' } do
+        member do
+          get 'info', to: 'candlesticks#info'
+        end
         collection do
           post 'async_update_data', to: 'candlesticks#async_update_data'
           get 'merchandise_rates', to: 'candlesticks#merchandise_rates'

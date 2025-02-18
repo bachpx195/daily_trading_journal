@@ -1,15 +1,13 @@
 class UpdateHourAnalyticService
-  attr_accessor :merchandise_rate_ids, :start_date
+  attr_accessor :merchandise_rate_id, :start_date
 
-  def initialize merchandise_rate_ids, start_date
-    @merchandise_rate_ids = merchandise_rate_ids
+  def initialize merchandise_rate_id, start_date
+    @merchandise_rate_id = merchandise_rate_id
     @start_date = start_date
   end
 
   def execute
-    merchandise_rate_ids.each do |merchandise_rate_id|
-      update_continuous merchandise_rate_id
-    end
+    update_continuous merchandise_rate_id
   end
 
   def update_continuous merchandise_rate_id

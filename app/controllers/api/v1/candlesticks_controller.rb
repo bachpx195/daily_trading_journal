@@ -1,6 +1,8 @@
 class Api::V1::CandlesticksController < Api::V1::BaseApiController
+  before_action :set_candlestick, only: [:info]
+
   def index
-    limit_records = 100
+    limit_records = 10000
     merchandise_rate_id = params[:merchandise_rate_id]
     time_type = params[:time_type].to_i
 
@@ -56,5 +58,31 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
     monthly_return_json = Candlestick.calculate_month_return merchandise_rate_id, using_markdown_text
 
     render json: monthly_return_json
+  end
+
+  def info
+    info_json = {}
+    previous_day = @candlestick.previous_day
+    previous_24_hour = @candlestick.previous_24_hour
+    day_open = previous_day.close
+
+
+    btc_candlestick = @candlestick.btc_candlestick
+    btc_previous_day = btc_candlestick.btc_previous_day
+    btc_previous_24_hour = btc_candlestick.btc_previous_24_hour
+    btc_day_open = btc_previous_day.close
+    
+
+    info_json[:return_day] = ((@candlestick.close - day_open)*100/day_open).round(2)
+    info_json[:return_24h] = ((@candlestick.close - previous_24_hour.close)*100/previous_24_hour.close).round(2)
+    info_json[:btc_return_day] = ((btc_candlestick.close - btc_day_open)*100/btc_day_open).round(2)
+    info_json[:btc_return_24h] = ((btc_candlestick.close - btc_previous_24_hour.close)*100/btc_previous_24_hour.close).round(2)
+
+    render json: info_json
+  end
+
+  private
+  def set_candlestick
+    @candlestick = Candlestick.find(params[:id])
   end
 end

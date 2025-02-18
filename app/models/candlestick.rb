@@ -99,12 +99,44 @@ class Candlestick < ApplicationRecord
   end
 
   def previous_day
-    yesterday = self.date.yesterday
+    yesterday = if self.day?
+      self.date.yesterday
+    else
+      self.date.beginning_of_day.yesterday.strftime('%Y-%m-%d')
+    end
     Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: yesterday).day.first
   end
 
   def previous_hour
     previous_hour = self.date - 1.hours
     Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: previous_hour).hour.first
+  end
+
+  def previous_24_hour
+    previous_hour = self.date - 24.hours
+    Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: previous_hour).hour.first
+  end
+
+  def btc_candlestick
+    Candlestick.where(merchandise_rate_id: 34, date: self.date, time_type: self.time_type).first
+  end
+
+  def btc_previous_day
+    yesterday = if self.day?
+      self.date.yesterday
+    else
+      self.date.beginning_of_day.yesterday.strftime('%Y-%m-%d')
+    end
+    Candlestick.where(merchandise_rate_id: 34, date: yesterday).day.first
+  end
+
+  def btc_previous_hour
+    previous_hour = self.date - 1.hours
+    Candlestick.where(merchandise_rate_id: 34, date: previous_hour).hour.first
+  end
+
+  def btc_previous_24_hour
+    previous_hour = self.date - 24.hours
+    Candlestick.where(merchandise_rate_id: 34, date: previous_hour).hour.first
   end
 end
