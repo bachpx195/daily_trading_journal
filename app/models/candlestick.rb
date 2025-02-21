@@ -11,6 +11,7 @@ class Candlestick < ApplicationRecord
 
   has_one :day_analytic, dependent: :destroy
   has_one :hour_analytic, dependent: :destroy
+  has_one :candlestick_info, dependent: :destroy
   enum time_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}
 
   # date_between( "2022-05-10","2022-05-12")
@@ -96,47 +97,66 @@ class Candlestick < ApplicationRecord
 
       monthly_return_json
     end
+
+    # Cap nhat group cac candlestick
+    def update_candlestick_group
+      ids = GroupCandlestick.pluck(:candlestick_id)
+      Candlestick.where(merchandise_rate_id: 34).where.not(id: ids).where.not(time_type: "m15").each do |ca|
+        ca.create_candlestick_group
+      end
+    end
   end
 
-  def previous_day
+  def previous_day(mr_id=nil)
     yesterday = if self.day?
       self.date.yesterday
     else
       self.date.beginning_of_day.yesterday.strftime('%Y-%m-%d')
     end
-    Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: yesterday).day.first
+    Candlestick.where(merchandise_rate_id: mr_id.present? ? mr_id : self.merchandise_rate_id, date: yesterday).day.first
   end
 
-  def previous_hour
+  def previous_hour(mr_id=nil)
     previous_hour = self.date - 1.hours
-    Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: previous_hour).hour.first
+    Candlestick.where(merchandise_rate_id: mr_id.present? ? mr_id : self.merchandise_rate_id, date: previous_hour).hour.first
   end
 
-  def previous_24_hour
+  def previous_24_hour(mr_id=nil)
     previous_hour = self.date - 24.hours
-    Candlestick.where(merchandise_rate_id: self.merchandise_rate_id, date: previous_hour).hour.first
+    Candlestick.where(merchandise_rate_id: mr_id.present? ? mr_id : self.merchandise_rate_id, date: previous_hour).hour.first
   end
 
-  def btc_candlestick
-    Candlestick.where(merchandise_rate_id: 34, date: self.date, time_type: self.time_type).first
+  def other_candlestick mr_id
+    Candlestick.where(merchandise_rate_id: mr_id, date: self.date, time_type: self.time_type).first
   end
 
-  def btc_previous_day
-    yesterday = if self.day?
-      self.date.yesterday
-    else
-      self.date.beginning_of_day.yesterday.strftime('%Y-%m-%d')
+  def create_candlestick_group
+    return if self.merchandise_rate_id != 34
+    return if self.time_type == "m15"
+    gc = GroupCandlestick.find_or_create_by!(candlestick_id: self.id)
+
+    Candlestick.where(date: self.date, time_type: self.time_type).each do |ca|
+      ci = CandlestickInfo.find_by(candlestick_id: ca.id)
+      if ci.present?
+        ci.update!(group_candlestick_id: gc.id)
+      else
+        CandlestickInfo.create!(candlestick_id: ca.id, group_candlestick_id: gc.id, merchandise_rate_id: ca.merchandise_rate_id)
+      end
     end
-    Candlestick.where(merchandise_rate_id: 34, date: yesterday).day.first
   end
 
-  def btc_previous_hour
-    previous_hour = self.date - 1.hours
-    Candlestick.where(merchandise_rate_id: 34, date: previous_hour).hour.first
-  end
+  def create_parent_id
+    return if self.merchandise_rate_id != 34 || self.time_type == "m15"
+    return if self.time_type == "m15"
+    gc = GroupCandlestick.find_or_create_by!(candlestick_id: self.id)
 
-  def btc_previous_24_hour
-    previous_hour = self.date - 24.hours
-    Candlestick.where(merchandise_rate_id: 34, date: previous_hour).hour.first
+    Candlestick.where(date: self.date, time_type: self.time_type).each do |ca|
+      ci = CandlestickInfo.find_by(candlestick_id: ca.id)
+      if ci.present?
+        ci.update!(group_candlestick_id: gc.id)
+      else
+        CandlestickInfo.create!(candlestick_id: ca.id, group_candlestick_id: gc.id)
+      end
+    end
   end
 end

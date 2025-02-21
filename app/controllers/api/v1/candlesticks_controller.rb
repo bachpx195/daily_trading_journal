@@ -37,6 +37,8 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
       end
     end
 
+    Candlestick.update_candlestick_group
+
     render json: result
   end
 
@@ -62,22 +64,31 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
 
   def info
     info_json = {}
+
+    candlestick_info_group = @candlestick.candlestick_info.group_candlestick_id
     previous_day = @candlestick.previous_day
+    previous_day_info_group = previous_day.candlestick_info.group_candlestick_id
     previous_24_hour = @candlestick.previous_24_hour
+    previous_24_hour_info_group = previous_24_hour.candlestick_info.group_candlestick_id
     day_open = previous_day.close
 
-
-    btc_candlestick = @candlestick.btc_candlestick
-    btc_previous_day = btc_candlestick.btc_previous_day
-    btc_previous_24_hour = btc_candlestick.btc_previous_24_hour
+    btc_candlestick = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: candlestick_info_group).last.candlestick
+    btc_previous_day = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: previous_day_info_group).last.candlestick
+    btc_previous_24_hour = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: previous_24_hour_info_group).last.candlestick
     btc_day_open = btc_previous_day.close
-    
+
+    altbtc_candlestick = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: candlestick_info_group).last.candlestick
+    altbtc_previous_day = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: previous_day_info_group).last.candlestick
+    altbtc_previous_24_hour = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: previous_24_hour_info_group).last.candlestick
+    altbtc_day_open = altbtc_previous_day.close
 
     info_json[:return_day] = ((@candlestick.close - day_open)*100/day_open).round(2)
     info_json[:return_24h] = ((@candlestick.close - previous_24_hour.close)*100/previous_24_hour.close).round(2)
     info_json[:btc_return_day] = ((btc_candlestick.close - btc_day_open)*100/btc_day_open).round(2)
     info_json[:btc_return_24h] = ((btc_candlestick.close - btc_previous_24_hour.close)*100/btc_previous_24_hour.close).round(2)
-
+    info_json[:altbtc_return_day] = ((altbtc_candlestick.close - altbtc_day_open)*100/altbtc_day_open).round(2)
+    info_json[:altbtc_return_24h] = ((altbtc_candlestick.close - altbtc_previous_24_hour.close)*100/altbtc_previous_24_hour.close).round(2)
+    
     render json: info_json
   end
 
