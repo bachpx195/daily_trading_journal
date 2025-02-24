@@ -1,6 +1,8 @@
 # start_date:date month:integer year:integer overlap_month:integer number_in_month:integer
 
 class WeekMaster < ApplicationRecord
+  has_many :date_masters
+
   class << self
     def create_data(first_date, last_date)
       first_date = Date.parse(first_date)

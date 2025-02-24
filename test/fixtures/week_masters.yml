@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  start_date: 2025-01-22
+  month: 1
+  year: 1
+  overlap_month: 1
+  number_in_month: 1
+
+two:
+  start_date: 2025-01-22
+  month: 1
+  year: 1
+  overlap_month: 1
+  number_in_month: 1

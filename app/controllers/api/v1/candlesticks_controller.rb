@@ -64,39 +64,59 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
 
   def info
     info_json = {}
-
     candlestick_info_group = @candlestick.candlestick_info.group_candlestick_id
-    previous_day = @candlestick.previous_day
-    previous_day_info_group = previous_day.candlestick_info.group_candlestick_id
-    previous_24_hour = @candlestick.previous_24_hour
-    previous_24_hour_info_group = previous_24_hour.candlestick_info.group_candlestick_id
-    day_open = previous_day.close
-    hour_analytic = @candlestick.hour_analytic
 
-    btc_candlestick = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: candlestick_info_group).last.candlestick
-    btc_previous_day = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: previous_day_info_group).last.candlestick
-    btc_previous_24_hour = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: previous_24_hour_info_group).last.candlestick
-    btc_day_open = btc_previous_day.close
+    if(params["info_type"] == "day")
+      day_analytic = @candlestick.day_analytic
 
-    altbtc_candlestick = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: candlestick_info_group).last.candlestick
-    altbtc_previous_day = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: previous_day_info_group).last.candlestick
-    altbtc_previous_24_hour = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: previous_24_hour_info_group).last.candlestick
-    altbtc_day_open = altbtc_previous_day.close
+      info_json[:close] = @candlestick&.close
+      info_json[:return_day] = day_analytic&.return_oc
+      info_json[:return_oc] = day_analytic&.return_oc
+      info_json[:return_hl] = day_analytic&.return_hl
 
-    info_json[:return_day] = ((@candlestick.close - day_open)*100/day_open).round(2)
-    info_json[:return_24h] = ((@candlestick.close - previous_24_hour.close)*100/previous_24_hour.close).round(2)
-    info_json[:close] = @candlestick&.close
-    info_json[:return_oc] = hour_analytic&.return_oc
-    info_json[:return_hl] = hour_analytic&.return_hl
+      btc_candlestick = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: candlestick_info_group).last.candlestick
+      btc_day_analytic = btc_candlestick.day_analytic
+      info_json[:btc_return_day] = btc_day_analytic.return_oc
+      info_json[:btc_close] = btc_candlestick&.close
 
-    info_json[:btc_return_day] = ((btc_candlestick.close - btc_day_open)*100/btc_day_open).round(2)
-    info_json[:btc_return_24h] = ((btc_candlestick.close - btc_previous_24_hour.close)*100/btc_previous_24_hour.close).round(2)
-    info_json[:btc_close] = btc_candlestick&.close
+      altbtc_candlestick = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: candlestick_info_group).last.candlestick
+      altbtc_day_analytic = altbtc_candlestick.day_analytic
+      info_json[:altbtc_return_day] = altbtc_day_analytic.return_oc
+      info_json[:altbtc_close] = altbtc_candlestick&.close
+    else
+      hour_analytic = @candlestick.hour_analytic
 
-    info_json[:altbtc_return_day] = ((altbtc_candlestick.close - altbtc_day_open)*100/altbtc_day_open).round(2)
-    info_json[:altbtc_return_24h] = ((altbtc_candlestick.close - altbtc_previous_24_hour.close)*100/altbtc_previous_24_hour.close).round(2)
-    info_json[:altbtc_close] = altbtc_candlestick&.close
+      previous_day = Candlestick.where(merchandise_rate_id: hour_analytic.merchandise_rate_id, date: hour_analytic.date_with_binane).day.first
+      previous_day_info_group = previous_day.candlestick_info.group_candlestick_id
+      previous_24_hour = @candlestick.previous_24_hour
+      previous_24_hour_info_group = previous_24_hour.candlestick_info.group_candlestick_id
+      day_open = previous_day.open
 
+      btc_candlestick = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: candlestick_info_group).last.candlestick
+      btc_previous_day = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: previous_day_info_group).last.candlestick
+      btc_previous_24_hour = CandlestickInfo.where(merchandise_rate_id: 34, group_candlestick_id: previous_24_hour_info_group).last.candlestick
+      btc_day_open = btc_previous_day.open
+
+      altbtc_candlestick = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: candlestick_info_group).last.candlestick
+      altbtc_previous_day = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: previous_day_info_group).last.candlestick
+      altbtc_previous_24_hour = CandlestickInfo.where(merchandise_rate_id: 41, group_candlestick_id: previous_24_hour_info_group).last.candlestick
+      altbtc_day_open = altbtc_previous_day.open
+
+      info_json[:return_day] = ((@candlestick.close - day_open)*100/day_open).round(2)
+      info_json[:return_24h] = ((@candlestick.close - previous_24_hour.close)*100/previous_24_hour.close).round(2)
+      info_json[:close] = @candlestick&.close
+      info_json[:return_oc] = hour_analytic&.return_oc
+      info_json[:return_hl] = hour_analytic&.return_hl
+
+      info_json[:btc_return_day] = ((btc_candlestick.close - btc_day_open)*100/btc_day_open).round(2)
+      info_json[:btc_return_24h] = ((btc_candlestick.close - btc_previous_24_hour.close)*100/btc_previous_24_hour.close).round(2)
+      info_json[:btc_close] = btc_candlestick&.close
+
+      info_json[:altbtc_return_day] = ((altbtc_candlestick.close - altbtc_day_open)*100/altbtc_day_open).round(2)
+      info_json[:altbtc_return_24h] = ((altbtc_candlestick.close - altbtc_previous_24_hour.close)*100/altbtc_previous_24_hour.close).round(2)
+      info_json[:altbtc_close] = altbtc_candlestick&.close
+    end
+    
     render json: info_json
   end
 

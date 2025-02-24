@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  candlestick: one
+  candlestick_count: 1
+
+two:
+  candlestick: two
+  candlestick_count: 1

@@ -20,6 +20,11 @@ class MerchandiseRate < ApplicationRecord
     candlesticks.send(interval.to_sym).sort_by_type(:desc).first&.date
   end
 
+  def start_end_date interval="hour"
+    merchandise_rate_candlestick_dates = candlesticks.send(interval.to_sym).sort_by_type(:desc).pluck(:date)
+    [merchandise_rate_candlestick_dates.last, merchandise_rate_candlestick_dates.first]
+  end
+
   private
   def genarate_slug
     return if self.slug.present?
