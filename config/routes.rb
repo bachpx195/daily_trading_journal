@@ -79,7 +79,11 @@ Rails.application.routes.draw do
       resources :data_validations, only: [:show], defaults: { format: 'json' } do
       end
       resources :telegram_chat_messages, only: [:create]
-      resources :event_dates, only: [:index]
+      resources :event_dates, only: [:index] do
+        collection do
+          get 'list_event', to: 'event_dates#list_event'
+        end
+      end
     end
   end
 end

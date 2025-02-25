@@ -1,6 +1,8 @@
 class DateEvent < ApplicationRecord
   belongs_to :date_master
   belongs_to :event_master
+  belongs_to :merchandise_rate, optional: true
+  belongs_to :day_analytic, optional: true
 
   class << self
     def create_nfp_data
