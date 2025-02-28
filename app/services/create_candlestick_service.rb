@@ -23,6 +23,16 @@ class CreateCandlestickService
 
   ANALYTIC_INTERVAL = %('hour', 'day')
 
+  MERCHANDISE_RATE_IDS = [
+    34, # btc
+    35, # ltc
+    41, # ltc/btc
+    37, # dot
+    39, # dot/btc
+    42, # link
+    43  # link/btc
+  ]
+
   attr_accessor :merchandise_rate_ids, :interval
 
   def initialize merchandise_rate_ids, interval
@@ -114,6 +124,48 @@ class CreateCandlestickService
         # UpdateHourAnalyticService.new(merchandise_rate_id, Time.at(last_time).to_date.strftime("%Y-%m-%d")).execute
         DayAnalytic.create_day_data Time.at(last_time).to_date, merchandise_rate_id
         # UpdateDayAnalyticService.new([merchandise_rate_id], Time.at(last_time).to_date.strftime("%Y-%m-%d")).execute
+      end
+    end
+  end
+
+  def create_month_data
+    MERCHANDISE_RATE_IDS.each do |merchandise_rate_id|
+      candlestick_records = []
+      merchandise_rate = MerchandiseRate.find_by(id: merchandise_rate_id)
+      return unless merchandise_rate.present?
+
+      last_time = Time.at(FIRST_DATE_IN_BINANCE[merchandise_rate.base.slug.to_sym])
+
+      period = (Time.zone.now.to_datetime - Time.at(last_time).to_datetime).to_i
+
+      period_loop = 30000
+
+      ActiveRecord::Base.transaction do
+        loop_number = period/period_loop
+        (0..loop_number).each do |num|
+          start_time = (Time.at(last_time).to_datetime + period_loop*num).to_datetime.to_i
+          records = BinanceServices::Request.send!(
+            path: "/api/v3/klines",
+            params: {symbol: "#{merchandise_rate.slug.upcase}",
+            interval: "1M",
+            startTime: "#{start_time}000", limit: "1000"}
+          )
+          records.each do |record|
+            next if merchandise_rate.candlesticks.where("Date(date) = ? AND time_type = ?", Time.at(record[0]/1000).to_date, 3).count > 1
+            candlestick_records.push({
+              date: Time.at(record[0]/1000).to_datetime,
+              open: record[1],
+              high: record[2],
+              low: record[3],
+              close: record[4],
+              volumn: record[5],
+              time_type: 3,
+              merchandise_rate_id: merchandise_rate.id
+            })
+          end
+        end
+        Candlestick.import(candlestick_records, validate: false)
+        Candlestick.delete_duplicate
       end
     end
   end

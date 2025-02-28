@@ -1,0 +1,27 @@
+<div class="tab-content">
+  <div class="portlet box blue">
+    <label for="select-merchandise-rate" class="form-label">Choose MerchandiseRate</label>
+    <select class="form-select" name="select-merchandise-rate" id="select-merchandise-rate">
+      <option></option>
+      <% MerchandiseRate.crypto_currencies.each do |mr| %>
+        <option value="<%= mr.id %>"><%= mr.slug %></option>
+      <% end %>
+    </select>
+    <div class="portlet-body" id="event_master_table">
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function($) {
+    $('#select-merchandise-rate').change(function(){
+      var id = $("#select-merchandise-rate").val()
+      var url = '/date_events/event_masters?merchandise_rate_id=' + id;
+
+      $.ajax({
+        'type': 'GET',
+        'url': url
+      })
+    });
+  })
+</script>

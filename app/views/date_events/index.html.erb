@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="portlet light portlet-fit portlet-datatable bordered">
+      <div class="portlet-title">
+        <div class="caption">
+          <i class="icon-settings font-green"></i>
+          <span class="caption-subject font-green sbold uppercase">Quản lý events</span>
+        </div>
+
+        <div class="actions">
+          <div class="btn-group btn-group-devided">
+            <a class="btn green btn-outline btn-circle" href="<%= new_event_master_url %>"><i class="fa fa-plus"></i>Thêm</a>
+          </div>
+          <a class="btn btn-circle btn-icon-only btn-default fullscreen" href="javascript:;"></a>
+        </div>
+      </div>
+      <div class="portlet-body">
+        <%= render partial: 'list' %>
+      </div>
+    </div>
+  </div>
+</div>

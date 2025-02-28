@@ -13,6 +13,14 @@ Rails.application.routes.draw do
       post 'candlesticks', to: "candlesticks#create"
     end
   end
+
+  resources :date_events do
+    collection do
+      get 'event_masters', to: 'date_events#event_masters'
+    end
+  end
+  resources :event_masters do
+  end
   mount Ckeditor::Engine => '/ckeditor'
 
   root "blog/blogs#index"

@@ -1,0 +1,32 @@
+<div class="tab-pane active">
+  <div class="table-scrollable">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+      <tr>
+        <th></th>
+        <th class="text-center">Tên</th>
+        <th class="text-center">Slug</th>
+        <th class="text-center">Thoi gian</th>
+        <th class="text-center">Ghi chu</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody class="item-container-<%= tag.id %>">
+        <% items.each do |item| %>
+          <tr class="item-<%= item.id %>">
+            <td class="text-center">
+              <a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_event_master_url(item) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="fa fa-pencil"></i></a>
+            </td>
+            <td class="text-center"><%= link_to item.name, event_master_path(item) %></td>
+            <td class="text-center"><%= item.slug %>%</td>
+            <td class="text-center"><%= item.time %></td>
+            <td class="text-center"><%= item.range %>point</td>
+            <td class="text-center"><%= item.note&.html_safe %></td>
+              <%= link_to raw('<i class="fa fa-trash-o"></i>'), item, method: :delete, data: {toggle: 'confirmation', placement: 'left', popout: false}, class: "btn red btn-circle btn-icon-only btn-default" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<div class="invoice-content-2 bordered">
+  <div class="row invoice-head">
+    <div class="col-md-7 col-xs-6">
+      <div class="invoice-logo">
+        <h1 class="uppercase"><%= @merchandise_rate.slug %><a class="btn btn-circle btn-icon-only btn-default popovers" href="<%= edit_merchandise_rate_url(@merchandise_rate) %>" data-container="body" data-trigger="hover" data-placement="top" data-content="Sửa"><i class="fa fa-pencil"></i></a></h1>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h3 class="invoice-title uppercase">Tên</h3>
+      <p class="invoice-desc"><%= @merchandise_rate.name %></p>
+    </div>
+    <div class="col">
+      <h3 class="invoice-title uppercase">Tử số</h3>
+      <p class="invoice-desc"><%= link_to @merchandise_rate.base.name , merchandise_path(@merchandise_rate.base) %></p>
+    </div>
+    <div class="col">
+      <h3 class="invoice-title uppercase">Mẫu số</h3>
+      <p class="invoice-desc inv-address"><%= link_to @merchandise_rate.quote.name , merchandise_path(@merchandise_rate.quote) %></p>
+    </div>
+    <div class="col invoice-subtotal">
+      <h3 class="invoice-title uppercase">Winrate</h3>
+      <p class="invoice-desc grand-total"><%= @merchandise_rate.winrate %>%</p>
+    </div>
+  </div>
+  <div class="row invoice-body">
+    <div class="col-xs-12 table-responsive">
+      <table class="table table-hover">
+        <thead>
+        <tr>
+          <th class="invoice-title uppercase">Tóm tắt</th>
+          <th class="invoice-title uppercase text-center">Thanh khoản</th>
+          <th class="invoice-title uppercase text-center">Spread</th>
+          <th class="invoice-title uppercase text-center">Range(tháng)</th>
+          <th class="invoice-title uppercase text-center">Cặp liên quan</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="post-article markdown">
+            <%= markdown @merchandise_rate.brief&.html_safe %>
+          </td>
+          <td class="text-center sbold"><%= @merchandise_rate.winrate %></td>
+          <td class="text-center sbold"><%= @merchandise_rate.spread %>point</td>
+          <td class="text-center sbold"><%= @merchandise_rate.range %>point</td>
+          <td class="text-center sbold"><%= @merchandise_rate.crosses_related %></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="profile-content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="portlet light bordered">
+          <div class="col-md-12" style="padding: 0px;">
+            <%= @merchandise_rate.desciption.html_safe %>
+          </div>
+          <%= render partial: 'shared/comments_box', locals: {comments: @comments, comment_object: @merchandise_rate} %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

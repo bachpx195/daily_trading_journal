@@ -78,24 +78,39 @@ class DayAnalytic < ApplicationRecord
 
       # is_inside_day
       day_yesterday = c.previous_day
-      is_inside_day = day_yesterday.high > c.high && c.low > day_yesterday.low
+      is_inside_day = if day_yesterday.present?
+        day_yesterday.high > c.high && c.low > day_yesterday.low
+      else
+        false
+      end
       
       # is_same_btc
+
       btc_day = Candlestick.where(merchandise_rate_id: 34, date: date).day.first
-      is_same_btc = (btc_day.open - btc_day.close)*(c.open - c.close) > 0
+      is_same_btc = if btc_day.present?
+        (btc_day.open - btc_day.close)*(c.open - c.close) > 0
+      else
+        false
+      end
 
       # continue_type
-      count = if (day_yesterday.open - day_yesterday.close)*(c.open - c.close) > 0
+      count = if day_yesterday.present? && (day_yesterday.open - day_yesterday.close)*(c.open - c.close) > 0
         count + 1
       else
         1
       end
 
-      # is_fake_breakout_increase
-      is_fake_breakout_increase = day_yesterday.high < c.high && c.close < day_yesterday.high
+      if day_yesterday.present?
+        # is_fake_breakout_increase
+        is_fake_breakout_increase = day_yesterday.high < c.high && c.close < day_yesterday.high
 
-      # is_fake_breakout_decrease
-      is_fake_breakout_decrease = day_yesterday.low > c.low && c.close > day_yesterday.low
+        # is_fake_breakout_decrease
+        is_fake_breakout_decrease = day_yesterday.low > c.low && c.close > day_yesterday.low
+      else
+        is_fake_breakout_increase = false
+        is_fake_breakout_decrease = false
+      end
+
 
       da = DayAnalytic.find_or_create_by(
         candlestick_id: c.id,

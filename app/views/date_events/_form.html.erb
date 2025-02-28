@@ -1,0 +1,113 @@
+<%= form_with(model: merchandise_rate, local: true, html: {class: "form-horizontal"}) do |form| %>
+  <% if merchandise_rate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(merchandise_rate.errors.count, "error") %> prohibited this merchandise_rate from being saved:</h2>
+      <ul>
+        <% merchandise_rate.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="name">Tên</span>
+    <div class="col-sm-11">
+      <%= form.text_field :name, autocomplete: "off", id: "name", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span for="title" class="col-sm-4 nohover">
+      Tử số
+    </span>
+    <div class="col-sm-4">
+      <%= form.select :base_id, options_from_collection_for_select(Merchandise.all, :id, :slug, form.object.base_id) ,
+                      {}, { :class => 'form-control select2_category' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span for="title" class="col-sm-4 nohover">
+      Mấu số
+    </span>
+    <div class="col-sm-4">
+      <%= form.select :quote_id, options_from_collection_for_select(Merchandise.all, :id, :slug, form.object.quote_id) ,
+                      {}, { :class => 'form-control select2_category' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id=content">Theo dõi</span>
+    <div class="col-sm-11">
+      <%= form.check_box :is_follow, checked: form.object.followed? ? "checked" : "" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="winrate">Tỉ lệ thắng %</span>
+    <div class="col-sm-11">
+      <%= form.number_field :winrate, autocomplete: "off", id: "winrate", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="spread">Spread TB</span>
+    <div class="col-sm-11">
+      <%= form.number_field :spread, autocomplete: "off", id: "spread", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="range">Range (ngày/tháng)</span>
+    <div class="col-sm-11">
+      <%= form.number_field :range, autocomplete: "off", id: "range", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="quote">Tính thanh khoản</span>
+    <div class="col-sm-11">
+      <%= form.text_field :liquid_rate, autocomplete: "off", id: "liquid_rate", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id="name">Cặp tiền liên quan</span>
+    <div class="col-sm-11">
+      <%= form.text_field :crosses_related, autocomplete: "off", id: "crosses_related", class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span for="title" class="col-sm-4 nohover">
+      Tag
+    </span>
+    <div class="col-sm-4">
+      <%= form.select :tag_id, options_for_select(nested_set_options(Tag) {|i| "#{'__'* (i.level.to_i).abs} #{i.slug.present? ? i.slug : 'root'}" }, merchandise_rate.id.present? ? merchandise_rate.tag.id : params[:parent]) ,
+                      {}, { :class => 'form-control select2_category' } %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover">Tóm tắt</span>
+    <div class="col-sm-11">
+      <%= form.text_area :brief, class: "form-control input-md",  placeholder: true, id: "markdown" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <span class="col-sm-4 nohover" id=content">Nội dung</span>
+    <div class="col-sm-11">
+      <%= form.cktext_area :desciption, rows: 10, id: "editor1" %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <div class="row">
+      <div class="col-sm-2 text-center">
+        <button type="submit" class="btn btn-info">Lưu</button>
+      </div>
+    </div>
+  </div>
+<% end %>

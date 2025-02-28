@@ -1,6 +1,6 @@
 class Api::V1::EventDatesController < Api::V1::BaseApiController
   before_action :set_event, only: [:index]
-  before_action :set_merchandise_rate, only: [:index]
+  before_action :set_merchandise_rate, only: [:index, :list_event]
 
   def index
     start_date, end_date = @merchandise_rate.start_end_date Candlestick.time_types.key(params[:interval].to_i)
@@ -14,7 +14,7 @@ class Api::V1::EventDatesController < Api::V1::BaseApiController
   end
 
   def list_event
-    result_array = EventMaster.pluck(:id, :name, :slug)
+    result_array = @merchandise_rate.event_masters.map{|em| [em.id, em.name, em.slug]}
 
     render json: result_array
   end
