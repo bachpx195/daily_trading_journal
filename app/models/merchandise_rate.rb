@@ -3,6 +3,7 @@ class MerchandiseRate < ApplicationRecord
   has_many :trades
   has_many :candlesticks
   has_many :event_masters
+  has_many :hour_analytics
   belongs_to :tag
   belongs_to :base, class_name: "Merchandise"
   belongs_to :quote, class_name: "Merchandise"

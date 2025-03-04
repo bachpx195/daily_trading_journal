@@ -58,6 +58,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :charts do
+        collection do
+          get 'effect_hour_candlestick_type_in_day', to: 'charts#effect_hour_candlestick_type_in_day'
+        end
+      end
       resources :tags
       resources :plans
       resources :news
