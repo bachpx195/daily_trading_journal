@@ -151,6 +151,12 @@ class DayAnalytic < ApplicationRecord
     ActiveRecord::Base.connection.execute(sql)
   end
 
+  def self.get_list_highest_hour_return merchandise_rate_id, day_number
+    start_date = (Time.zone.now - day_number.days).strftime("%Y-%m-%d")
+    sql = "SELECT highest_hour_return, count(*) AS count FROM DailyTradingJournal_development.day_analytics where merchandise_rate_id = #{merchandise_rate_id} AND highest_hour_return is not null AND date >= '#{start_date}' group by highest_hour_return;"
+    ActiveRecord::Base.connection.execute(sql)
+  end
+
   def calculate_hour_analytic_for_day
     tmp_highest_hour_return = nil
     highest_return = 0

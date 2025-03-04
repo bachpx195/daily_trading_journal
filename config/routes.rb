@@ -61,6 +61,7 @@ Rails.application.routes.draw do
       resources :charts do
         collection do
           get 'effect_hour_candlestick_type_in_day', to: 'charts#effect_hour_candlestick_type_in_day'
+          get 'highest_return_hour_in_day', to: 'charts#highest_return_hour_in_day'
         end
       end
       resources :tags
