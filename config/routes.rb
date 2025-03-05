@@ -83,6 +83,7 @@ Rails.application.routes.draw do
           post 'update_hour_analytic', to: 'day_analytics#update_hour_analytic'
           get 'last_updated_date', to: 'day_analytics#last_updated_date'
           get 'merchandise_rates', to: 'day_analytics#merchandise_rates'
+          post 'update_continuous', to: 'day_analytics#update_continuous'
         end
       end
       resources :hour_analytics, only: [:index], defaults: { format: 'json' } do
@@ -91,6 +92,9 @@ Rails.application.routes.draw do
         end
       end
       resources :data_validations, only: [:show], defaults: { format: 'json' } do
+        collection do
+          get 'day_analytics', to: "data_validations#day_analytics"
+        end
       end
       resources :telegram_chat_messages, only: [:create]
       resources :event_dates, only: [:index] do

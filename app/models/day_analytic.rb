@@ -135,6 +135,103 @@ class DayAnalytic < ApplicationRecord
     end
   end
 
+  def self.create_day_data_from_candlestick_ids c_ids
+    count = 1
+
+    Candlestick.where(id: c_ids).each do |c|
+      date = c.date
+
+      # return_oc
+      return_oc = ((c.close - c.open)/c.open).round(4)*100
+
+      # range_type
+      range_type = if return_oc > 4
+        0
+      elsif return_oc <= 4 && return_oc > 0.9
+        1
+      elsif return_oc <= 0.9 && return_oc >= -0.9
+        2
+      elsif return_oc < -0.9 && return_oc >= -4
+        3
+      else
+        4
+      end
+
+      # is_inside_day
+      day_yesterday = c.previous_day
+      is_inside_day = if day_yesterday.present?
+        day_yesterday.high > c.high && c.low > day_yesterday.low
+      else
+        false
+      end
+      
+      # is_same_btc
+
+      btc_day = Candlestick.where(merchandise_rate_id: 34, date: date).day.first
+      is_same_btc = if btc_day.present?
+        (btc_day.open - btc_day.close)*(c.open - c.close) > 0
+      else
+        false
+      end
+
+      # continue_type
+      count = if day_yesterday.present? && (day_yesterday.open - day_yesterday.close)*(c.open - c.close) > 0
+        count + 1
+      else
+        1
+      end
+
+      if day_yesterday.present?
+        # is_fake_breakout_increase
+        is_fake_breakout_increase = day_yesterday.high < c.high && c.close < day_yesterday.high
+
+        # is_fake_breakout_decrease
+        is_fake_breakout_decrease = day_yesterday.low > c.low && c.close > day_yesterday.low
+      else
+        is_fake_breakout_increase = false
+        is_fake_breakout_decrease = false
+      end
+
+
+      da = DayAnalytic.find_or_create_by(
+        candlestick_id: c.id,
+        merchandise_rate_id: c.merchandise_rate_id,
+        date: date.to_date,
+        date_name: date.strftime("%A")
+      )
+      
+      Rails.logger.info date.to_date
+
+      da.update({
+        return_oc: return_oc,
+        return_hl: ((c.high - c.low)/c.low).round(4)*100,
+        candlestick_type: c.open > c.close ? 1 : 0,
+        range_type: range_type,
+        is_inside_day: is_inside_day,
+        is_fake_breakout_increase: is_fake_breakout_increase,
+        is_fake_breakout_decrease: is_fake_breakout_decrease,
+        is_same_btc: is_same_btc,
+        continue_type: count
+      })
+    end
+  end
+
+  def self.update_continuous merchandise_rate_id
+    arr = DayAnalytic.where(merchandise_rate_id: merchandise_rate_id).order(date: :asc).pluck(:date, :candlestick_type, :id)
+    count = 1
+    arr.each_with_index do |da, index|
+      Rails.logger.info da[0]
+      if index != 0
+        count = if da[1] == arr[index - 1][1] 
+          count + 1
+        else
+          1
+        end
+      end
+      DayAnalytic.find(da[2]).update(continue_type: count)
+    end
+  end
+
   def self.update_from_hour_analytic start_date, merchandise_rate_id
     DayAnalytic.where(merchandise_rate_id: merchandise_rate_id).where("date >= ?", start_date).each do |da|
       date = da.date

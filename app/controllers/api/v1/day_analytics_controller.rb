@@ -29,4 +29,10 @@ class Api::V1::DayAnalyticsController < Api::V1::BaseApiController
 
     render json: id_json
   end
+
+  def update_continuous
+    DayAnalytic.update_continuous params["merchandise_rate_id"]
+
+    render json: true
+  end
 end
