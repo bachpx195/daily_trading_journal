@@ -3,6 +3,10 @@ class DateMaster < ApplicationRecord
   has_many :event_masters, through: :date_events
   belongs_to :week_master, optional: true
 
+  def from_days_ago day_number
+    DateMaster.find_by(date: self.date - day_number.days)
+  end
+
   class << self
     def create_data
       first_date = Date.parse('2008-01-07')

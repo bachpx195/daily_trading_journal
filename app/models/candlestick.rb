@@ -14,6 +14,8 @@ class Candlestick < ApplicationRecord
   has_one :candlestick_info, dependent: :destroy
   enum time_type: {day: 1, week: 2, month: 3, hour: 4, m15: 5}
 
+  before_destroy :remove_parent_id
+
   # date_between( "2022-05-10","2022-05-12")
   scope :date_between, -> start_date, end_date do
     where("date >= ? AND date <= ?", start_date.to_date.beginning_of_day, end_date.to_date.end_of_day )
@@ -158,5 +160,13 @@ class Candlestick < ApplicationRecord
         CandlestickInfo.create!(candlestick_id: ca.id, group_candlestick_id: gc.id)
       end
     end
+  end
+
+  private
+
+  def remove_parent_id
+    return if self.time_type != "day"
+
+    CandlestickInfo.where(parent_id: self.id).update_all(parent_id: nil)
   end
 end

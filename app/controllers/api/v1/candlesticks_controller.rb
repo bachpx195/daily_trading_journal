@@ -38,6 +38,7 @@ class Api::V1::CandlesticksController < Api::V1::BaseApiController
     end
 
     Candlestick.update_candlestick_group
+    CandlestickInfo.create_parent_id
 
     render json: result
   end

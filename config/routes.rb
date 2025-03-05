@@ -94,6 +94,7 @@ Rails.application.routes.draw do
       resources :data_validations, only: [:show], defaults: { format: 'json' } do
         collection do
           get 'day_analytics', to: "data_validations#day_analytics"
+          get 'hour_analytics', to: "data_validations#hour_analytics"
         end
       end
       resources :telegram_chat_messages, only: [:create]
