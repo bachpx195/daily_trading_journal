@@ -63,18 +63,18 @@ class DayAnalytic < ApplicationRecord
       # return_oc
       return_oc = ((c.close - c.open)/c.open).round(4)*100
 
-      # range_type
-      range_type = if return_oc > 4
-        0
-      elsif return_oc <= 4 && return_oc > 0.9
-        1
-      elsif return_oc <= 0.9 && return_oc >= -0.9
-        2
-      elsif return_oc < -0.9 && return_oc >= -4
-        3
-      else
-        4
-      end
+      # # range_type
+      # range_type = if return_oc > 4
+      #   0
+      # elsif return_oc <= 4 && return_oc > 0.9
+      #   1
+      # elsif return_oc <= 0.9 && return_oc >= -0.9
+      #   2
+      # elsif return_oc < -0.9 && return_oc >= -4
+      #   3
+      # else
+      #   4
+      # end
 
       # is_inside_day
       day_yesterday = c.previous_day
@@ -125,7 +125,6 @@ class DayAnalytic < ApplicationRecord
         return_oc: return_oc,
         return_hl: ((c.high - c.low)/c.low).round(4)*100,
         candlestick_type: c.open > c.close ? 1 : 0,
-        range_type: range_type,
         is_inside_day: is_inside_day,
         is_fake_breakout_increase: is_fake_breakout_increase,
         is_fake_breakout_decrease: is_fake_breakout_decrease,

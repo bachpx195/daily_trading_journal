@@ -100,29 +100,29 @@ class HourAnalytic < ApplicationRecord
       # candlestick_type
       candlestick_type = c.close < c.open ? 1 : 0
 
-      # range_type
-      range_type = if return_oc > 1
-        0
-      elsif return_oc <= 1 && return_oc > 0.3
-        1
-      elsif return_oc <= 0.3 && return_oc >= -0.3
-        2
-      elsif return_oc < -0.3 && return_oc >= -1
-        3
-      else
-        4
-      end
+      # # range_type
+      # range_type = if return_oc > 1
+      #   0
+      # elsif return_oc <= 1 && return_oc > 0.3
+      #   1
+      # elsif return_oc <= 0.3 && return_oc >= -0.3
+      #   2
+      # elsif return_oc < -0.3 && return_oc >= -1
+      #   3
+      # else
+      #   4
+      # end
 
       # hour 
       hour = c.date.strftime("%H").to_i
 
       # update_is_same_btc
-      btc_hour = Candlestick.where(merchandise_rate_id: 34, date: c.date).hour.first
-      is_same_btc = if btc_hour.present?
-        (btc_hour.open - btc_hour.close)*(c.open - c.close) > 0
-      else
-        false
-      end
+      # btc_hour = Candlestick.where(merchandise_rate_id: 34, date: c.date).hour.first
+      # is_same_btc = if btc_hour.present?
+      #   (btc_hour.open - btc_hour.close)*(c.open - c.close) > 0
+      # else
+      #   false
+      # end
 
       ha = HourAnalytic.find_or_create_by(
         candlestick_id: c.id,
@@ -137,9 +137,8 @@ class HourAnalytic < ApplicationRecord
         date_with_binane: hour < 7 ? c.date.to_date - 1.days : c.date.to_date,
         return_oc: return_oc,
         return_hl: ((c.high - c.low)/c.low).round(4)*100,
-        range_type: range_type,
         candlestick_type: candlestick_type,
-        is_same_btc: is_same_btc
+        # is_same_btc: is_same_btc
       })
     end
   end
